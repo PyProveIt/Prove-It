@@ -1,0 +1,4 @@
+\left(\left(\begin{array} {cccc} 
+ \lstick{\lvert \psi \rangle} & \gate{Z} & \gate{Z} & \rstick{\lvert \psi \rangle} \qw  \\ 
+  \lstick{\lvert \psi \rangle} & \gate{X} & \gate{X} & \rstick{\lvert \psi \rangle} \qw \end{array} 
+\right)\right)

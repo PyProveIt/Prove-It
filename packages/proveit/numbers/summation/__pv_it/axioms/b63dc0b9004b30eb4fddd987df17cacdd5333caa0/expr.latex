@@ -1,0 +1,1 @@
+\left(a, b\right) \mapsto \left\{\left(\sum_{x=a}^{b} f(x)\right) = \left(\left(\sum_{x=a}^{b - 1} f(x)\right) + f(b)\right) \textrm{ if } a \in \mathbb{Z} ,  b \in \mathbb{Z} ,  a < b\right..

@@ -1,0 +1,4 @@
+\begin{array} {c} 
+ \gate{H}  \\ 
+  \gate{Z}  \\ 
+  \gate{CONTROL} \end{array} 

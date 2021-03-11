@@ -1,0 +1,7 @@
+\left(a, b\right) \mapsto \left\{\forall_{x, y \in \left(\mathbb{C}^{2}\right)^{\otimes n}}~\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a} & \gate{u} & \control \qw \qwx[1] & \rstick{b} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em} = \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{u \thinspace a} & \qw & \control \qw \qwx[1] & \rstick{b} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em}\right) \textrm{ if } a \in \mathbb{C}^{2} ,  b \in \mathbb{C}^{2}\right..

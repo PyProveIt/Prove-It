@@ -1,0 +1,4 @@
+\left(\left(\begin{array} {cccc} 
+ \lstick{\lvert 0 \rangle} & \gate{X} & \gate{X} & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & \gate{X} & \gate{X} & \rstick{\lvert 1 \rangle} \qw \end{array} 
+\right)\right)

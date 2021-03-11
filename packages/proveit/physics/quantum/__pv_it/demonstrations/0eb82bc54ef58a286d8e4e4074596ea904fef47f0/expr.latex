@@ -1,0 +1,5 @@
+\left(\left(\begin{array} {cccccc} 
+ \lstick{\lvert \psi \rangle} & \control \qw & \qw & \control \qw & \qw & \rstick{\lvert \psi \rangle} \qw  \\ 
+  \lstick{\lvert \psi \rangle} & \targ & \control \qw & \targ & \control \qw & \rstick{\lvert \psi \rangle} \qw  \\ 
+  \lstick{\lvert \psi \rangle} & \qw & \targ & \qw & \targ & \rstick{\lvert \psi \rangle} \qw \end{array} 
+\right)\right)

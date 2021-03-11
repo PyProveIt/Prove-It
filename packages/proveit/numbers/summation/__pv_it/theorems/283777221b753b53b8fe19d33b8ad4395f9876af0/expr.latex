@@ -1,0 +1,1 @@
+\left(\sum_{x \in R}~f(x), \sum_{y \in S}~f(g(y))\right)

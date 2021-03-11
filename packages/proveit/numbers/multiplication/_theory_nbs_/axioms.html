@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Axioms for the theory of proveit.numbers.multiplication</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../index.html"><img src="../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Axioms-for-the-theory-of-proveit.numbers.multiplication">Axioms for the theory of <a class="ProveItLink" href="theory.html">proveit.numbers.multiplication</a><a class="anchor-link" href="#Axioms-for-the-theory-of-proveit.numbers.multiplication">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="c1"># Prepare this notebook for defining the axioms of a theory:</span>
+<span class="o">%</span><span class="k">axioms_notebook</span> # Keep this at the top following &#39;import proveit&#39;.
+<span class="kn">from</span> <span class="nn">proveit</span> <span class="k">import</span> <span class="n">ExprRange</span>
+<span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Forall</span><span class="p">,</span> <span class="n">Equals</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">proveit</span> <span class="k">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">x</span>
+<span class="kn">from</span> <span class="nn">proveit.core_expr_types</span> <span class="k">import</span> <span class="n">a_1_to_n</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">,</span> <span class="n">Mult</span><span class="p">,</span> <span class="n">Add</span><span class="p">,</span> <span class="n">Complex</span><span class="p">,</span> <span class="n">Natural</span><span class="p">,</span> <span class="n">Exp</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">begin</span> axioms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Defining axioms for theory &#39;proveit.numbers.multiplication&#39;
+Subsequent end-of-cell assignments will define axioms
+%end_axioms will finalize the definitions
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mult_def</span> <span class="o">=</span> \
+    <span class="n">Forall</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">Add</span><span class="p">(</span><span class="n">ExprRange</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">n</span><span class="p">))),</span>
+           <span class="n">domains</span><span class="o">=</span><span class="p">(</span><span class="n">Natural</span><span class="p">,</span> <span class="n">Complex</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="mult_def">mult_def:</strong> <a class="ProveItLink" href="../__pv_it/axioms/1b16d2b68de091334a6adaf058846d88ec17bc4e0/axiom_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYMAAAAVBAMAAABWAp/LAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABG9JREFU
+SMfVl39oG2UYx79J7prc5ZKiIIgUiS1MmXOEiv+4Va/KHIJILPgDFBbqL/rHxqQyVEYd/UNTJnhM
+mHM6+m7CBnWaqATt2GhoZ8GI9XDzR+fKbgwqiMbQbbCu/nrfe99LLrmrSVom+HBPeO99n7snn3ue
+573ngBblgFCvjC9jfc1kXKjFTuaavkzdxdVH2gxf62snzCHTr9jJL01fFje4+tFZvtYrF73R47S4
+7qNjpfmHdUqon0z6Wlflk9YI1KRnKprwOKQaJ4CWa/q+Lwv1k4O+1itGiDVEOMg1Vhwbe7vp2yrb
+ufonme5jvXKEiYYIzCHTK5nMzqZvG0xyfWhgT1f1dmrnwH00oFrSx1qseRCk6Xc6u+3B+dtnDKVn
+2ni449S0Cbx1dgDRzknE7h3cgL4T6/0QXA6ZPguMNI0QMbkWMgl1sTJ7FD8khmhA7XqeKTG54FiL
+NQ+CFhlG1q72wIasuZlIN+E6XR2E9Ap6yWdGKI1wku1oYT8El0Om99duJfLgSdySrg3fG8/3i2E4
+Z6ucG4Jy2X4e7KeIb8iD1K4+w5i1WPMgPBm2MJqy04Fe1gFcj3maPHqggEDi45R0lSFQrqAfgssh
+0zCCpmPywVQPPtdIiFRS5PidpvoEkX8V5wHdVlW9hFiZTWQZPkHGpi/XITBrscaC80KpNF9ZI1kd
+53hGpyFfnJvbChq5bHJLz9z3JvqmFhkCXh2ubstaqfTzzaVSutYhU82sxCq2ez/BiURSq1z24/gY
+Yu8Bx2sREC2jzY5dmAdsYVkEseYt5wlgG0dIIrrEBhShfdcE2x0/GpE5wtHfL/qX84IbQbEeo3++
+p6+L5RSVfH6PjTB515qUxAp0U54a1SYSQhbaTVLNPjuppO3VWph3rMWaF+Ee4E87DeMFyAsCgUaB
+/cvXIS+ScDKoEJzT/RCqDm2nI89QhF4zYPBmI699+BTbTci2sB5nE2dmveVMM3aCFJzZY8Ey1jrl
+XFf8Ys2L0IHoVU0ggNbmIV4LtETUxB+ILm6Kp0NSAm2mD4LLoe30U8qx/1a0E/46zKMwxTjxG/C+
+be/q35xtbFTHTCzl7I9LkbJCPYUKdQjU0llzIah/sUO5BM36zo4Vvd+WHO7GeUPdCXkJIXIjtMtn
+QlaIlnPE4PZuBLdD22k7m+9HL+SXMplhinCAFwfdNB/PZDKJdx917eYidJuBvT9Var5/bRdrFOOp
+OgRq6ay5o7CDHXRN2coSTXrzSg7q0+sI5r9dQ7PmcHcRe7uL600896X09R0nhb0bwe3QdhpjOX0D
+NspI8yhIfbxWZLSxQeiQ2DsbNRhHVtlgXGj4Wqp7Ox9xO1XKeDGPL9jwNHAW+8ioZmnQGKKyMVXt
+4FbT5o2tGkElfm2eCHka60xEaGClIZ0+/Edyh09PFoHd9ruw9FolRSIG1+aa7UhLzfaOFptxp9mu
+kdtoLXARvWuQ1kKznzyRVX7yPPD3QGsI//I4WdIZrX94zv7XH56zyzgV72n8f+QfPtt8ZiFSZ+sA
+AAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">empty_mult</span> <span class="o">=</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Mult</span><span class="p">(),</span> <span class="n">one</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="empty_mult">empty_mult:</strong> <a class="ProveItLink" href="../__pv_it/axioms/c22a8b41c09ff9dea938d3433abe1e7509a6d1a40/axiom_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAAAUBAMAAADFBIheAAAAMFBMVEX////MzMx2dna6uroQEBCq
+qqqIiIhmZmZERESYmJjc3NxUVFQiIiIyMjLu7u4AAAD4GmGHAAAAAXRSTlMAQObYZgAAAKdJREFU
+KM9jYACBlQxRDDgBXwMD9wKcsrwLGPguYIiGPIDQ04FYDd28TfuhsqeA+AmG3vkQWa4DINMNcMiy
+FQAJpgIcshwTgAQnyFlMd8GgAC7Lx8DAEwBksx7Apvf9BQYWkJWMH7DJ8mzAJ8sANZn5AMLeDdhd
+hU0v2DPsCuiy+RBZsKG8AmiS1f7XJ8BD8g3OOMIWCwjAgTUGkWKfA3fsA1POLKziAOZGOgxnKdcw
+AAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">multi_mult_def</span> <span class="o">=</span> \
+    <span class="n">Forall</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Forall</span><span class="p">((</span><span class="n">a_1_to_n</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> 
+                     <span class="n">Equals</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">a_1_to_n</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">Mult</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">a_1_to_n</span><span class="p">),</span> <span class="n">b</span><span class="p">)),</span>
+                     <span class="n">domain</span><span class="o">=</span><span class="n">Complex</span><span class="p">),</span>
+           <span class="n">domain</span><span class="o">=</span><span class="n">Natural</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="multi_mult_def">multi_mult_def:</strong> <a class="ProveItLink" href="../__pv_it/axioms/1ad3bb679f6ee2e50439444fd0d30a08485ed8cb0/axiom_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgQAAAAVBAMAAADLOeuyAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABQ1JREFU
+WMPVWG+IG0UUf0l2s7lNcucHRSsIaU+rH1RC+6GCd5qjyH2SpifqCYULQRFFJeh5aJUaK0hiFRYL
+tlQLWw+qnHpZKuE8udLDRARFWahgW+oR6B+wynnUP+hdFeff7s7sbnaT9L74gxfmvZl5mfnte29n
+FiAA0eU8XAX6TCpXgXkf22Em3SGpeXUsS5PQwvqP/tNSuaDeUHzIpDeor5YA4prXXqbSLZ7gFnY9
+07E04Rtsu9SOgqDeUPzEpEf0Z9FeW16zRqVbzHLtc0yfJRQcxBFbbkdBUG8Y0lkqvWLAQD9feMwn
+mXSLVMZprzEdSxP6ddQy2lEQ1BsGRaPSK3ag/4YjHvOLTLpOrGvsprTKdCxNSH89M3OgHXG5oN4w
+HGDSK74iYZ9z19gSle5x3tlXydLPYwrgr0rl5bYUBPWGYZBJ39CWG8NH729s1EXLxU13oyW4Myma
+peIzIcRrwyknxUGD6g1CwWMA1fYUBPRykJZ9jG8xGdH6VwDGQzxsgF9dgfuvXtMgTerhd8sYuIhB
+wqRCJ8jlzr0u2a3aJfVvqi8RCraLZVd+rgkbCzYF2/2Kshc2w8k3Hy+y5ktU1JsgVoYHttF9+SUp
+/jliwl2OCT+55CoMZCDpjnnFoEImyFtL9vhQr3P2yBM6XKb6HKFAgah9fPmoMQyfpfSYblPA9wbg
+Z/ynC1tNdVyXf2G2a6nEVkFBhXeU8u/DJ7Hdq8OzXACgn1gLaosgr7hGR3JU6ASpZI8P9Tphj7wH
+1CtUnyAUpEzFfo3tO6TD8Uw25SQC1xsEFFdwan4G0u8BLIgURMpQy1sUKAWfNwe23QDqH45pih4L
+dhjtKaATKAVkfKjXCXvkOZDWeAr6Wg+hzQ+PDeKcQKjX3+YoIL0wvfmC9084o3x5sy7hGnVfHTkU
+EwE9yhNgUdD2jXUFkitsFdaxwMQPke6R1oKLXCLQCRYFHXl1VvAPDk2ijxIKoPooomDEjGj0sFxP
+fbLLoYD0qs/LaMqTLv/EyMr07mi2HzfOnPaUw5oBz6DDeAgFaxBvzdNVWBTkUBVh5ZADK4d0QhgF
+glenHP6OiwRXDuFT5ObQrTCgq+QFVIfFBkcB7o1l5RLscr3ZiNFaVybdmsaNz+fFEtkgfVMpIQpI
+QuJc5XJ4L/xQWCSrsCxxM4HWE1t0v6WyVMgEngLbK1dwBK9D9tCn4TWmD1EKBvDJsQgjIL9QqexF
+FBxWOApwb8SIosza7UpKYrQSNFZ4uFKpZN590BnAAk0t3vLOzWIiTFm56uTw0U2PFHNkFfaWtnyL
+K4L7roo3jYVO4KPA9uoUHMGrk8vTt5tMv0ApSGOKroMhGQo0CqQxjgLcW9MSZ3Q3BcR48vhZErR6
+xIiT0HjfefGJB+TRTqoqWYWAD4IPyFKpY6+qayjWsTStY+cKTNbhS9z8HuAsRwF5yNrE/SQKDup9
+b1g/xHisrGCrop+CVJ6cBPP2zUa8Js118oGBrEJAyDUpWerYK39NAuGaxNgsAAqOBKq20p4cxF0U
+SMVjw4SCnYa8AXZq+Mcgxnh+nFifQim7Dw/9ePl1O3Sr4Bwt979S7OCQSVYhPCrvOSKhUSG72/Zn
+plOvsz6XZ3pZFnAbqgXiAZkDTgTn0khbCtyRs9pRVAvW8ZOJvd91+mRS9dGrXgrcV5I9XDEa+83g
+vj6x1lFYMD3fpNbxw9npdftwlta8OpY7J7v049MS2/9D/AeL4qsIP//SUQAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">end</span> axioms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>These axioms may now be imported from the theory package: proveit.numbers.multiplication
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

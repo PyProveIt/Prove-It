@@ -1,0 +1,5 @@
+\left(\left(\begin{array} {ccc} 
+ \gate{D_{1, 1}{\Big \{} S_{1, 1}} & \cdots & \gate{D_{1, n}{\Big \{} S_{1, n}}  \\ 
+  \vdots & \gate{D_{i, j}{\Big \{} S_{i, j}} & \vdots  \\ 
+  \gate{D_{m, 1}{\Big \{} S_{m, 1}} & \cdots & \gate{D_{m, n}{\Big \{} S_{m, n}} \end{array} 
+\right)\right)

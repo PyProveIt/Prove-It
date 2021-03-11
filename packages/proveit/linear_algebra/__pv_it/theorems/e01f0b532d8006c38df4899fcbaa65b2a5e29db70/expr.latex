@@ -1,0 +1,1 @@
+\left(a_{1}, \ldots, a_{m}, x, y, z_{1}, \ldots, z_{n}\right) \mapsto \left(\left(\left(a_{1} {\otimes} \ldots {\otimes} a_{m} {\otimes} x {\otimes} z_{1} {\otimes} \ldots {\otimes} z_{n}\right) = \left(a_{1} {\otimes} \ldots {\otimes} a_{m} {\otimes} y {\otimes} z_{1} {\otimes} \ldots {\otimes} z_{n}\right)\right) \Leftrightarrow \left(x = y\right)\right)

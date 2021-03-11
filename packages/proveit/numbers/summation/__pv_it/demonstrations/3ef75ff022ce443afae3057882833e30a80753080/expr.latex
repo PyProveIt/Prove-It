@@ -1,0 +1,1 @@
+\left(\sum_{i=a}^{b} \left(i + 1\right)\right) = \left(\sum_{i=a + c}^{b + c} \left(\left(i - c\right) + 1\right)\right)

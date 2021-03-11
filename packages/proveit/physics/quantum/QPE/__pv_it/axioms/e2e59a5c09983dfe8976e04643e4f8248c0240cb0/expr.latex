@@ -1,0 +1,4 @@
+\left(\left(\begin{array} {cccc} 
+ \lstick{\lvert 0 \rangle} & \gate{H} & \control \qw & \rstick{\lvert \psi_{1} \rangle} \qw  \\ 
+  \lstick{\lvert u \rangle} & \qw & U & \rstick{\lvert u \rangle} \qw \end{array} 
+\right)\right)

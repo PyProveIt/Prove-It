@@ -1,0 +1,1 @@
+\left(x_{1} {\otimes} \ldots {\otimes} x_{m} {\otimes} \sum_{y \in S}~f(y) {\otimes} z_{1} {\otimes} \ldots {\otimes} z_{n}, \sum_{y \in S}~\left(x_{1} {\otimes} \ldots {\otimes} x_{m} {\otimes} f(y) {\otimes} z_{1} {\otimes} \ldots {\otimes} z_{n}\right)\right)

@@ -1,0 +1,4 @@
+\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \multigate{1}{X}   \\ 
+  & \ghost{X} 
+} \hspace{2em}

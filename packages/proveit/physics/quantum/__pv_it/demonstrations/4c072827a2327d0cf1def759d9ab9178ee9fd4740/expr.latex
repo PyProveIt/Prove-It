@@ -1,0 +1,5 @@
+\left(\left(\begin{array} {ccc} 
+ \gate{C_{1, 1}{\Big \{} R_{1, 1}} & \cdots & \gate{C_{1, n}{\Big \{} R_{1, n}}  \\ 
+  \vdots & \gate{C_{i, j}{\Big \{} R_{i, j}} & \vdots  \\ 
+  \gate{C_{k, 1}{\Big \{} R_{k, 1}} & \cdots & \gate{C_{k, n}{\Big \{} R_{k, n}} \end{array} 
+\right)\right)

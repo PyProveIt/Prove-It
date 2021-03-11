@@ -1,0 +1,4 @@
+\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{\lvert \psi \rangle} & \qw \qwx[1]   \\ 
+  & \lstick{\lvert \psi \rangle} & \qw 
+} \hspace{2em}

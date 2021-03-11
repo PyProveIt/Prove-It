@@ -1,0 +1,4 @@
+\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qswap \qwx[1]   \\ 
+  & \qswap 
+} \hspace{2em}

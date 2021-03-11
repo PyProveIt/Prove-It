@@ -1,0 +1,1 @@
+\left[\forall_{x \in S}~P(Q(x))\right] \Rightarrow \left(Pr_{q}[P(q)] \geq \sum_{y \in S}~Pr_{q}[q = Q(y)]\right)

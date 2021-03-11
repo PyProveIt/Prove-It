@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Theorems (or conjectures) for the theory of proveit.trigonometry</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../index.html"><img src="../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Theorems-(or-conjectures)-for-the-theory-of-proveit.trigonometry">Theorems (or conjectures) for the theory of <a class="ProveItLink" href="theory.html">proveit.trigonometry</a><a class="anchor-link" href="#Theorems-(or-conjectures)-for-the-theory-of-proveit.trigonometry">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="c1"># Prepare this notebook for defining the theorems of a theory:</span>
+<span class="o">%</span><span class="k">theorems_notebook</span> # Keep this at the top following &#39;import proveit&#39;.
+<span class="kn">from</span> <span class="nn">proveit</span> <span class="k">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span>
+<span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Forall</span><span class="p">,</span> <span class="n">Equals</span><span class="p">,</span> <span class="n">InSet</span><span class="p">,</span> <span class="n">Difference</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">Real</span><span class="p">,</span> <span class="n">RealPos</span><span class="p">,</span> <span class="n">RealNeg</span><span class="p">,</span> <span class="n">RealNonNeg</span><span class="p">,</span> <span class="n">RealNonPos</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">IntervalCC</span><span class="p">,</span> <span class="n">IntervalOO</span><span class="p">,</span> <span class="n">IntervalOC</span><span class="p">,</span> <span class="n">IntervalCO</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">Add</span><span class="p">,</span> <span class="n">subtract</span><span class="p">,</span> <span class="n">Neg</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">Mult</span><span class="p">,</span> <span class="n">Div</span><span class="p">,</span> <span class="n">Exp</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">Less</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">,</span> <span class="n">greater</span><span class="p">,</span> <span class="n">greater_eq</span>
+<span class="kn">from</span> <span class="nn">proveit.trigonometry</span> <span class="k">import</span> <span class="n">Sin</span><span class="p">,</span> <span class="n">Cos</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">begin</span> theorems
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Defining theorems for theory &#39;proveit.trigonometry&#39;
+Subsequent end-of-cell assignments will define theorems
+&#39;%end theorems&#39; will finalize the definitions
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Closure">Closure<a class="anchor-link" href="#Closure">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">real_closure</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">InSet</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Real</span><span class="p">),</span>
+                      <span class="n">domain</span><span class="o">=</span><span class="n">Real</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="real_closure"><a class="ProveItLink" href="proofs/real_closure/thm_proof.html">real_closure</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/5b4a1a22258a360366d8503ccbc3d92fff9e31fc0/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJMAAAAUBAMAAAB7fhJGAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAApBJREFU
+OMuNlE9o03AUx79rmiZpk3YnGTtI8ORloi16EB2FIYin4WEIHlbFv6cVPUxhzlBQO3dodpCJbBgF
+FbaqBRHxIJT5B50IUQ8qIsaDlzE20VmkIvh+SZqkNNU+KEne7/Xze+/7fu8H/MtmWzzxj+GRD+ln
+sZdP4etxzX5Mmb5r9/zmppB3PaWVHlqP6cBL5lgKRyV1+zFc9Tx8L+rNMdZN7HtvIE4pXaZPSQtH
+vW3xCCZ+N3u0GYhSDlignQ1AroSjTrd4XgN/7Bflwuh4A8XplNI18i3OzU2Hk6S887w06LlOgrez
+4guGnxWnU1XJLPCrWBwLR0VI4b2PNkmlHP9l64aD5ImuIbLGlu4YgQJjUSpQpuDDwAQ1a4faghJN
+1kMByRyEAq5SD2K1Iwe+saXjQa0e9BNYoSIHbPVFw+li4sT5/gZUqCDaiwjEHMRupKjlgoWUfXr8
+PmlTo+NM6gSpISBCQWlMAvOPd0KtytfdqC4q/2xBt1HEoB1SVQyz//HrV8jcrAZEVi1P2cqmQPXV
+cQbK5BWDUMrtAKq8+sNGaTbqbgVb0Hx6tBlul+aiJGuIFLbwk0olI1TZL1Ay8DkbQGXx3V7qDmp1
+8Q3rCGv3xCFq5fKzujNDapXL+LJHVcRMH9WVjTgHJB1EDXGDjuy4l2cxSj5uT5e67WjWjaL+kuyi
+ThwXxanTeiNhf3DkCp0Cjk2XracumvypYrEA9UVfA0U5R1/1PeFHajdGavtL60jS9HZ30I/t8cb5
+K4qrFSTZOVaoASlMATmnwPuL7QfHs+hzd3Aadsu7A4xzwFMHJZfbj3N7W/AujwxVJZIAibHleMZq
+6K53TIpbzd8bSauQq68T+++usx2jPgB/AQbkuSyE2lGoAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Trigonometric-bounds">Trigonometric bounds<a class="anchor-link" href="#Trigonometric-bounds">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_interval</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">InSet</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">IntervalCC</span><span class="p">(</span><span class="n">Neg</span><span class="p">(</span><span class="n">one</span><span class="p">),</span> <span class="n">one</span><span class="p">)),</span>
+                      <span class="n">domain</span><span class="o">=</span><span class="n">Real</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_interval"><a class="ProveItLink" href="proofs/sine_interval/thm_proof.html">sine_interval</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/e910af44f847958a4dba4e3fa6c0082400ba213f0/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL0AAAAUBAMAAAAq6iElAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAAqRJREFU
+OMuVlU1oE0EUx//d7GY3m2zTk4ccZPGil5aaoAexEvAinsSDFw9Nxc9Tgx78oGoIqCk9dHuQilBc
+BRXa2AbEg4IQahWtCBFPIuJ6KIKUKlqDRBTfzGaTTXa3TQeWefNm5rdv3nvzBlirTXk06oc2Rd+S
+/1btSxqPqbfY4KP/GjXHu4lKU7Vvpr91zUKQbbE0wgbwmslf/Zd0G7wbLDc0UgK1QH404ZaIr5Lx
+N2gYyfnz33k0cgV/gvj3XtTcEvExTzaaJJb8+ec9mrfAX9u9185eardfq7klxr9N4uL09KQ/PpK1
+++sHGqozkLj9Ut70+sfL76bvd6Ew4s8XKJQHn/ZFxjPS5x1bjpBGXIWwyqZmTXTCjxHhGDBKqbJb
+9/CVCssgGd0ZyHncomCHq8eHvrOpU+iIr1GA9/IwK6adQ9HTV/c4f5JLEBMQoGSg9CBOWSpbiPOE
+znXGj5KHZQi0M4kxYObZAPRy7E59VRetuJw3OJ/A9Nt4GYMsF6TNK9Tq/Fkmryz58SU6bKwik3tq
+uAht7KZJfO2Bi1/89pPzc5w/V8J2tCb0mvYzfsQ6RKG08Is8RY34xaZ/IiY+pV38NH7wqZ7O+CLL
+wNGjlEjLdCUsmx9KNeMr6ghXmvyutGDnbLLz+OJhlm3UsiqvLPrOE2mngvSz+CoGwev8kD5pOEfz
+8gWizlmOxPghVll44AylIp0rFPLQX/U6fDqd+KZ3QRqu3h2uHh7fRGFK7qpXvpP7PfzQ0L8ByBcc
+id8vdjM1uitxTAAZ2z+PFoPrQ6OJL731gbcnrvqJ+41KaV4Bntv8WDG4vnlbO7/s5s836m6KRgo5
+NTqyrKYsJ8DGhvmq7uKrVuvkNvK/z/uyEb7mfl/WtW9qff7WgPdRoPfxPfAfxcPUUSmI/E8AAAAA
+SUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_nonneg_interval</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">InSet</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">IntervalCC</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">)),</span>
+                              <span class="n">domain</span><span class="o">=</span><span class="n">IntervalCC</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">pi</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_nonneg_interval"><a class="ProveItLink" href="proofs/sine_nonneg_interval/thm_proof.html">sine_nonneg_interval</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/4fb77cc65f6da1a31d7794abbe42f5bcbf761d280/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAAAWBAMAAACPojUFAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAAxNJREFU
+SMetlU9IFFEcx7/OzuzMzu640qGDQoiXClS2DS+RsBBEdNo8dOngGBV1Uupg0b9lIVrz4EiEEZRj
+UYJKLnTyECypEUUw4Ski2oiILCrKJLS037yZnX+7sgv1YHjv/d5783m/vw+osd0sk8ivAoL29/65
+8iGFGeqL5uR1VYKcYd2w4Yr2TSb8e+aAWNu8RxBLIawBz8zxYlVEvca67oIjERqxUob4hHFrI6KN
+DCGTCtdpGslURSyUSUQDq0GE0oAYMwvuPV5hCDyi6+k0zFdFnCmTvAD+WCa/3H/BRkgqorZqio0Y
+o+HTiYmRqoRIn9VfSzuiUxCYFkJWd7SIq+BX/Yh6+n7lcue8+g94Y+KdPeDIs10P2yNDqvC2o+Uw
+SfglcEvm0n3dNdR0Avx3PyJGJ48C9Fd5d7O1FAZaWx2GVOoNM6ZE1KsQsxgll4aXj/V8M5dOeHwx
+WoAQQCjkmz3M65K+WEIohagaRIh58I3gTGNLDYhT6IpFxJlnM15EAsJvPyJKJhbB0YkkBoHJ2U5C
+iCk3GkuIOtp8MasxBP2bNI4X0G1GibDlC7WNDSWQqjFDJDut4DyUwRs6IabTaKqEmPr6gyEyDDGd
+xw74A565O7pajogUD5I7i/hJJmOG6tYIB9xaX19PewwV0fEm5UGkYN23wYOgNSUQtLwZiwNHKLQ+
+U6oUbYSOkzTo6Loz4XU334yw4SLqUpwVyMmKqedzNx70mQeUPjnhaLGJTIftIddQFHrkbkmj/9uI
+UPOIVlLQLSBnMZaW11iY24iQWXKY8zTJEE7nclnLFyzgM1ddBKnLP2+bE3qX7/YuHxraTFdI7rIL
+5PH9LmKqhXKgnzIl1LPWaaWemawKSeIYBlRLCzuiIpm9LqJCAXEa/8QpIHYF1N1Ki3GnkOqXgHkL
+wSWiauQKQsYBD2KhhielhIh5irlZBu3KvJNmUt7O7lkITRB1UXcRklY74rYHIRf9e7YxX1jK+vOi
+9CTVhDA8iEpXsxEzAUSFh7WsbQ08rBw9rC+xIcIIIv5jEz9WKub/0v4C3P3i5bsOKE8AAAAASUVO
+RK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_pos_interval</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">InSet</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">IntervalOC</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">)),</span>
+                                <span class="n">domain</span><span class="o">=</span><span class="n">IntervalOO</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">pi</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_pos_interval"><a class="ProveItLink" href="proofs/sine_pos_interval/thm_proof.html">sine_pos_interval</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/0d65107538f6503c1143da21d4c1d4142ea94d990/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMkAAAAWBAMAAACYgKXMAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAA09JREFU
+SMe1VV1IVEEU/tzdu3d3715XQnpQCLGXCo3N8iUSFoKSINh8iCDINSrySakHi/6WhWhNwisRRlCu
+SSkqKRSBD8GiFVEEN3qKiran6IeKMgkt7czcuX+7m+xDDezOzLlnzjfnnO+cAUoeVwskoZf5kqDu
+3qvvYpiiOcc2r0sACSX51Oew0zwWzVMaAcL1DxyCcAx+DXjC1h9KQCnX+NSatSRSFebzlN4DHzFs
+aEKp4ighcuQy8zNZAsrzAomsYyEvQFGoFQjz+ODmw3mOgmm6YoaWkyWgHC+QPAN+G8bPdZ02cDUE
+ElCEh6pAGaTl49HR/hJAgp3GfCluiY5C4r5IqYyQkKFIAr4FN0o5/X6m0ydd9jTnxrLpoUS33Fsf
+7E1Ibxtr95PENwvPLPt0ywTBamAiCt83N0qYjh4EuolBW2pMVgB1dRbKHXMR0BnLZJQnIKcwQFfx
+zx1q+8o+tVvaF4CBLKQ8FJXytJWTIJAxedYONaskzHNe0zN5Er4qeFjcAxWIEJ/lHCI8zzZ3ThBK
+FNIvN4pCwZbhoSMN6AHGZpogZSHHbIaGTLwyUj+T4tkNkHnyPJJFK6ONtOozDa5UWTRiEnkc1mUy
+No9TUHuuZOCPYyKOamcFWCjjX75zlCRHmZjEBrjroJJnX1koRAnmdlNuc/hBsWORocLTCBK4trS0
+FEe9HbFgBm9iDpQYjEtXOCNGH9U8JvsYPbsPENk+UQnlBBlbMzhCq8aWoVHgrp19Xw38uo1SFvMY
+7G5wZt+uSlf2cbuTnVA7Q7wpNXNfVlAQsdZr7A3qRVn2AxpBCBRvTb9muinGDPdnMB5a5OQXKF7W
+lHgmtYAuHUunU9gGlhdeB8mL9LdPGCC3fU/r70sdczc65vb2rqRrNGwWDDm8Qyhtp994LdVGF5WQ
+t22xyahKVnQqSSLoAzid9sDkWDBJiAz1bx3GGr5HdocRjTJj92QMWw03cxbgHXuYlbmSCJ6HV99F
++1d/75aFQ43apW2jTFtNfCPtAiy+Mt2ibgZSNa3YepNV/FoJMN1ivu5ACeXcOmsoLx6RSkXIcnmv
+2PJjRMy6A6Xo9YSxKQGmL/MiF+nceS+yh17kF8UUd7puM4T/MxSXg+v+ic0/1knoT97wkUsAAAAA
+SUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_nonpos_interval</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">InSet</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">IntervalCC</span><span class="p">(</span><span class="n">Neg</span><span class="p">(</span><span class="n">one</span><span class="p">),</span> <span class="n">zero</span><span class="p">)),</span>
+                              <span class="n">domain</span><span class="o">=</span><span class="n">IntervalCC</span><span class="p">(</span><span class="n">Neg</span><span class="p">(</span><span class="n">pi</span><span class="p">),</span> <span class="n">zero</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_nonpos_interval"><a class="ProveItLink" href="proofs/sine_nonpos_interval/thm_proof.html">sine_nonpos_interval</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/5d3c1d0f43bfd9c3881adc6464215739b0ab10ae0/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAAAWBAMAAADECuboAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAAy9JREFU
+SMetlk9o01Acx79LmyZNl3YIepggxYMoTKmTXcRBQRDx4raDFw/rREVPG3rQic5SUDt3WIbIRFAj
+osImW8CTgqx0KqIoFU/in9WDiEOmuFlk/pm/99pkSZPWTvxBSd/75uXz8nvf93sBlhaXXD3KK2db
+mGnzHqp+iOMOXfOs8aZWoJLkl6HcYtf20Zjjlvq418Ds6zamBDTgCWtP10oMa/zSmbF6xEbMVySG
+Gs1xhtLLFIVe8AK1g8laiS9cPVIOPyoRbzw0J/MceMaVLNF1usmoldjr6qFn/Sou05kjfeXvqJrE
+08CEzpSr1Pl4ZGS4VmCwp3g9v2iOwxD5O4op3Z1Vi1gAdhpMCdPvezp93J6lfjforekNgf503NsQ
+HEyI71pW76Ee/xyEOSaN6ahMVGaJGGVKPT1hH0AQZUu0KAbKcU1NgLnOco65VUI4ASmFK2SjQGF/
+1xcmHUQVYvAnuY0TVbLOVm4gWZ/2JqqZUMIiSgb8jRAgJyA3IEJ7RMojwjdYsipxlvmbKSFaFwkC
+jWzGADA62eoiSnFyv/m4OhpzMqVxIqEoLZEMOpnvxFUzFCXiGPs/894rqyIlpD4nUdc8TkAduKi7
+iONtWOkg3vo8y4lJThw3sBGODVbJOROGSQzmd5El8vhG+bVn9fLCwgJZslOjudiyGtQxFbcR4/jK
+pYaqxDQwxXeHn7m9fy+Z9hNt1ryD2NJxbYSVFx2H7M7xRxHILRLr4kJxxzRXJVoVgDkHt3vYQLVH
+idmJCtb5eEHTsMwikrfJObJGuBLRFx3WzNd3EwUijue5qiznio/VR24ATc6JR9PpFBH9aYqz5L5z
+pXWcs4iUE//T9ffF7sL17sLuwRU0sebNpRke2OEi+rp+t0I6xtTsGl7JEWa1Q6W9G8EQkHBkNZjc
+5vKqR5Wzwv/IXeV43LXn+6Z1JuingAcOoi/XTnVeF2K2/ehRyV3hImbsStY6czZRSzbsREmXdLQb
+aJq0bW9ZWzJRidoUJe8U1/J1dETRD8myE3kpRNWueM3YSQxpTqLHV0d5CH0VvjoE+up4ib8RSxOs
++cT+l5A+Vjmt/kf8AZpo7J7lS8cJAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_neg_interval</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">InSet</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">IntervalCO</span><span class="p">(</span><span class="n">Neg</span><span class="p">(</span><span class="n">one</span><span class="p">),</span> <span class="n">zero</span><span class="p">)),</span>
+                           <span class="n">domain</span><span class="o">=</span><span class="n">IntervalOO</span><span class="p">(</span><span class="n">Neg</span><span class="p">(</span><span class="n">pi</span><span class="p">),</span> <span class="n">zero</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_neg_interval"><a class="ProveItLink" href="proofs/sine_neg_interval/thm_proof.html">sine_neg_interval</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/41ed7afa3806f8e6e408d3dc22475e3758c0a6950/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAAAWBAMAAADJFJavAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAA2hJREFU
+SMe1Vl1IU2EYftxP2852NqmuimgkVJbRMLoIFFaBdWGkQuJVM0jBIJJutD9Z0c+mFIsuEi/qiKBh
+pQMv+oFgJHZREMOrgopzkUEWUmFhm7ne79v5medsY0K9cM55v/f7ed7vfZ/v/Q6wQnElTaaH8eVt
+y1xD/rnuGL2e0COz1vvSQe9loTfoFlvvxPIhnmCeeZ4dU0AHKasI+RWzzJYO+pm/7Yu6pVHySQVB
+3esU5QtGYhgjRaBt9jO/wyVjigGT6QJ88UKgwy9SyrxyeGR4/KQ+B7zkpSdeMqgjZnKjHL5snt90
+dcnGnYoKqLMV7hSEclIHyfpydPR26dFVhrqO6G4EEOJOt2zLE14V1NcKWxr4SKqXuhcikfPL1o2Z
+oeyaVkGN7dNy/y8cXdO0mUXrcBA7GYowiyKg4wHYfgCTrJsy1AZEaUqNX51iRKyqgltb5jrnbyc+
+Ad1+12+ynGpv3wiFlYVB7yZgJ9APzEQ52M/55JRURzuMOUu4W7FHbZ0D9krw4ypwEfhDlh5giWcN
+RUEDnPGPGKE7KSewEA+q0Qfcn6yFPWGkThApDKuttWRYqAQDvQGQ71iEPc1PzhyJSqQx1pibMYU3
+xHL1jYYkHRTdFDFf7BuQsMpYTcYbsB7emA4qvM4EGGiEgwppWBkn+dkrSiR3Wgd1yc1UuWT8pECz
+jWnj72QyGfIgFCN/LEk9vAMQ53NA5+HjdCgrCuoMc/UAq2AUXkSPE42/0imWc84Eye6moVH6hCSc
+BqVVI9I+4KQOSnvfwnus/mKg2eKgEQkThFwWFDsFXmwOqsMFVFrZl3a6Gja1Zk1yIkUZogJa7Tqj
+BcEMaiHQcZn3DlLYaph3jDUsOr6YM2nvjkQuoY72HyHpBcK3lJzOwy4ri1B86qffBZszJ5ozbY+/
+UwCGKpTKO3xZMoFajy3VwnGWtAeb6GxihhUHxhqRxvpwE+AhbNEvsXCdxl5ba8EyqEv9NXMZ5PJU
+ix5L54ja8kpXgCnkmmBNNhInJUuAEiomChd88y1mBNVOoVrwlTq3iwY6WQl1aNeUQyK9MY4qyqNV
+Wye6clBBo5h6teXKVsqpxXDjZJtewyW+IlARuR478yUobP7DAJ4V+10xiqWnwO+KyBZ7m6/nUB4v
+hQD+r7jzbN8i/VOIv6109DVCmHd0AAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Additionally, we could exclude 1 and -1 if we exclude $\theta = \pm \pi / 2$ (e.g., use the set difference).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This linear bound of the sine function is easy to see visually in comparing the sine function to a line.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_linear_bound</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">greater_eq</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">Abs</span><span class="p">(</span><span class="n">theta</span><span class="p">)),</span> <span class="n">Div</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">two</span><span class="p">,</span> <span class="n">Abs</span><span class="p">(</span><span class="n">theta</span><span class="p">)),</span> <span class="n">pi</span><span class="p">)),</span>
+                           <span class="n">domain</span><span class="o">=</span><span class="n">Real</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">LessEq</span><span class="p">(</span><span class="n">Abs</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Div</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">two</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[9]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_linear_bound"><a class="ProveItLink" href="proofs/sine_linear_bound/thm_proof.html">sine_linear_bound</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/ee3195924de2f77e429520a684f1e415eaa810740/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAREAAAAyBAMAAACJ9fKRAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABQ9JREFU
+WMOtmXtoW1Ucx79NcvO4edyKRUUQr4ibQ1xjMyYMH1H/8Q/BqNg/dJgIroOCJlthTuy2+Jppi5Ih
+2DEQrhaKdJvJLIL4z4Jzss3h4v5RmK5BocKcGtt0rq/Fc+/JzT03pst9/aDnJM05p5/83ucWsCvf
+WNv2nDZPwhEJlax/Af6CMnsqjpCsM76Uj+USOpLHD0eV+aITIMFu42snEaqxJNytWFJI/CUHSD6O
+G1+7BbiBJfGVsUyt1OMAyVsm1t4MpPMMyQ/AKnX4Yw4YZ8nE4r8lpBMMyRA4qhP47JvHFzW3fp+k
+kXhqcNUoSXDRNslM3tRyzwrjJ94rAy9WG+loyDbJbpMqTMmjREl8FQiVBsmMZBOEq5lbH1PSyjVK
+IpSQLDZICqJNEne3qeUu6lW7KEmhiPvUYhGxm2a7UqaWTyPARHEhjjmVxGXXZZNlU7YswcWQdMVd
+GZUksGqTpLdN6HCSftZk/OyJ7UzsuMXxfLOU32ST5I12xVnO/0eLdNZntnr9X4aE79uiNRXvAoqr
+/GKR5Bb1ReA2HYlndLoNSdu2pjGfA76T50vWQPj5pklWdCRPSYKkkPBDkjGSmQQOyt8oazGdzK1h
+nT0QilQnwdm8IZKkiAiBDhUt1r/l9iThbgjlhnU8swkjJIUowmempsYtukl4oeknz7IkpC4mi6qf
+cLm2DnOXfhZIZrqayw1bJKH5iLvnfOXgFbxw49PrREryZBy98abHBl4xoHKBOMg2YMRqN610J58C
+GcySaigGFilJemDgdiZ2Avd3rthdJIYfA09G/oHWGhRXx4mv4dHq+o4du7Syo5A8IkHEfiW5rFKS
+vcA1hiRsoOZ3kXTrg4vkbL9EIzm4c/9DlCmrjqMRyU8/I2+CIZe23VtVSv3VDZBJ3odcR2SCFbkZ
+a5K4hmkkC/X2Qg8htTRU9pFXfRgDDp94EGIp9ImOxC36iwpJ8Fd5nHC3kvDf16MySU4l4ZflIq2S
+HNlpqHMhJIFKPzltieSA8NghouhS+KiOpCD5yjJJ+E/lFxd8aLHOIYRrepIaBFEl+WCPsR6KWAcj
+LxENVrBAPIYIITmiI9kIIUFIXBQEg14tP4SU2HkUeFlHgh6sb9QffPiHwf5CrjrTBCdy+dslWoLE
+kjumI/nrbJr4ief1dlG80PDYERlDI+kLvNYg4d820+kQTZJeIZzhlY5K3Lw9riPpwY/wgz9Ff9t0
+MSUolObxifM/x/vrg/31bV/+k1IIJu6U0KkCtuYT+Y+HyTYh7y9zu3O5NyGevldPsoj3CAlB+X9+
+CtbW6gpglqSg3ngEHABS1DpfnNGRVAPdUGJno4Ky9ZSWprhVx0iSajqLSO8AJylJSO+xl/wJSoKL
+cq+Y5TLa/vlOJPzvr8qS6EhyXNU4FyP7/ORdcPgyH6uwJM9sQoMEX5GfCl/V9u91TCfn9AXhbuIn
+Tckyo591DkYnD7cLqIR+Nibp63y2FslnDL3Fq9sdJADn1+hDO5IEc0RGZcsPsn5mqcUKnfz8ow16
+awTmrrM+yoxMrZmYKlm+eTXkeZxuNZ2Vm9e+OuMn7qq1xibrbTGrP2PzvuOpWdrGpXytKdbuDd3i
+cw93WWjRSa/dpxYWg6cgCS3Jxu5llLispQdk61v3OfB0y9QTv6aMwasniURtk+A3OCHHJPtnHEg4
+AOLIk+FgxoFDvFEnFLvZgTN+csTEXts5yan/qmCT7RMmFX/9DwAJhKqaeHRWAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_linear_bound_pos</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="n">greater</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Div</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">two</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">pi</span><span class="p">)),</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">RealPos</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">LessEq</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">Div</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">two</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[10]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_linear_bound_pos"><a class="ProveItLink" href="proofs/sine_linear_bound_pos/thm_proof.html">sine_linear_bound_pos</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/fde98c46e0697f0724b9c009e6c232ee3c779bba0/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAP0AAAAyBAMAAABlpcCuAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABH5JREFU
+WMOtWF1oFFcU/rKb/Zv9mUBF+qA4IPWHolm6JUipdts++CI1LTQvle4+VMXQ4lpBLKTW/tmNAYlP
+VZ9WA1LSaFakkKd2waqtigl5UejfQsEHayGNSTGJdnvunczPzm47d+bOfdiZO+fc/e4959zznXsB
+6fa9v2HnEUxL1byPuVAFOuvB4K8T0hrZ8rnV6Tx+mX5/DQQ+2SWipRQxmTd7r1fUChCvBYF/Ni+i
+Fa6gw5roh1DJAcqKIPA/FdLqKCG6YHTSXVCn6HkpCPMvCqllFhGdNzqxLApV9gzAAfRfoprmTHfm
+0c28llyQx/9tWFRzp7na/Xv2rOEvB+XxDwtrHuL7gP0cAf7RJ1+RhY/MiWqGuaPGWdJ5jMgS/zau
+yeKHu0Q11+pBUCQbLBnDMtIpsKMouk+yOG3kojmo+sJD0gFYmBJU3AVsNN5XYL3+kngii98tGP6J
+gVs9JaPzXOKD5beVsvgf/ye9OfJPo9Ew8UfWGnH/BcBD4Be/+E+bC1ztpDeRNgncZM/7PuGVh+ZG
+fAwHvQllr16cYpM/6nf7z7b7qtMbLrrHZkFDhqaaqvpln6U2Hw16U667ppfxLNI3Rke/9Ov+tMlp
+iTfhpDdg/Q2X8Sqlj0fl8oBffD2BRJ6drp/6G28/9cY6zUZv1O684IJPjt8NDLZKxKg5xTn1K6CE
+e8RFWmLBTm/Uvt33/+mTdt+rUOhXebHZWQat6wuxSTsPHDhkpX+O/3IFGo7xZPDETm+svdbvUhYh
+hhBFS7yi78Hk+8e2aTZ8fWcY0glSSIWs8dEZ7vBHlFoJ/wQwa6c3jn+cPxotTQ8V4qHUVIzlRAwB
+X1/ZCq2WOteCz6VkTTazkbATX7ndyDL8Mse36M3d/gw/Ue+jQYu0a9NDZ8iStfQFXMkdzFUtfC6l
+gp1v6J9icNj/DNJzNnyT3tzjL8Zy8uA7FMh1zFMkUCP8Mef6uRSb9XzSH+214o/H/yvAexa+RW/u
++4/FHy7TJDIPri3qVKDVwjknPpdub5OkQvPL8TfIwJfxDXoTyD+8fGDW6sinSwrH1Hr25p34TIqx
+z9rkH15+7Zj+Od/X6O9r7J74q2jRm0D+VRlMmtTV4fhU5HC5/Am0Hze14DMpMDZkRPKMmX/nINXG
+jTSj4iRQ1O3/DfNabxM+k5K1/+CVzA9WzRGRLGAKhocyFTqeXtXxU2M2jaOmlFnqT/YlUrLED+Xw
+vzNiKpIjo8eplxx4oOTqDnwu5fYmV9WVGUt8RA5/srl820D+d7Q2lUHStv6X5PD3u2q0wb9om7S3
+E0xoDQVvtl35JoA/UaZGcIqdUQqeKpdbb22cPm2vimddh7Qeb0dGaz7OHzyMqqnhZ1rLB4/to4bN
+/+EZT2PjaKLjeEm2/u/0loD60ISoSp8/PR7ht6LpuqRb+vztbQMQjzfZS/r4RQHo5Q4nVMIqeyIJ
+4P5F8P5pOd6qeNd+KMzK4+N3/0MvVQLAP9nrd2Qw949J33s4GoT5gR6/A+8GAo+ozyQS1P07nvc3
+7DyPvn8BePpF1yAVqi8AAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_linear_bound_nonneg</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="n">greater_eq</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Div</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">two</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">pi</span><span class="p">)),</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">RealNonNeg</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">LessEq</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">Div</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">two</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[11]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_linear_bound_nonneg"><a class="ProveItLink" href="proofs/sine_linear_bound_nonneg/thm_proof.html">sine_linear_bound_nonneg</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/c7f1f598f5f068d4468411a475709f79fb873d6a0/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQUAAAAyBAMAAACnsNMDAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABMNJREFU
+WMOtWV1oHFUU/vZ/d3YnE7CID0oXiq1FNEsjUcTqqq9iV8EgWMw+tBWjtVvF2mKs9a9uWpAEQds+
+jQZqiGmzpVTEB12oPzGuZsmDCv4tCj5ohZgm0iSt67l3dmbvbtbduzv3LJmZO3PuzDf3fud8504A
+JfZpZ91OQp3F8u33OZUD/CV1GDZKeY3d9lq14T9ylrY/K4MQ7Zbx0tKYTTqtB0zDBMJ5VRjeScp4
++Ux4qmBfgEGToa1TheEVKS9PBsFlu6F3wyjS/oyqqViRcutaQXDJboQSGMixvaLJoPvJejpotyXR
+w2YwuqwGwy8jsp7bnLfes2vXen7wjBoM+6U99/H4YJuDwL/WC5gqIAQWZT19fNKmWGK6jMAqPzcV
+V4HB1y3rucEiRZrGYtXu1qUkVXrSsvGTwHE7Xy3CsAbAq4SUA0VJx+3AZvt4HTZZB5ErKjD0SIZF
+ZKjQl7EbWyIHKkdXq8Dw0v/KYl2OKpfLDoaxDXY8vA5wSvzkBsM1zoteVy+LMjYLfMX2f7iAoF10
+gvQy6mQR793eOsOlcIy9wCE36WGh0VlLFoGPH29J6Ti6CG4s50axVhuctGURuH9ni/5TCegzExNv
+u6GD7mhh5CHUyyLZw682729QermUzQ65wWAlmcCNc6Vj/+DRqx7cGBdkkdlbfzbHQESgsRpeM8ec
+bF/PSNWzXI/HgQx+J/2KR5ZFWWT25oGmaZYi815otNXuELVDf4I2YXPcalkvVOshyAXHcLeJOA7z
+ZHFFlEVm3yValFcIwVtkD7TiM/r04TvpWf7ddJF+3KyoqXhEqeXfu3efc4/gPCfAJUrDhOENYEGU
+RbJNleEsrzGLOqRdsWKI5U4cBd4/vxXxfOxdNhtbzFGEUgIG7oHor2wT86IOg/ZNOcEwZDmGqixC
++6KFODMMkVI/ea5QROtHT9CI5vVTnM65WgzcA/pfVqb11c/FCeiLAgZHFiO3tlK0EMvfwzuI3CUs
+ETPICMMk7T4owoDHrGLgHl4LAn4ICZzkcXEPsLuKwZHFyFMtUw/jJM4SkK4Ln69Y0hHP+3qBb3MC
+JzkG5uF/vtJvMJiqxuZShZPDDEAFgy2L461XHrz8YKPmSeoZjdM33vdYEr6UGJscA/eYbnBLnZdy
+9839mOwvD/aXd374d1qUxZZmsMfq5G6MhIuB/dnsy4h/eVP9gzgG5gFtOmczfN7J1YtwZVN2rW1g
+FEhbc3FuBpOFQiFZh4F5ADdzENunq3VLwGUhNGDHTZdJS+LPLAyxyUbjwD3YSpnx/FAgU718sckD
+Tj/H7NlmGD6xWRvopdcOUys6dEHrLTXAwD2YfUR/JW2+evmgu3GYrS0FbyA+NLAG1UVUGIe73GHY
+I+XVAMNpAXx7KyXveiJ0olEpKIchmiU7wsJ2UCRVWxVQ4ZHNc8fFantBqtta2RubyHewxuG0ysVG
+rl9bfnRgL5YFPvjm2+obxmBNM6NifeFvL0n1o+aphpI1b5ufELai5rNNj5K1f3uBQTVAzbgpWeoR
+Kdv5puTN4Fox0Sj6FiT5TazCwRyeFBehCTUY8FvnXc+YijCMpjperCr7RhrtOMaDqqYC6Ou04/fK
+ICDYYaJR+b8D3NJZt5Ockf8Bd/xUsiEsGMkAAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_linear_bound_neg</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="n">Less</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Div</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">two</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">pi</span><span class="p">)),</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">RealNeg</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">LessEq</span><span class="p">(</span><span class="n">Neg</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Div</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">two</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[12]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_linear_bound_neg"><a class="ProveItLink" href="proofs/sine_linear_bound_neg/thm_proof.html">sine_linear_bound_neg</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/496759257afa31de4701aebd42edfe89d20f16cf0/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARcAAAAyBAMAAACE64LWAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABMtJREFU
+WMO1mU+IG1Ucx3+ZzEwmk8zMHkopXowWXHtodzG6VqgaENSLNHoQocIOohV7cNMKpcLaxtVq6h6a
+PYh/QBwNVlhTs7UIvbQGbNWuyuamILaR3rTi0t0tdleNv/fm30sm3Zkkb99h/vF9mc/M7++bAPAd
+5/ubdgI2YKTrvc85OQcgNjcA5o5IqsrOo/6J+NZp3F7iz5IaiqJSTVjIeWePW4YFoNS5w3yUi6KK
+WxDzqV8BA+2kbuIO81okVawA8g33RBsCo4H7U9yttBpJpq+CvOKeJEZhfI7sedsJfziq0sPenYMR
+YtzUDc4wl8tRlbu99zCxd++t9OAlzjCHIisP0qgim8MA/9lPYnFlkZajKuPUnjWS6f4BaY1eq2W4
+wsSHoiq32o5j4ttZc6fpfJNwzIwadaPwnpsAl8GwX4nA14PHGxGFTwNsc483wbB9kPyXK8xIxGBK
+Tv4wVnBP7kq+7Bxt5grz6k2LckfSa7VaHkxlqxtFbwJQt/mVC8wW72im0VGUo4wFgO/J/nceLOqS
+7z31jqIcKWXm4V1ixCKXNHOt21W7KDvjXH49/8+AjtzpOS5lcq3LRbco0/HTfevNr42CNj87+w4X
+l9G8Sgxv5zuLMhnD8+vONzBN/V0qTXKBcbLWE2d3JI+b0m/33P4MU5TRpb4NyfcGOstzAMfC78Sk
+EOlmzThtC9QiJEA3ITEFH5aZoqzeG5YSYxjYD4GKW3VXd27RuZEXMrsyKb+3FPfvP+iXJgoj3gIC
+KCYotrN4RfnFUL/EBhCfQ8BJimWHd+rAGw+wWIq9e8E7R53jhmdQnRZ8qbxId0emyhSmSYuOW5RV
+BqYVGLZ7YcFMNxIkK8M0wGdf3w+ZevrjAIzk5Q2is1dc5whzJR6Aqf61RGGKBMYvyslQMxGYZPNJ
+BF/FhKBNv28hjHYyACO70UF1OnGgS/S3f0lAh5mSFlzO+TBeUQ534AQpEceexUhowgp6Dw6EqUIl
+m83OMTDeLamOmHWH/Zz7ZD+NpWk0iRmQGx6MX5TDQ5s4MJxGIv3qN6t2mcrU49nAm/ESEdWlTHik
+izsKK44DK2UkcWD8ohya9Gg7RObEclpBpb1gZuz5XADmUW8C6kAsQvX1LkmPdp3ij9vPSxPXP5m4
+vuf4ZrYoh5YDg9xfQ7lRVhrSoVJpCjIXtwdhHkaeEg6L6EDCV1idduNi0SsHy4MlzZobJQbMAJi2
+mb6cD8A8BaxOJELhD9qzfednQ2nAVm3cdXDdOgpwwYZJVwMwnwKr0+gjaH/ipigVfO3SYDBfuX4o
+ZdE2Cp6lJq+q2WYnTMJidXHbjim82FQXfe3hwWAW2rvWO9FnOoYNI7QFj872DcybeXAwmIlQhVMO
+2rqvs8zx58zj9LgmvA29f6lr1xoC8xjbXmIInqGxhcf7WA/sqUdLX/jig23MoySvha8SHWswswTm
+BVRm630s4ujYAxeFfLAdGmAcaTE+E1/sbXJRZu2qFLium8Tesp5kJtoSMN+Ff4+fWOKNtkXMCN9P
+Ij2GU80y2MLDd3WLHtzTd7nhNj33z2gRPzA6YxpkBkYf5QwDV/qfesriDTOT73uhzv+jdKrvXCFz
+txLAWL8Tf+bPAnKfmWtD/uKBu/ubdoK67//LckmnSTUeTAAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sine_linear_bound_nonpos</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">(</span><span class="n">Sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Div</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">two</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">pi</span><span class="p">)),</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">RealNonPos</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">LessEq</span><span class="p">(</span><span class="n">Neg</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">Div</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">two</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[13]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="sine_linear_bound_nonpos"><a class="ProveItLink" href="proofs/sine_linear_bound_nonpos/thm_proof.html">sine_linear_bound_nonpos</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/a35a76b4f3975c43096b86fdcfd74322285492380/theorem_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAR8AAAAyBAMAAACXPMIiAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABRtJREFU
+WMO1WW9oG2UY/+Xyp8kll6s41A/KAuLcGNpiZTDZNOoXPwhGxSI4bD7YDYqjWcU5tfuj4kw3kAzB
+zeGHc4NRamczijAFWaAqtUZX+klQZ3CyDzqxdqlubWd83vdyd2+yNLkkd0/p5X2vz3v5vc/ze/7c
+W8B5+bK1ZafgkkRyza85nQV8BZcArbOjJPekE9bMd2iSrhfcwRPutOefSNGaPampGhDMuQLoo7gd
+rQeAm6zZXqjkM3mNK4DesqV1KzCYMSZKJ9RZ+jzjiseWbKn9pWHQJFFHN/qy7NMNn9HDbcp+zRg9
+EUcXc3T4mguAfsnYVPStmMPB7dvX8sFLLgDaY9uUSXblVtoH/KfvRnMcj79oV7OHpyMOZAX+ZX5v
+IuY4IG+nTUVJ59puhmrZWBZ1Pll7kjYVJxEy2CYXoeqmkZxndd+sTdfmIJn0X4O79UHouuOAumwG
+2dH81A5zcl/o1fLoFscBvbFqMa9KjKXSv+bk5J1GdL0DcBr97Big24xB6I7qYm5HzgPfss/fncIj
+XzFJslJdzMvR9XLdtJrAMbabA46loYVad/VizmV8qH5MxBAl7JGsY6V1ucZNo5iTvLe3/vqJbigz
+Y2NHHaOQsmhy6BlUF3Pg/T8arFcpjV1Np4cdA6RnNv/GucKxf/D8zU+tiwnFHM/+1mi9SuTpB0Zq
+0TMhfzdTcSckcmW1Bp93Q6NACpeo0MZC14RiHny7caKnoH8UMl3lLZV1LTSVCWqj+rjck5rdE+mG
+V+lTvRzQwxpiOMiT0nWhmEtDDYu5J0UehkSMC2p66IeHDj5I0PxbNHjoh4segwEzBzPdzbo2/cm3
+a9du84GBeU6aqxvAAL0LLIjFXBk2EKmlapnX6UZFNjLbwbI3DgMfT21FLBc5Ad9OunUEHQkB0DYr
+05Muf6sL/8ouEQlVgOTvS90MUJoDsoo5whcbVBYGKFTopUVLlCyUw8fJ1jnlNEZjNwLqNz3GdKP0
+ZOVPPfF7q112HEpRAGQWczLnpUR9QOQyjLxA7i1gkdhEQoDGgaeJzyo8mgAoZUYS0yU3Szoe/Ngh
+kJpH2SPATguQVcxZNKTjjUiNSfqq6OWvl/SyFst5WS/34WaYpOaAQiYgrhtO+l4vzwcC1q6lxTKp
+RxiaMiCrmLPn9Ddsp5g9PXElJfMeLrZpB9/DiawZ9hyQzywvTJem8nSNvSq8g3187qd4b2mgt9R/
+9u+kWMwbisowKKSuZoKz/j3p9JuIfXNP9RfpgOjJj6VJNKYLfwHyNE+/Vogw1hbbS6wTRm5RicJI
+6i77dAbj+Xw+XgnIb1qI6zJ8uJcj2jZthY6/zZavz2B/VKMs+pUOKDJey0KyxSGmq/CtXGA184A/
+ZeleqfNtn7zCpG77cc4o8/4eMkiQZuHhy3JPoQYgvAZR16sb8HP6Lcjzlu6+9ix0vjJPrScO1RAd
+0MaKe1Gx5xAs9FB7gAZtaemAghX3vhBdIWyruXdPaS1FRHetDtgGIJ/4gkMpIsxC7hAbD4isbKrX
+yz+3Ye4DsaQv2FpW3sJn4tYEQ5wcy7XwosjZmI1k7rqxnWpX9pcEDnnnm1obxEDFNOX4e5mvuczY
+iwoIqvOHDU0e8WxFxYFbl/PHMc2FGXUyFRZ1/k2aWN3MOaGUwu1iQnPjSM/moWeZxFm8KGbbbhcA
+4WLrS89obgA6kmj5YMCdg/Nwy7kk4IrHgE2tLvzBHTwItJjdXPv3FO5vbdkpTun/AatXaS1kuyFN
+AAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Trigonometry-theorems-related-to-complex-numbers-in-polar-form">Trigonometry theorems related to complex numbers in polar form<a class="anchor-link" href="#Trigonometry-theorems-related-to-complex-numbers-in-polar-form">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">complex_unit_circle_chord_length</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Abs</span><span class="p">(</span><span class="n">subtract</span><span class="p">(</span><span class="n">Exp</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Mult</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">a</span><span class="p">)),</span> <span class="n">Exp</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Mult</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">b</span><span class="p">)))),</span> 
+                   <span class="n">Mult</span><span class="p">(</span><span class="n">two</span><span class="p">,</span> <span class="n">Sin</span><span class="p">(</span><span class="n">Div</span><span class="p">(</span><span class="n">Abs</span><span class="p">(</span><span class="n">subtract</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)),</span> <span class="n">two</span><span class="p">)))),</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">Real</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[14]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="complex_unit_circle_chord_length"><a class="ProveItLink" href="proofs/complex_unit_circle_chord_length/thm_proof.html">complex_unit_circle_chord_length</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/7c0cd455688b61e12ebc8255d6c4089b165c85e90/theorem_expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">complex_circle_chord_length</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">Forall</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Abs</span><span class="p">(</span><span class="n">subtract</span><span class="p">(</span><span class="n">Mult</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Exp</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Mult</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">a</span><span class="p">))),</span> 
+                                          <span class="n">Mult</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Exp</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Mult</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">b</span><span class="p">))))),</span> 
+                             <span class="n">Mult</span><span class="p">(</span><span class="n">two</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">Sin</span><span class="p">(</span><span class="n">Div</span><span class="p">(</span><span class="n">Abs</span><span class="p">(</span><span class="n">subtract</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)),</span> <span class="n">two</span><span class="p">)))),</span>
+              <span class="n">domain</span><span class="o">=</span><span class="n">Real</span><span class="p">),</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">RealNonNeg</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[15]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="complex_circle_chord_length"><a class="ProveItLink" href="proofs/complex_circle_chord_length/thm_proof.html">complex_circle_chord_length</a> (conjecture without proof):<br></strong> <a class="ProveItLink" href="../__pv_it/theorems/78fb04323f8ac4eeeea80469af894dfef78969420/theorem_expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">end</span> theorems
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>These theorems may now be imported from the theory package: proveit.trigonometry
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

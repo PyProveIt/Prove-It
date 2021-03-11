@@ -1,0 +1,6 @@
+\left(\left(\begin{array} {ccc} 
+ \lstick{\lvert 0 \rangle} & \control \qw & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 0 \rangle} & Z & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 0 \rangle} & \control \qw & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & Z & \rstick{\lvert 1 \rangle} \qw \end{array} 
+\right)\right)

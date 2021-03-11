@@ -1,0 +1,9 @@
+\begin{array} {cccc} 
+ \lstick{\lvert 0 \rangle} & \control \qw & \control \qw & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 0 \rangle} & X & X & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 0 \rangle} & \control \qw & \control \qw & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & X & X & \rstick{\lvert 1 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & \control \qw & \control \qw & \rstick{\lvert 1 \rangle} \qw  \\ 
+  \lstick{\lvert 0 \rangle} & X & X & \rstick{\lvert 0 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & \control \qw & \control \qw & \rstick{\lvert 1 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & X & X & \rstick{\lvert 1 \rangle} \qw \end{array} 

@@ -1,0 +1,4 @@
+\begin{array} {cccccc} 
+ \lstick{\lvert \psi_{k} \rangle} & \qw & \qw & \qw & SPACE & SPACE  \\ 
+  \lstick{\lvert 0 \rangle} & \gate{H} & \control \qw & \qw & \qw & \rstick{\lvert \psi_{k + 1} \rangle} \qw  \\ 
+  \lstick{\lvert u \rangle} & \qw & U^{2^{k}} & \rstick{\lvert u \rangle} \qw & SPACE & SPACE \end{array} 

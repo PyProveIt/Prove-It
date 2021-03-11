@@ -1,0 +1,6 @@
+\left(\left(\begin{array} {ccc} 
+ \gate{H} & Z & \gate{X}  \\ 
+  \gate{H} & \control \qw & \gate{X}  \\ 
+  \gate{H} & Z & \gate{X}  \\ 
+  \gate{H} & \control \qw & \gate{X} \end{array} 
+\right)\right)

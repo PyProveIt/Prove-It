@@ -1,0 +1,1 @@
+\left(\sum_{x=a}^{b} f(x)\right) + \left(\sum_{x=b + 1}^{c} f(x)\right)

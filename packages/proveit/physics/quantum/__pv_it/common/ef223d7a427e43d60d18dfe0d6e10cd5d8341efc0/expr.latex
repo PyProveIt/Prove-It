@@ -1,0 +1,4 @@
+\begin{array} {cccccc} 
+ \lstick{c} & { /^{k} } \qw & \qw & \qw & SPACE & SPACE  \\ 
+  \lstick{a} & \gate{u} & \control \qw & \qw & { /^{k + 1} } \qw & \rstick{d} \qw  \\ 
+  \lstick{x} & { /^{n} } \qw & U & \rstick{y} \qw & SPACE & SPACE \end{array} 

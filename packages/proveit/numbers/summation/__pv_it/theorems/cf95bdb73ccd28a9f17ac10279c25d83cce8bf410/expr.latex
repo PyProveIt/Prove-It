@@ -1,0 +1,1 @@
+\forall_{x \in \mathbb{C}, n \in \mathbb{N}^+}~\left(\left(\sum_{m=0}^{n} x^{m}\right) = \frac{1 - x^{n + 1}}{1 - x}\right)

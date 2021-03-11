@@ -1,0 +1,1 @@
+\left(\forall_{a \in R}~\left(f(a) \in \mathbb{C}\right), \sum_{x \in R}~f(x) = \sum_{y \in S}~f(g(y))\right)

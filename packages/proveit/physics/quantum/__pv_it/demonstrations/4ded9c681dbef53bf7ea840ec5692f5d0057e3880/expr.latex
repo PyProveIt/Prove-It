@@ -1,0 +1,15 @@
+|\left(CONTROL, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qw 
+} \hspace{2em}, CONTROL, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qw 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \targ 
+} \hspace{2em}, CONTROL, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \targ 
+} \hspace{2em}, CONTROL, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qw 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \targ 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qw 
+} \hspace{2em}\right)| = |\left(1, \ldots, 11\right)|

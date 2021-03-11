@@ -1,0 +1,9 @@
+\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{H} & \gate{X} & \gate{H} 
+} \hspace{2em} \cong \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{X} 
+} \hspace{2em}\right) \Rightarrow \left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{Z} & \gate{H} & \gate{X} & \gate{H} & \gate{Z} 
+} \hspace{2em} \cong \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{Z} & \gate{X} & \gate{Z} 
+} \hspace{2em}\right)

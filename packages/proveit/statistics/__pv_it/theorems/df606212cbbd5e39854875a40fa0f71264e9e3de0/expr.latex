@@ -1,0 +1,1 @@
+Pr_{q}[P(q)] \geq \sum_{y \in S}~Pr_{q}[q = Q(y)]

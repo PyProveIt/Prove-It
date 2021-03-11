@@ -1,0 +1,3 @@
+\begin{array} {cccc} 
+ \lstick{u \thinspace a} & \qw & \control \qw & \rstick{b} \qw  \\ 
+  \lstick{x} & { /^{n} } \qw & U & \rstick{y} \qw \end{array} 

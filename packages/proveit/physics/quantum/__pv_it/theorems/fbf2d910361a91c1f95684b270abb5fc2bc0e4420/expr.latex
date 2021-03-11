@@ -1,0 +1,7 @@
+\left(x, y, z\right) \mapsto \left\{\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a} & \qw & \control \qw \qwx[1] & \rstick{b} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em} = \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a} & \qw & \control \qw \qwx[1] & \rstick{c} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{z} \qw 
+} \hspace{2em}\right) \Leftrightarrow \left(\left(b {\otimes} y\right) = \left(c {\otimes} z\right)\right) \textrm{ if } x \in \left(\mathbb{C}^{2}\right)^{\otimes n} ,  y \in \left(\mathbb{C}^{2}\right)^{\otimes n} ,  z \in \left(\mathbb{C}^{2}\right)^{\otimes n}\right..

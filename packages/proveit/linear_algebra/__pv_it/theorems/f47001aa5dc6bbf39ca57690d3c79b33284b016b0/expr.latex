@@ -1,0 +1,1 @@
+\left(\left(a, b\right) \mapsto \left[\forall_{c, d \in \mathbb{Z}}~\left(\left(\sum_{j=c}^{d} \left(a {\otimes} b_{j}\right)\right) = \left(a {\otimes} \left(\sum_{j=c}^{d} b_{j}\right)\right)\right)\right]\right)

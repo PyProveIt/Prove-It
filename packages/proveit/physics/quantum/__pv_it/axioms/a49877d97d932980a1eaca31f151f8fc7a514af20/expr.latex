@@ -1,0 +1,4 @@
+\left(\left(\begin{array} {cccc} 
+ \lstick{\alpha \thinspace \lvert 0 \rangle} & \qw & \control \qw & \rstick{\alpha \thinspace \lvert 0 \rangle} \qw  \\ 
+  \lstick{x} & { /^{n} } \qw & U & \rstick{x} \qw \end{array} 
+\right)\right)

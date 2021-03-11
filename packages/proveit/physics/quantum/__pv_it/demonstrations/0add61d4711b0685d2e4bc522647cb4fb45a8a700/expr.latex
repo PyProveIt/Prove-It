@@ -1,0 +1,4 @@
+\begin{array} {cccccccc} 
+ \lstick{\lvert \psi \rangle} & \qw & \qw & \control \qw & \gate{H} & \meter & \control \cw & SPACE  \\ 
+  \lstick{\lvert 0 \rangle} & \qw & \targ & \targ & \qw & \meter & SPACE & SPACE  \\ 
+  \lstick{\lvert 0 \rangle} & \gate{H} & \control \qw & \qw & \qw & \targ & Z & \rstick{\lvert \psi \rangle} \qw \end{array} 

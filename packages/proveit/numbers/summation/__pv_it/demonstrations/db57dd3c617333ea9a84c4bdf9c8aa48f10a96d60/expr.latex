@@ -1,0 +1,1 @@
+\left(a, b, c\right) \mapsto \left\{\left(\sum_{j=a}^{b} j\right) = \left(\sum_{j=a + c}^{b + c} \left(j - c\right)\right) \textrm{ if } a \in \mathbb{Z} ,  b \in \mathbb{Z} ,  c \in \mathbb{Z}\right..

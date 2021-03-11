@@ -1,0 +1,3 @@
+\begin{array} {ccc} 
+ \lstick{\lvert 0 \rangle} & \qw & \rstick{\lvert + \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & \gate{[]} & \rstick{\lvert - \rangle} \qw \end{array} 

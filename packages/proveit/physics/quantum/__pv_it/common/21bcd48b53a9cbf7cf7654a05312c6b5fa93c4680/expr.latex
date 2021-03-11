@@ -1,0 +1,9 @@
+\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{c} & \qw 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& { /^{k} } \qw 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qw 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{I{\Big \{} \left\{1, 2\right\}} 
+} \hspace{2em}, SPACE, SPACE\right)

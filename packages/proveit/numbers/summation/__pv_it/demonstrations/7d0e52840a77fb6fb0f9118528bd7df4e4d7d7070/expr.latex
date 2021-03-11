@@ -1,0 +1,1 @@
+\forall_{a, b, c \in \mathbb{Z}}~\left(\left(\sum_{j=a}^{b} j\right) = \left(\sum_{j=a + c}^{b + c} \left(j - c\right)\right)\right)

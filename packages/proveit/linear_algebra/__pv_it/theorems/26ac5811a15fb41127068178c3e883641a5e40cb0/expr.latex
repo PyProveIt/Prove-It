@@ -1,0 +1,1 @@
+\forall_{m, n \in \mathbb{N}}~\left[\forall_{f, S, x_{1}, \ldots, x_{m}, z_{1}, \ldots, z_{n}}~\left(\left(x_{1} {\otimes} \ldots {\otimes} x_{m} {\otimes} \sum_{y \in S}~f(y) {\otimes} z_{1} {\otimes} \ldots {\otimes} z_{n}\right) = \sum_{y \in S}~\left(x_{1} {\otimes} \ldots {\otimes} x_{m} {\otimes} f(y) {\otimes} z_{1} {\otimes} \ldots {\otimes} z_{n}\right)\right)\right]

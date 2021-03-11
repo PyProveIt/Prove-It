@@ -1,0 +1,2 @@
+\begin{array} {cccc} 
+ \lstick{\lvert \psi \rangle} & \gate{H} & \gate{H} & \rstick{\lvert \psi \rangle} \qw \end{array} 

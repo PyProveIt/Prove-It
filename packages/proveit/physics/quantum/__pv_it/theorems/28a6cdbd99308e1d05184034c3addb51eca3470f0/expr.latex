@@ -1,0 +1,4 @@
+\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{u \thinspace a} & \qw & \control \qw \qwx[1] & \rstick{b} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em}

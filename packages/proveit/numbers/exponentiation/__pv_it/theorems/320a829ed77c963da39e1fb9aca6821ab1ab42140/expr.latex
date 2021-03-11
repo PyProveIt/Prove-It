@@ -1,0 +1,1 @@
+\left(n \mapsto \left\{\forall_{x \in \mathbb{C}}~\left(x^{n} = \left(x \cdot ..n \textrm{ repeats}.. \cdot x\right)\right) \textrm{ if } n \in \mathbb{N}^+\right..\right)

@@ -1,0 +1,1 @@
+\left[\forall_{x \in S}~\left(f(x) \leq g(x)\right)\right] \Rightarrow \left(\sum_{x \in S}~f(x) \leq \sum_{x \in S}~g(x)\right)

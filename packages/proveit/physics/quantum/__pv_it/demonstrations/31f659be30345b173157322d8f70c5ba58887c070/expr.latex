@@ -1,0 +1,7 @@
+\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{H} & \gate{H} 
+} \hspace{2em} \cong \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qw 
+} \hspace{2em}\right) \land \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{\lvert \psi \rangle} & \gate{H} & \gate{H} & \rstick{\lvert \psi \rangle} \qw 
+} \hspace{2em}

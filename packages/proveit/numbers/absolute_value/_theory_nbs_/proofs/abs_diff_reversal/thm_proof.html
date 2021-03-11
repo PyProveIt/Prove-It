@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.absolute_value.abs_diff_reversal theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.absolute_value.abs_diff_reversal-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">absolute_value</a>.<a class="ProveItLink" href="../../theorems.html#abs_diff_reversal">abs_diff_reversal</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.absolute_value.abs_diff_reversal-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> abs_diff_reversal
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="abs_diff_reversal">abs_diff_reversal:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/277d1c1c456489610269addcd91015a35bf11d7a0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN0AAAAWBAMAAAC2xYReAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAArpJREFU
+SMe1lk1oE1EQxye72XxukosHFYRYbc+hXgQrRkQ8SeLBz4shKF5ERNBD9VA9SIIKC4It6OHVgkoQ
+sygeIgVDWygoyt5sC0JALPhBLIKgUcSZt0nat7y3JqADbR//GeY37715swXoyY6pHAbrNdLH47Go
+A3Mqn5n1CMpI9NTwd4OWb315D+RZYpfPSnlcl/JCFsBLWn705X1QVJ3MyPdHupQXw81N0IGN+eES
+GQUvZct5pEt5MIPF4IWbth8vbCl4OSbn5ZiKN4nVv6hUxn2Pc1zVBfOKfplX9QskMfp7qXTJl7fF
+jY2ODG8UHcsDO6Q80kW7ObuZkcfEqzkJUO7owaaEd8PNsttKroj9+ZtVLZf3ukn2rt0VpAuRwQ3w
+hedIYMPs4W3TttnOIn79VLG9vOhm2QS62FbxFqTSkv1xXdAmHdjOeXF8KWHQnK7nE9U9vc2JHWHG
+57a2jmfRWxCmLI/4Vt7jSm9AtS7hcR3T8MBmHrVdDM5xnoEnZDrh1egf+LNQq0DiDsC0wAuMQTXv
+fX45W8LjuqCth9i3Li/aOITS1BCVbHwdYkF6rXufokM4Tyz5uef5OVj42vtbdnlcFy76F8RXOC9I
+k6d8AqXzRguX2qiWSVLI0qK3X6o2nIkLbZDK4p1K9sd1gfcTQo1ap1/gCUL1jEHoSDrRmKKQZzUQ
+emiOXBdMIU3IiWRkPK4LdgXeFOrE0+tUJ7ZBwNYKuAxk9cLhUqmUvn1wNXqf25/FwVtbxbKHX8nn
+NemC3Rs4Wszy904dkMDDrlqRJfyTYgE7RBH6Xcz3t3nW9/cI7nfWAev4fphgYbYAJtUQHcnTcPWf
+1/3zZroToPh4JxywjdN4wNdIeNi82u3+8r/irRks3NxXo+H99fK97Z8XEcec2O7C/xODqiRa3iMo
+I9Gz6Pmwwv+3P8Kt5s0efaSgAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/5380100fc59b34964554012f5baa3dbd5b73c27b0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

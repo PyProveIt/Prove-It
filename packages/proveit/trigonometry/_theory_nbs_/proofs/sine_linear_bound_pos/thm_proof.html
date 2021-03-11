@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.trigonometry.sine_linear_bound_pos theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../index.html"><img src="../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.trigonometry.sine_linear_bound_pos-theorem">Proof of <a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../theory.html">trigonometry</a>.<a class="ProveItLink" href="../../theorems.html#sine_linear_bound_pos">sine_linear_bound_pos</a> theorem<a class="anchor-link" href="#Proof-of-proveit.trigonometry.sine_linear_bound_pos-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> sine_linear_bound_pos
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="sine_linear_bound_pos">sine_linear_bound_pos:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/c4ee823324bae57fad31b0fe0a08b016633d92ee0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAP0AAAAyBAMAAABlpcCuAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABH5JREFU
+WMOtWF1oFFcU/rKb/Zv9mUBF+qA4IPWHolm6JUipdts++CI1LTQvle4+VMXQ4lpBLKTW/tmNAYlP
+VZ9WA1LSaFakkKd2waqtigl5UejfQsEHayGNSTGJdnvunczPzm47d+bOfdiZO+fc/e4959zznXsB
+6fa9v2HnEUxL1byPuVAFOuvB4K8T0hrZ8rnV6Tx+mX5/DQQ+2SWipRQxmTd7r1fUChCvBYF/Ni+i
+Fa6gw5roh1DJAcqKIPA/FdLqKCG6YHTSXVCn6HkpCPMvCqllFhGdNzqxLApV9gzAAfRfoprmTHfm
+0c28llyQx/9tWFRzp7na/Xv2rOEvB+XxDwtrHuL7gP0cAf7RJ1+RhY/MiWqGuaPGWdJ5jMgS/zau
+yeKHu0Q11+pBUCQbLBnDMtIpsKMouk+yOG3kojmo+sJD0gFYmBJU3AVsNN5XYL3+kngii98tGP6J
+gVs9JaPzXOKD5beVsvgf/ye9OfJPo9Ew8UfWGnH/BcBD4Be/+E+bC1ztpDeRNgncZM/7PuGVh+ZG
+fAwHvQllr16cYpM/6nf7z7b7qtMbLrrHZkFDhqaaqvpln6U2Hw16U667ppfxLNI3Rke/9Ov+tMlp
+iTfhpDdg/Q2X8Sqlj0fl8oBffD2BRJ6drp/6G28/9cY6zUZv1O684IJPjt8NDLZKxKg5xTn1K6CE
+e8RFWmLBTm/Uvt33/+mTdt+rUOhXebHZWQat6wuxSTsPHDhkpX+O/3IFGo7xZPDETm+svdbvUhYh
+hhBFS7yi78Hk+8e2aTZ8fWcY0glSSIWs8dEZ7vBHlFoJ/wQwa6c3jn+cPxotTQ8V4qHUVIzlRAwB
+X1/ZCq2WOteCz6VkTTazkbATX7ndyDL8Mse36M3d/gw/Ue+jQYu0a9NDZ8iStfQFXMkdzFUtfC6l
+gp1v6J9icNj/DNJzNnyT3tzjL8Zy8uA7FMh1zFMkUCP8Mef6uRSb9XzSH+214o/H/yvAexa+RW/u
++4/FHy7TJDIPri3qVKDVwjknPpdub5OkQvPL8TfIwJfxDXoTyD+8fGDW6sinSwrH1Hr25p34TIqx
+z9rkH15+7Zj+Od/X6O9r7J74q2jRm0D+VRlMmtTV4fhU5HC5/Am0Hze14DMpMDZkRPKMmX/nINXG
+jTSj4iRQ1O3/DfNabxM+k5K1/+CVzA9WzRGRLGAKhocyFTqeXtXxU2M2jaOmlFnqT/YlUrLED+Xw
+vzNiKpIjo8eplxx4oOTqDnwu5fYmV9WVGUt8RA5/srl820D+d7Q2lUHStv6X5PD3u2q0wb9om7S3
+E0xoDQVvtl35JoA/UaZGcIqdUQqeKpdbb22cPm2vimddh7Qeb0dGaz7OHzyMqqnhZ1rLB4/to4bN
+/+EZT2PjaKLjeEm2/u/0loD60ISoSp8/PR7ht6LpuqRb+vztbQMQjzfZS/r4RQHo5Q4nVMIqeyIJ
+4P5F8P5pOd6qeNd+KMzK4+N3/0MvVQLAP9nrd2Qw949J33s4GoT5gR6/A+8GAo+ozyQS1P07nvc3
+7DyPvn8BePpF1yAVqi8AAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/fde98c46e0697f0724b9c009e6c232ee3c779bba0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

@@ -1,0 +1,9 @@
+\left(\left(\begin{array} {ccc} 
+ \gate{A_{1, 1}{\Big \{} S_{1, 1}} & \cdots & \gate{A_{1, n}{\Big \{} S_{1, n}}  \\ 
+  \vdots & \gate{A_{i, j}{\Big \{} S_{i, j}} & \vdots  \\ 
+  \gate{A_{m, 1}{\Big \{} S_{m, 1}} & \cdots & \gate{A_{m, n}{\Big \{} S_{m, n}}  \\ 
+  \gate{D_{1}} & \cdots & \gate{D_{n}}  \\ 
+  \gate{C_{1, 1}{\Big \{} R_{1, 1}} & \cdots & \gate{C_{1, n}{\Big \{} R_{1, n}}  \\ 
+  \vdots & \gate{C_{i, j}{\Big \{} R_{i, j}} & \vdots  \\ 
+  \gate{C_{k, 1}{\Big \{} R_{k, 1}} & \cdots & \gate{C_{k, n}{\Big \{} R_{k, n}} \end{array} 
+\right)\right)

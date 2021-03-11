@@ -1,0 +1,10 @@
+\left\{\forall_{x, y \in \left(\mathbb{C}^{2}\right)^{\otimes n}}~\left(\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a} & \qw & \control \qw \qwx[1] & \rstick{c} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em} \land \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{b} & \qw & \control \qw \qwx[1] & \rstick{d} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em}\right) \Rightarrow \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a + b} & \qw & \control \qw \qwx[1] & \rstick{c + d} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em}\right) \textrm{ if } a \in \mathbb{C}^{2} ,  b \in \mathbb{C}^{2} ,  c \in \mathbb{C}^{2} ,  d \in \mathbb{C}^{2}\right..

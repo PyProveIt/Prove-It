@@ -1,0 +1,2 @@
+\begin{array} {cccc} 
+ \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw \end{array} 

@@ -1,0 +1,1 @@
+\left(m, n\right) \mapsto \left\{\forall_{a, b, c}~\left(\left\{\begin{array}{ccc}\left\{a_{1} \textrm{ if } \bot\right.., \ldots, \left\{a_{m} \textrm{ if } \bot\right.. \\ b \\ \left\{c_{1} \textrm{ if } \bot\right.., \ldots, \left\{c_{m} \textrm{ if } \bot\right..\end{array}\right.. = b\right) \textrm{ if } m \in \mathbb{N} ,  n \in \mathbb{N}\right..

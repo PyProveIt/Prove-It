@@ -1,0 +1,5 @@
+\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{Z} & \gate{H} & \gate{X} & \gate{H} & \gate{Z} 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{Z} & \gate{X} & \gate{Z} 
+} \hspace{2em}\right)

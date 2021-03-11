@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.number_sets.complex_numbers.nonzero_if_in_complex_nonzero theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.number_sets.complex_numbers.nonzero_if_in_complex_nonzero-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">number_sets</a>.<a class="ProveItLink" href="../../theory.html">complex_numbers</a>.<a class="ProveItLink" href="../../theorems.html#nonzero_if_in_complex_nonzero">nonzero_if_in_complex_nonzero</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.number_sets.complex_numbers.nonzero_if_in_complex_nonzero-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> nonzero_if_in_complex_nonzero
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="nonzero_if_in_complex_nonzero">nonzero_if_in_complex_nonzero:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/70d29153e2937a92f9fbfeb5d7c97150611950d50/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIkAAAAUCAMAAACOAu5mAAAAP1BMVEX///8kJCQNDQ0oKCgQEBBR
+UVE2NjaIiIhmZma6urrMzMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAADIhBTQAAAAAXRS
+TlMAQObYZgAAAiVJREFUSMetVou2nCAMpK1teIcA//+tJUF8V2/Xm3PWsyrKZGaSqNS3RswPCwgv
+LqbIx7Kc5/waCIYnpGUHCzJZ/uMYCqVxveBrJCU+LHBmu7ptjZ4fQQYYRxoxvAaS9RMl2z3yJLyU
+zs6GipWcj8M/UmI3J8GJRyrvj4wqE3JE/96u/n8oUVWQmCoMFJatBg5Pr5HALA4CuGhAGN9F2FKC
+VXcksoz0QlmIX06dX0P5XI+hFx+2nLIH5Zc6oSLx6ycfh5dildxtR5J5sdHDvV8Ky08GvKhYn5aW
+QU19E+8oaUh0RyKAkijLB7hpJimQ825wLepO828XUy9R5ipcFKJ1+96zU8dWSSJ3NIculUjrdgdt
+I0DZQk3LFn9+66Qio/D2Gom4Ec5IjvrXuXbSiqQ1vgNeFi6kiJxejp2+7uh+co3EL33A1t098cmP
+qbtl2anzlqWKlfEz2tH7CLQFtrAZxjI22cWoszYtH6YArx2bUAHfB7zvv9vO1h3bntWzOO1hV5Q3
+m3GUMY9XkGijmzrXjiU9GkSop2Fozv2XOcSp56lpL2u7WuQFuDyXMK3JxNF0Lqu4M4wOAEEf5+nF
+VEMCGF232JH46iPZ13ppdwFUTHbV3H3c7dP9SMJzxbCH7W5PjTCKM5uPJ+DDoD/241jFQCwBLURE
+Lf957eNnwz8bdbqfJae+ii4bgm6AkFY5SwnOvvpSeqDkftRA98n3fD3eyyrV+ReA4xtcBTg1kgAA
+AABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/00f195a0a443ad28947f0b45a71a06f9fcd1ff9b0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

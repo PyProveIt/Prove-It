@@ -1,0 +1,3 @@
+\begin{array} {ccc} 
+ \lstick{\lvert 0 \rangle} & \qw & SPACE  \\ 
+  \lstick{\lvert 0 \rangle} & \qw & \rstick{\lvert 0 \rangle} \qw \end{array} 

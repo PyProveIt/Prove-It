@@ -1,0 +1,1 @@
+\left[\forall_{l \in \mathbb{Z}}~\left(\left(l + 1\right) \in \mathbb{C}\right)\right] \Rightarrow \left[\forall_{c_{1} \in \mathbb{C}}~\left(\left(\sum_{l \in \mathbb{Z}}~\left(l + 1\right) \cdot c_{1}\right) = \sum_{l \in \mathbb{Z}}~\left(\left(l + 1\right) \cdot c_{1}\right)\right)\right]

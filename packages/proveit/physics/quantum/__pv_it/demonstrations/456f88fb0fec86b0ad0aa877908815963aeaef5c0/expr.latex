@@ -1,0 +1,5 @@
+\left(\left(\begin{array} {ccccc} 
+ \lstick{\lvert 0 \rangle} & \gate{H} & X & \gate{H} & \rstick{\lvert + \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & H & H & \gate{X} & \rstick{\lvert - \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & H & X & \gate{X} & \rstick{\lvert - \rangle} \qw \end{array} 
+\right)\right)

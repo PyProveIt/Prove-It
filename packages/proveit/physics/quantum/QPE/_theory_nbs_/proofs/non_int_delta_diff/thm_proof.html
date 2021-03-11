@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.physics.quantum.QPE.non_int_delta_diff theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.physics.quantum.QPE.non_int_delta_diff-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">physics</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">quantum</a>.<a class="ProveItLink" href="../../theory.html">QPE</a>.<a class="ProveItLink" href="../../theorems.html#non_int_delta_diff">non_int_delta_diff</a> theorem<a class="anchor-link" href="#Proof-of-proveit.physics.quantum.QPE.non_int_delta_diff-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> non_int_delta_diff
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="non_int_delta_diff">non_int_delta_diff:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/e673ddbc83ea725b4c6c72cbdfc1b2b2e2b717940/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX0AAAAyCAMAAACH3vtuAAAAS1BMVEX///8/Pz9vb28YGBgrKysP
+Dw8WFhYoKCgUFBQNDQ0QEBCIiIhmZma6urrMzMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIA
+AAALBQTQAAAAAXRSTlMAQObYZgAABb1JREFUeNrtXIuWpCgMdfY9gEB4yf9/6QpaJS8RsaZ3q+yc
+nj6dakPDJSQ3gDMMNxM91tRTItlXmn0E+LqmnpRx+kqz9xfMampLA9zSTTN9OJp7wq9QTW1DzoYa
+9K0d0DcEX6KxorYJgctNdJu9twCpqW2C8OXl02/21nHHyoraJiIM+054XxDht4s9nNTUnrDv51D0
+eYK4F/gmHrDpGj+DgzntdIXPd32oqX1h38+i7PMFeSfwqR0ranMj2YKRFnfRnj6zdxWCamprsVWw
+mvpqp+lWJRdiNbWVs7IhCxi4L4HiO+Vdak1FbZXZSucktKupTrP3lMTVOj3PjhIfrapthk8txs+u
+c1FNHbGiTUyFFKok4Dsk66BH8++32G8+eiUgqKhGjWBpb9Pall1/8+2RI4umCfEJmchMq2cS/mQC
+Ki2pqA6n/tGb8sSRjdJiIO6R2dMhNhMPXcAnuz6N6XWiavPCtguBZ4lXs6OHR2ne7OHy2yL4RFFW
+VdTxEvtLFpJza+D8rz+3oE4cxoINlKRmRksngn900k2iQxospkujtzF7oYBntCGdUJDuKzWz4OTD
+tzyrhFNibK8M38YnLj6ayLSUNTjlNd6MeTeAl1Re7KWZ+4Wt6XhTK1LpDBfYK3wqQpp5JHGSCyS4
+r9xsJM+pkizrBC1kJE3gEcmSZ1EJL1rP54etURynpCBzxR32j2ONC35MYvRDVSK6y1sa0Y/iFhQZ
+5OzjTJTM3DdsVmKa1sMFPPXcCpuWxZTm+fxpSkg1qLa0xnQ+vCHrsGd1Zn5U5VVk4lah6k9q6RN9
+OQXynBKbSdjPsHSjyBn+8XOKttFmFx9Tp1jMnHfzhx8uPVCaED8fqrATx8Wy1ao5MfvosyJCfa3F
+vYBo4WyO4v8idysj3zuvoO8LIHpluz1Cf2HuKYN8Un0tEzMxPesyMAthUkLKYRf90e0RjaVSOkAf
+WtFvaG0ffTAhp3A0zrkrUu2RZ7EwV0gPj4xRYZdho/ooMwPB1ljqqcAYsFI17fFn+cgVZBHViX5L
+a/vob9xlWdjL8Qc3edYVe6pHH67UW3HWJTiGcFmWa1YLjxVWM/WIzBStq+QQfY6d2WCu+35La7vo
++w4zT5l/zv/MGkE4zhkn3VO1Q+tUoT8lGTrZreRq5ZEZ1ZfMQG72KJUxePcLA6Te4SluRgmOszjF
+lqgO9A9bk0iU0cfPn1detPh+6fR13FU1xqeOuGVKDJNaVzL4PYpzI4IJzc6BLArvED3MzPowuF5T
+7n3J/UwfD4/wEP+kqfeWuazvU79pQd8cj52GxWCAPuCNTgdRPD+zVfFH6vyp7hwTAbxLK57ORuqi
+v/0Azvl0NImJGaI0Yis7vu9C7HjEj5t9v6G1Xd/3HXaT/c/f62TvcJ7LR1v+3reeJ00QPhFa32Vr
+Kl0zMzu4DzStx306KaVANqMf+YpwhiKwbmltN+4vHQ4rNRdECnw/jQ727HUaXxAOyOWZSVV38Ias
+qG3a+HM7oX5Bgqqij9Jqo4r+7CuW4SBPivXbidZ20V87HG5fYa1LyCZxgJ+9UbAUpsyllXRDVKcf
+4KaFpfc2VvEa9/c5z7G88rhgn3Guvz/eIyO2pjbwHB/N2JxWKKpXcq1DZ/bkuP+v6Dd0Mrk71nmV
+jM9mmA0y8lrUN9QGszjfnZFX3lbZ3+dZoGw4GKJxlKW25zBpdDRlrqai7oi+W2lNZgL/54ftNNk0
+6bt/+orbVNwZUYaTyu37NtUvD/zOpjjv0LdFBPxG4M9RY6yoTd5aXnSd12HvdYv28ssTyu+HiDyC
+dOVvfK8b5FdZD/WpFouDfNKZhj5fkK6pR+yD67mMYzyvWL/fHGoc8YW35qblPDFDf+pjYNPNXhzK
+h/wKBBSSX2j21iIQrag98v229BmX4zW1pwgnX2n29iUXq6nnaRR8pdn7C8M19WwB9/0/xJz1/rGm
+novefTcdA7N/AUhrY3DRgvkWAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/bc4c1e9388fae039aba447586ac1ed1d6c9f84770/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

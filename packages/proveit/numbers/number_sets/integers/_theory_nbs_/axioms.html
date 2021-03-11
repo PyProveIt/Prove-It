@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Axioms for the theory of proveit.numbers.number_sets.integers</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../index.html"><img src="../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Axioms-for-the-theory-of-proveit.numbers.number_sets.integers">Axioms for the theory of <a class="ProveItLink" href="theory.html">proveit.numbers.number_sets.integers</a><a class="anchor-link" href="#Axioms-for-the-theory-of-proveit.numbers.number_sets.integers">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="c1"># Prepare this notebook for defining the axioms of a theory:</span>
+<span class="o">%</span><span class="k">axioms_notebook</span> # Keep this at the top following &#39;import proveit&#39;.
+<span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">And</span><span class="p">,</span> <span class="n">Equals</span><span class="p">,</span> <span class="n">Forall</span><span class="p">,</span> <span class="n">Iff</span><span class="p">,</span> <span class="n">Implies</span><span class="p">,</span> <span class="n">InSet</span><span class="p">,</span> <span class="n">SetEquiv</span><span class="p">,</span> <span class="n">SetOfAll</span><span class="p">,</span> <span class="n">SubsetProper</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">Complex</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">Natural</span><span class="p">,</span> <span class="n">NaturalPos</span><span class="p">,</span> <span class="n">Neg</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">Add</span><span class="p">,</span> <span class="n">greater</span><span class="p">,</span> <span class="n">Less</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">,</span> <span class="n">number_ordering</span>
+<span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">num</span>
+<span class="kn">from</span> <span class="nn">proveit</span> <span class="k">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">S</span>
+<span class="o">%</span><span class="k">begin</span> axioms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Defining axioms for theory &#39;proveit.numbers.number_sets.integers&#39;
+Subsequent end-of-cell assignments will define axioms
+%end_axioms will finalize the definitions
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Define the set of naturals, $\mathbb{N}$, as, essentially, the minimal set that contains zero and all of its successors:</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#naturals_def = Forall(n, Equals(InSet(n, Natural), Forall(S, Implies(And(InSet(zero, S), Forall(x, InSet(Add(x,one), S), domain=S)), InSet(n, S)))))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>that is, $n \in \mathbb{N}$ iff n is in all sets that contain zero and all successors.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Define the integers, $\mathbb{Z}$ as the union of the naturals and the negated positive naturals (i.e., the positive and negative forms of all natural numbers where zero is its own negative):</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">integers_def</span> <span class="o">=</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Union</span><span class="p">(</span><span class="n">Natural</span><span class="p">,</span> <span class="n">SetOfAll</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Neg</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">domain</span><span class="o">=</span><span class="n">NaturalPos</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="integers_def">integers_def:</strong> <a class="ProveItLink" href="../__pv_it/axioms/11eec51c5a67463a39b0d2ab0b6716dd6fc9626e0/axiom_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL8AAAAaBAMAAAAUFZBoAAAAMFBMVEX///9UVFTc3Nzu7u6qqqp2
+dnbMzMxmZmZERESIiIiYmJgyMjIQEBAiIiK6uroAAABqpg13AAAAAXRSTlMAQObYZgAAAtBJREFU
+SMe1lk2I00AUgF9+Jk3bbSgIi6wIXQ/irREPKj20CLoIgpUKgqhE6cHDlg3o0q2iBFaw4iU3WfDQ
+g1ZXRANFUHbRKipF0C0ingQrqHhQFHoTEd8k9ic/E7DFgUwy85L3zfubCQCjSR0Yu0XDhMfH1w9K
+MkTYCJ6OnfFaWlHZSg6zRREzcFq451/mc7aWBMKVd79WXq7WvKK0KjyqNoCsvXIb8MOv5WxIEHS8
+LmpgyT7RIQC5hnHI0oHtBIF2pO3XcpQN4HE9kTyQ3DGf6CkA9zZqwgQdWLSLjwCANwhQYVrSfegu
+Ar6ok5CgI1trYhTAgt0vyr5EiDURsDmZUccEXLWVmbf8SYRe4VJ7pWQIQDmwaamC9yMhgO906TsE
+wx6QFbvZ7pINCiCdZQ+AswYfE/kSZFMAd0MAcxp2k1zKJ4gnKQDWcSU3YJ82eKeYsCCN47jOBqRx
+w1H0TwEVotuArbDqApx8TfPVsVRTsx1n9RsDipI4N3wF0w/dUfBa4ACk/Kzbgq9DFsB+gA1/rfUH
+cWDBQYJdcxAD+3XZcRFck/t1kLFjYLhL+KfgjUFpvhN93AfMpYBPTuOw6VkAVcThaskWOjpPuxlf
+mj4DsUuGs0jYXa6JRgFO9QGYRbK6CMKU4d1EkBjP9TaaDKKUhhfA/wZi1Yfr4OaubSAuRyBPyufK
+p+nMbfTq5VZ1reVNBKUL0vtWzzH8/T3F9aqvDtrAT+UcwI36ko7pgk9i8YSZ71uwwMwv9yYqXak4
+qcyq5Dsv4ImzW4laoT4APGAC5oOnSTMQwO9sQxe2OwBC9B5A6DIBs4wDjXEecKbShFK1WjVFja+1
+e4AY+8zkcsHzASca9eaEFslrnGMBfMbCk5x61ZgAwQqeF4PP5DQkPmqEqot1IJbvCa+HbFMz//T/
+8AGieMBfwKdvDwF6juGNkE/EEf6LohgD136hwv9vfwAWGK90UNmFmAAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Defining properties of individual natural numbers:</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#add_by_zero = Forall(x, Equals(Add(x, zero), x), domain=Complex)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Defining-properties-of-an-Interval-(a-set-of-contiguous-integers):">Defining properties of an Interval (a set of contiguous integers):<a class="anchor-link" href="#Defining-properties-of-an-Interval-(a-set-of-contiguous-integers):">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">integer_interval_is_subset_of_integers</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span>
+    <span class="n">SubsetProper</span><span class="p">(</span><span class="n">Interval</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">Integer</span><span class="p">),</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="integer_interval_is_subset_of_integers">integer_interval_is_subset_of_integers:</strong> <a class="ProveItLink" href="../__pv_it/axioms/39ede5a5c8f71faf5c710b998985fe8a2ffefaf30/axiom_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAAAWBAMAAABgYF47AAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAAuZJREFU
+SMe1VUto1FAUPZP5ZTLJdBZKx5WjQlcugm4EbW1xIYhC3fhZSMNgK4KFKkhRXBS7MK0gA0ItSiG2
+INJFOyoiBcHREdSpi4CgRVBHqgi1VC0K2ip4X36TNk0cFN/iJffd5J137zn3PqC2ITUGOKObNPzT
+GAKE2cAvIqt9HMk8UGEvr4J+F3oohM9+3uv1bG7yYB7/Mlf/VsdRYJLZM0EIKTqH2OXrnmbTo+Wr
+XG8rKjwwBgySmegJQniGQITFFRHCRYiFh/RjFikiSSwEIZwKRIgsuBGkc93d3a0MQcNAVKYUpyGV
+R0cvBQEkugIRTI+FkJjNVz39PFPYO+C7qp4JQuBke5+LpXVeVaZyGygD900j7gKQsoZ+SkA70OeE
+POdF4HWaYiS5yBp88rrHZ4QfwBvT2OoWmWCw+xrYAaHiLJesZyxT6pWtczGSblBur+rY4kW4p2Ge
+IjE/dueyPWYEdId2AKc7yx+Z/u9u1uN5cdjKSKgZOMDY3q7hhBehCcJPehzJMhoUlwLk3cazjVKs
+x6vrFDCmJkaRxKEhVBHQQjFkIHxbqRwipNeUYtemww/IKBsIico+WhhpeM8azHyDFjEDlotwZSnW
+w46aXKGyfyG84PDgytKkSCdLAzvpve8woZ+MMl1zpzk5ZSrhSqubadKSsEh8T3gQvjJ+bC09qGpc
+GaCiSBtM4xYhh+Uow+ezUmXE+GJYdARvq/UsXihGYOMVe6LRid5qPaSc0uW1fgidlKhtZNQRSaEC
+pxg5Dyv7VVXNoljGZYsyu+KurT+YazbyptgTS+9GvYogdOyyEFouZNS1GTocS75EohnP8y/pUaeF
+CjFj29s6ntTUNcxhd43oY6trOI3Z/jGUb9uDQS2uTUE02krYPLvT+dK1IXibStZWb+5mI/YWosco
+0efJft7x9IMtbj4fdD/YVeEzxpaaJk8c42HZDYQ/3HGr/Dx9nivP5xZF8u/uaWnplhL+x/gNaw6+
+Ws0zaT0AAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note: if b &gt; a, $\{a~\ldotp \ldotp~b\}$ is equivalent to the empty set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">integer_interval_element_bounds</span> <span class="o">=</span> <span class="n">Forall</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span>
+    <span class="n">Forall</span><span class="p">(</span><span class="n">n</span><span class="p">,</span>
+           <span class="n">number_ordering</span><span class="p">(</span><span class="n">LessEq</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">LessEq</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">b</span><span class="p">)),</span>
+           <span class="n">domain</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)),</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<strong id="integer_interval_element_bounds">integer_interval_element_bounds:</strong> <a class="ProveItLink" href="../__pv_it/axioms/530059a110abf943cde24b5036ca86f218c1de280/axiom_expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAAAZBAMAAAARYIzUAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAA6tJREFU
+SMflV0tIVGEU/uZx53HntQoUCswgIwoGW1SUNdK6fCx6UNEg2cpEorLChVmLMSFuBGWGdFUosIVD
+4UKIGhoqsoILUVkQ3U0JBSVRkPag/3Hfd+o6RG064Fz/j+/M/f5zzn/+M4CnhTqP4p9YsLNrHqww
+/pmd+3/kDJbFnuByVPp46SHHm+Q2sXvezOMdpEIlJucBBd56yPEmuS0pOYCaRjeJY8k00aQyOf3k
+M9rtIceb5LbHjhDcq3KHRcNSefJxm8lJykA87yHHm+Q2e3eIrlZcDANrIF+PISYnMTk6et6rlL1J
+7nd12Fbt7s2Y2D2WsQw7WV9yuS7Pk+VJcpmf1APOFhfTjUM4ndFb3d0L1bWwY3hTvY5EP83ktAK9
+Rl98/ws5VhL/skfupkqcm40gREgigpX4wBY5o4rjkR6MSXZM/CETKKEyOZt4UXMr6hdDRfFE2iLH
+RqJ2Rnbrps5txiaIsCEFa/gBWq7DO8MqLjXasdgcUlWIdTA5YfjNKntHxd5YpYSl+LBskWMlXS3W
+ATdLhJE6G7iPpGKjjAN89WxSg+WxDF45sICKsQKEGSYnrlja7iz5m5oYRQy7B63JspASfQNyaTmz
+TjkVED9ry5trtX9uAe0OjLSdhrwuJ6puJdDI0te0Ij4ulYM8SemCVQ4jJeqal9C8QXst9zHLiTib
+ckiyxG+IzejrLa38uQH4LtqxlELjGOTJQu9ekqBDwhw9Dsf86SSPwcVG251FSYl6xSfxC4O+VvMx
+zxJxNuWQUha/IqRO6MD2k+yxkJRK3I6lMuIi6KWM60RWIC3QPhGpSqgjjDgct1+hlDRQg5Qs8uC1
+GT6GUWcM6VcDPbc9eJYtmNc13WD0E+LqEzsWUiKEHChwOaSq4cv7syzhgey2XC5XhcIkBqxyKAkt
+qIdwJJfrwfa04QOzWgJZCHp7orG/XL2jJePoBh2I7ne0RLGWdo1kI5eTIJU5JkVekEdK9uVDzGtc
+wX2rHErCAqwXkNWjo/kYRp3N6KDcEfKKZd7xSXs2o18Oy1OI0/gFAmx79nknOoOD47ij1w7zIdYv
+R08xHnG2nLjHZcq5bZETbLlWh6a80EYS2EfWT/c9nM465QSzWKEgktfkMB9iTZJQyU4WdTblRMwB
+Q5zupGYbMJyYNmBYjefUT2vnN9PgMlI7JfsOrH2njPHLVG+TE5PmP5x6yylzOH3umpUTZczKQ6Wl
+m3fW3xvdS/3Oiq4syd2V/wMxwc7DPwFCvRKLnnUOkAAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Consider this as an alternative??</span>
+<span class="c1"># from proveit import ExprRange</span>
+<span class="c1"># from proveit.logic import Set</span>
+<span class="c1">#Forall((a, b), Equals(Interval(a, b), Set(ExprRange(n, n, a, b))), domain=Integer)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">end</span> axioms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>These axioms may now be imported from the theory package: proveit.numbers.number_sets.integers
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

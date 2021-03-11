@@ -1,0 +1,2 @@
+\begin{array} {ccc} 
+ \lstick{x} & \gate{U} & \rstick{y} \qw \end{array} 

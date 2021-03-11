@@ -1,0 +1,6 @@
+proveit.logic.booleans.disjunction.left_in_bool
+proveit.logic.booleans.implication.denial_via_contradiction
+proveit.logic.booleans.negation.operand_is_bool
+proveit.logic.equality.equality_in_bool
+proveit.numbers.number_sets.natural_numbers.zero_in_nats
+proveit.numbers.ordering.less_eq_def

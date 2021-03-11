@@ -1,0 +1,4 @@
+\begin{array} {cccc} 
+ \control \qw & \qw & \control \qw & \qw  \\ 
+  \targ & \control \qw & \targ & \control \qw  \\ 
+  \qw & \targ & \qw & \targ \end{array} 

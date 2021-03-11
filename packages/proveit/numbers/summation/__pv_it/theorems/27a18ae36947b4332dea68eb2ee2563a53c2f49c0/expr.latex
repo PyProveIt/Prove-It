@@ -1,0 +1,1 @@
+\forall_{m, n \in \mathbb{Z}}~\left(\left[\forall_{k \in \{m~\ldotp \ldotp~n\}}~\left(f(k) = g(k)\right)\right] \Rightarrow \left(\left(\sum_{l=m}^{n} f(l)\right) = \left(\sum_{l=m}^{n} g(l)\right)\right)\right)

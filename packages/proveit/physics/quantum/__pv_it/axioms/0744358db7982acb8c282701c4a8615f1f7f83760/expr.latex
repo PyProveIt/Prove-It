@@ -1,0 +1,4 @@
+\left(n \mapsto \left\{\forall_{U \in SU(2^{n})}~\left[\forall_{x \in \left(\mathbb{C}^{2}\right)^{\otimes n}}~\left[\forall_{\alpha \in \mathbb{C}}~\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{\alpha \thinspace \lvert 1 \rangle} & \qw & \control \qw \qwx[1] & \rstick{\alpha \thinspace \lvert 1 \rangle} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{U \thinspace x} \qw 
+} \hspace{2em}\right]\right] \textrm{ if } n \in \mathbb{N}^+\right..\right)

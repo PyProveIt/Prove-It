@@ -1,0 +1,3 @@
+proveit.core_expr_types.tuples.singular_range_reduction
+proveit.logic.equality.sub_left_side_into
+proveit.numbers.numerals.decimals.posnat1

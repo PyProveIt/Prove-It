@@ -1,0 +1,1 @@
+\left\{\left(\sum_{x=a}^{b} f(x)\right) = \left(\sum_{x=a + c}^{b + c} f(x - c)\right) \textrm{ if } a \in \mathbb{Z} ,  b \in \mathbb{Z} ,  c \in \mathbb{Z}\right..

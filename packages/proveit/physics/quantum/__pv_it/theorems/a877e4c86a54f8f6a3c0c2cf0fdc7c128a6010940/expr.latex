@@ -1,0 +1,4 @@
+\left(\left(\begin{array} {cccc} 
+ \lstick{a} & \qw & \control \qw & \rstick{c} \qw  \\ 
+  \lstick{x} & { /^{n} } \qw & U & \rstick{z} \qw \end{array} 
+\right)\right)

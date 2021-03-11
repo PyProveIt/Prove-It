@@ -1,0 +1,5 @@
+\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{I{\Big \{} \left\{2\right\}} 
+} \hspace{2em} = \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \qw 
+} \hspace{2em}

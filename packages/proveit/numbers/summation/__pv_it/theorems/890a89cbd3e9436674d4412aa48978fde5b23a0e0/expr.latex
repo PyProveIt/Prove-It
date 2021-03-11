@@ -1,0 +1,1 @@
+\left\{\left(\sum_{m=0}^{k} x^{m}\right) = \frac{x^{j} - x^{k + 1}}{1 - x} \textrm{ if } j \in \mathbb{Z} ,  k \in \mathbb{Z} ,  j < k\right..

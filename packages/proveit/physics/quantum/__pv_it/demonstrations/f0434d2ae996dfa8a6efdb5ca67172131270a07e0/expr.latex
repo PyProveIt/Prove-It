@@ -1,0 +1,11 @@
+\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{H} & \control \qw \qwx[1] & \gate{X}   \\ 
+  & \gate{H} & \gate{Z} & \gate{X}   \\ 
+  & \gate{H} & \control \qw \qwx[1] & \gate{X}   \\ 
+  & \gate{H} & \gate{Z} & \gate{X} 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{H} & \gate{Z} \qwx[1] & \gate{X}   \\ 
+  & \gate{H} & \control \qw & \gate{X}   \\ 
+  & \gate{H} & \gate{Z} \qwx[1] & \gate{X}   \\ 
+  & \gate{H} & \control \qw & \gate{X} 
+} \hspace{2em}\right)

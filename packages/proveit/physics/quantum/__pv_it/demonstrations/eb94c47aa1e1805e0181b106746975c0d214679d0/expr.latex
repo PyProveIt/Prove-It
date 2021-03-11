@@ -1,0 +1,5 @@
+\begin{array} {ccc} 
+ \lstick{\lvert 1 \rangle} & \control \qw & \rstick{\lvert 1 \rangle} \qw  \\ 
+  \lstick{\lvert 0 \rangle} & X & \rstick{\lvert 1 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & \control \qw & \rstick{\lvert 1 \rangle} \qw  \\ 
+  \lstick{\lvert 1 \rangle} & X & \rstick{\lvert 0 \rangle} \qw \end{array} 

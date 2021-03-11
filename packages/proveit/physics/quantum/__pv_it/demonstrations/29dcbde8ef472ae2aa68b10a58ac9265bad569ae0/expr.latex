@@ -1,0 +1,5 @@
+\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \control \qw \qwx[1] & \qw & \control \qw \qwx[1] & \qw   \\ 
+  & \targ & \control \qw \qwx[1] & \targ & \control \qw \qwx[1]   \\ 
+  & \qw & \targ & \qw & \targ 
+} \hspace{2em}

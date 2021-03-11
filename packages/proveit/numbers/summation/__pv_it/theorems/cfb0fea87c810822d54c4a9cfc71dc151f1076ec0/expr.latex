@@ -1,0 +1,1 @@
+f \mapsto \left[\forall_{a, b, c \in \mathbb{Z}~|~a \leq b \leq c}~\left(\left(\sum_{x=a}^{c} f(x)\right) = \left(\left(\sum_{x=a}^{b} f(x)\right) + \left(\sum_{x=b + 1}^{c} f(x)\right)\right)\right)\right]

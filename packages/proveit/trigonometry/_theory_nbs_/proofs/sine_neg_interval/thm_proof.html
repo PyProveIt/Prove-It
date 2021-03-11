@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.trigonometry.sine_neg_interval theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../index.html"><img src="../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.trigonometry.sine_neg_interval-theorem">Proof of <a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../theory.html">trigonometry</a>.<a class="ProveItLink" href="../../theorems.html#sine_neg_interval">sine_neg_interval</a> theorem<a class="anchor-link" href="#Proof-of-proveit.trigonometry.sine_neg_interval-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> sine_neg_interval
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="sine_neg_interval">sine_neg_interval:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/329567bbd3efadcc2ec7a8b4a9ac226dfbfeb9120/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAAAWBAMAAADJFJavAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAA2hJREFU
+SMe1Vl1IU2EYftxP2852NqmuimgkVJbRMLoIFFaBdWGkQuJVM0jBIJJutD9Z0c+mFIsuEi/qiKBh
+pQMv+oFgJHZREMOrgopzkUEWUmFhm7ne79v5medsY0K9cM55v/f7ed7vfZ/v/Q6wQnElTaaH8eVt
+y1xD/rnuGL2e0COz1vvSQe9loTfoFlvvxPIhnmCeeZ4dU0AHKasI+RWzzJYO+pm/7Yu6pVHySQVB
+3esU5QtGYhgjRaBt9jO/wyVjigGT6QJ88UKgwy9SyrxyeGR4/KQ+B7zkpSdeMqgjZnKjHL5snt90
+dcnGnYoKqLMV7hSEclIHyfpydPR26dFVhrqO6G4EEOJOt2zLE14V1NcKWxr4SKqXuhcikfPL1o2Z
+oeyaVkGN7dNy/y8cXdO0mUXrcBA7GYowiyKg4wHYfgCTrJsy1AZEaUqNX51iRKyqgltb5jrnbyc+
+Ad1+12+ynGpv3wiFlYVB7yZgJ9APzEQ52M/55JRURzuMOUu4W7FHbZ0D9krw4ypwEfhDlh5giWcN
+RUEDnPGPGKE7KSewEA+q0Qfcn6yFPWGkThApDKuttWRYqAQDvQGQ71iEPc1PzhyJSqQx1pibMYU3
+xHL1jYYkHRTdFDFf7BuQsMpYTcYbsB7emA4qvM4EGGiEgwppWBkn+dkrSiR3Wgd1yc1UuWT8pECz
+jWnj72QyGfIgFCN/LEk9vAMQ53NA5+HjdCgrCuoMc/UAq2AUXkSPE42/0imWc84Eye6moVH6hCSc
+BqVVI9I+4KQOSnvfwnus/mKg2eKgEQkThFwWFDsFXmwOqsMFVFrZl3a6Gja1Zk1yIkUZogJa7Tqj
+BcEMaiHQcZn3DlLYaph3jDUsOr6YM2nvjkQuoY72HyHpBcK3lJzOwy4ri1B86qffBZszJ5ozbY+/
+UwCGKpTKO3xZMoFajy3VwnGWtAeb6GxihhUHxhqRxvpwE+AhbNEvsXCdxl5ba8EyqEv9NXMZ5PJU
+ix5L54ja8kpXgCnkmmBNNhInJUuAEiomChd88y1mBNVOoVrwlTq3iwY6WQl1aNeUQyK9MY4qyqNV
+Wye6clBBo5h6teXKVsqpxXDjZJtewyW+IlARuR478yUobP7DAJ4V+10xiqWnwO+KyBZ7m6/nUB4v
+hQD+r7jzbN8i/VOIv6109DVCmHd0AAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/41ed7afa3806f8e6e408d3dc22475e3758c0a6950/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

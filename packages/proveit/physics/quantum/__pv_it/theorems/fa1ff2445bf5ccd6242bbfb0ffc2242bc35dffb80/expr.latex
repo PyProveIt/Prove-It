@@ -1,0 +1,3 @@
+\begin{array} {cccc} 
+ \lstick{a} & \qw & \control \qw & \rstick{c} \qw  \\ 
+  \lstick{x} & { /^{n} } \qw & U & \rstick{y} \qw \end{array} 

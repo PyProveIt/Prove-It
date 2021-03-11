@@ -1,0 +1,8 @@
+\forall_{n, k \in \mathbb{N}^+}~\left[\forall_{U \in SU(2^{n})}~\left[\forall_{u \in SU(2)}~\left[\forall_{a, b \in \mathbb{C}^{2}}~\left[\forall_{c \in \left(\mathbb{C}^{2}\right)^{\otimes k}}~\left[\forall_{d \in \left(\mathbb{C}^{2}\right)^{\otimes \left(k + 1\right)}}~\left[\forall_{x, y \in \left(\mathbb{C}^{2}\right)^{\otimes n}}~\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a} & \gate{u} & \control \qw \qwx[1] & \rstick{b} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em} \Rightarrow \left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{c} & { /^{k} } \qw & \qw & \qw \qwx[1]   \\ 
+  & \lstick{a} & \gate{u} & \control \qw \qwx[1] & \qw & { /^{k + 1} } \qw & \rstick{d} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em} \Rightarrow \left(d = \left(c {\otimes} b\right)\right)\right)\right)\right]\right]\right]\right]\right]\right]

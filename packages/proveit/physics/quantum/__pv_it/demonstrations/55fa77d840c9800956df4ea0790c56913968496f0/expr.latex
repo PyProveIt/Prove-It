@@ -1,0 +1,3 @@
+\begin{array} {ccc} 
+ \lstick{\lvert \psi \rangle} & Z & \rstick{\lvert \psi \rangle} \qw  \\ 
+  \lstick{\lvert \psi \rangle} & \control \qw & \rstick{\lvert \psi \rangle} \qw \end{array} 

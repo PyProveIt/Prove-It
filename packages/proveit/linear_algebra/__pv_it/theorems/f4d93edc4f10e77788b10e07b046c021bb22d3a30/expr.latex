@@ -1,0 +1,1 @@
+\left(\left(c, d\right) \mapsto \left\{\left(\sum_{j=c}^{d} \left(a {\otimes} b_{j}\right)\right) = \left(a {\otimes} \left(\sum_{j=c}^{d} b_{j}\right)\right) \textrm{ if } c \in \mathbb{Z} ,  d \in \mathbb{Z}\right..\right)

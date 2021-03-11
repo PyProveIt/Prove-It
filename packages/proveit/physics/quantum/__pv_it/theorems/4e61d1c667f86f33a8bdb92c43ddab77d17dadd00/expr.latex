@@ -1,0 +1,3 @@
+\begin{array} {ccc} 
+ \gate{F_{1}{\Big \{} \left\{m + 1, m + k + 2\right\}} & \cdots & \gate{F_{n}{\Big \{} \left\{m + 1, m + k + 2\right\}}  \\ 
+  \gate{G_{1}{\Big \{} \left\{m + 1, m + k + 2\right\}} & \cdots & \gate{G_{n}{\Big \{} \left\{m + 1, m + k + 2\right\}} \end{array} 

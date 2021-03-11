@@ -1,0 +1,7 @@
+\forall_{U \in SU(2^{n})}~\left[\forall_{a, b, c \in \mathbb{C}^{2}}~\left[\forall_{x, y, z \in \left(\mathbb{C}^{2}\right)^{\otimes n}}~\left(\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a} & \qw & \control \qw \qwx[1] & \rstick{b} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{y} \qw 
+} \hspace{2em} = \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \lstick{a} & \qw & \control \qw \qwx[1] & \rstick{c} \qw   \\ 
+  & \lstick{x} & { /^{n} } \qw & \gate{U} & \rstick{z} \qw 
+} \hspace{2em}\right) \Leftrightarrow \left(\left(b {\otimes} y\right) = \left(c {\otimes} z\right)\right)\right)\right]\right]

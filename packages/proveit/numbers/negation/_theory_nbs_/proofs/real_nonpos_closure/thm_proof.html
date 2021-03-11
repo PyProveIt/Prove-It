@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.negation.real_nonpos_closure theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.negation.real_nonpos_closure-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">negation</a>.<a class="ProveItLink" href="../../theorems.html#real_nonpos_closure">real_nonpos_closure</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.negation.real_nonpos_closure-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> real_nonpos_closure
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="real_nonpos_closure">real_nonpos_closure:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/069aaee4ab87d1c6b8d9a8a407db685816ed9ab40/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAAAcBAMAAAAuORZjAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAAAyxJREFU
+SMe9Vl1IU2EYfna2ebazs+lFEAjBworwIoYmKJQsArspWhTlReCwHwIpDLVd2MUuoubEGF2Ydy2E
+Cqk2KgojaJgXoSsWRJhYLKMgw/AmKIPo/c7ZDt85Z3I8gn2H7/y838/zfu/z/hxg3ZowkcN6Nl8c
+c3hsb80RewjzQC+q04KNNe6oHQT/IiD9hCPrsrEskLbDwiJT6jfEAl6tflUDdW9BLxtfYa6rXzn3
+MsQgRFKtyD4/WCF4l+l2xyCsShnMcz7x99MQmehlWD2FIwghBEyzwQUrCJlm4ptBKBWN1pSi7qEk
+w8gqXFSH4V0CRpiOcSsIB63xh4zSCcO3x5tDfJi97ciqHgX0qzzKWSuIGzRLTBmlN0vPmVisWIZo
+CSiijwXUKXHRTLpNjY1dt2T7DXXzrEBYebTXc6do8ajvTyHk2bE3U/+VSFy0hGilXsfTv6uhtsQQ
+pAXeUNE2/cqDdP5TwIBpywi73Z3TgiFBfYgb35MKEI/+ot6xCMLXY3CdDtpqr9kzgHeMnaSkucFX
+KMRpvrQJThrzdSsbc3RvjH0ncYJasswiGVOEwIfUk+0nKL+gjWQ1dJVaD/UNtPUPpUWcSljBvcTG
+DjFRie7JUNKgbIYg5IKoKfessSDImKLVOFzvrUFfeeSzCqH5cByZSBlihHfane1GXyQIb/Fo+XNm
+fAwEMctO5R7kIS7rDZXJ4TnLFIqhHDyE517QwAVjauAk3Ua3fYGLOQiDoFLiOwssobY88Yye7kwW
+53ypEt3OIAfhjjaZPQoPSRepj7KWEjQE0RiCv0tPN/PuF1wYB/0XZNpcLWv9XALBdFXEFFGoJi2c
+IXc3RhUI5+leoMngtEyXfZxHdW4d3kJbqrvdupTW0mDEc/WPDqJZGUmzHCREcYx8LSjI195WyFHh
+Sgnkdum5/0qsuFLQzmvGTXlm01WqoXzH01I+n5/kJzKTWKfBCk1a1rRMdRyAHFG5mDL/ObhZhAxY
+JfNKJVarrK7OB7uBQRZ6r3OjreapXRVKkidlDSFGDDWXuFhh6v0KhfX9KgrynI2/ltCafqesix3X
+Hq0JwpnG/2j/APZN0Y2edt7bAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/58f49a3116ed034457de259fa26a4e299a803b900/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-03-10 by <a href="https://github.com/PyProveIt/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

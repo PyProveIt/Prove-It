@@ -1,0 +1,9 @@
+\left(\left(\hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \control \qw 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{Z{\Big \{} \left\{1, 2\right\}} 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \control \qw 
+} \hspace{2em}, \hspace{2em} \Qcircuit@C=1em @R=.7em{
+& \gate{Z{\Big \{} \left\{3, 4\right\}} 
+} \hspace{2em}\right)\right)
