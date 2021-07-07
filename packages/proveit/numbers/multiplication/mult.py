@@ -1,13 +1,15 @@
 from proveit import (Literal, Operation, USE_DEFAULTS, ExprTuple,
-                     ProofFailure, InnerExpr)
+                     Judgment, ProofFailure, InnerExpr)
+from proveit import a, b, c, d, e, i, j, k, m, n, w, x, y, z
 from proveit.logic import Equals, InSet
-from proveit.numbers import num
+from proveit.numbers import one, Add, num
 from proveit.numbers.number_sets import (Integer, Natural, NaturalPos, Real,
                                          RealNonNeg, RealPos, Complex)
 import proveit.numbers.numerals.decimals
 from proveit.numbers.numerals.decimals import DIGITS
-from proveit import a, b, c, d, e, i, j, k, m, n, w, x, y, z
-from proveit.abstract_algebra.generic_methods import apply_commutation_thm, apply_association_thm, apply_disassociation_thm, group_commutation, pairwise_evaluation
+from proveit.abstract_algebra.generic_methods import (
+        apply_commutation_thm, apply_association_thm, apply_disassociation_thm,
+        group_commutation, pairwise_evaluation)
 from proveit import TransRelUpdater
 
 
@@ -36,14 +38,18 @@ class Mult(Operation):
                     # provides the evaluation
                     Mult.multiplied_numerals.add(self)
                     proveit.numbers.numerals.decimals.__getattr__(
-                        'mult_%d_%d' % (self.factors[0].as_int(), self.factors[1].as_int()))
+                        'mult_%d_%d' % (
+                                self.factors[0].as_int(),
+                                self.factors[1].as_int()))
                 except BaseException:
-                    # may fail before the relevent _commons_ and _theorems_
-                    # have been generated
+                    # may fail before the relevent _commons_ and
+                    # _theorems_ have been generated
                     pass  # and that's okay
 
     def deduce_in_number_set(self, number_set, assumptions=USE_DEFAULTS):
-        # edited by JML 7/20/19
+        '''
+        Attempt to prove that this product is in the given number_set.
+        '''
         from . import (
             mult_int_closure,
             mult_int_closure_bin,
@@ -105,12 +111,9 @@ class Mult(Operation):
             else:
                 thm = mult_real_non_neg_closure
         else:
-            msg = ("'Mult.deduce_in_number_set()' not implemented for the "
-                   "%s set" % str(number_set))
-            raise ProofFailure(InSet(self, number_set), assumptions, msg)
-        # print("thm", thm)
-        # print("self in deduce in number set", self)
-        # print("self.operands", self.operands)
+            raise NotImplementedError(
+                "'Mult.deduce_in_number_set()' not implemented for the "
+                "%s set" % str(number_set))
         if bin:
             return thm.instantiate({a: self.operands[0], b: self.operands[1]},
                                    assumptions=assumptions)
@@ -153,21 +156,21 @@ class Mult(Operation):
 
     def not_equal(self, rhs, assumptions=USE_DEFAULTS):
         from . import mult_not_eq_zero
+        from proveit.logic import NotEquals
         from proveit.numbers import zero
         if rhs == zero:
             _n = self.operands.num_elements(assumptions)
             _a = self.operands
             return mult_not_eq_zero.instantiate({n: _n, a: _a},
                                                 assumptions=assumptions)
-        raise ProofFailure(Equals(self, zero), assumptions, (
-            "'not_equal' only implemented for a right side of zero"))
+        return NotEquals(self, zero).conclude_as_folded(assumptions)
 
     def do_reduced_simplification(self, assumptions=USE_DEFAULTS, **kwargs):
         '''
-        Derive and return this multiplication expression equated with a simpler form.
-        Deals with disassociating any nested multiplications,simplifying negations, and
-        factors of one, in that order.
-        do_reduced_evaluation deals with factors of 0.
+        Derive and return this multiplication expression equated with
+        a simpler form. Deals with disassociating any nested
+        multiplications,simplifying negations, and factors of one, in
+        that order. do_reduced_evaluation deals with factors of 0.
         '''
 
         expr = self
@@ -213,8 +216,8 @@ class Mult(Operation):
 
         expr = self
 
-        # A convenience to allow successive update to the equation via transitivities.
-        # (starting with self=self).
+        # A convenience to allow successive update to the equation
+        # via transitivities. (starting with self=self).
         eq = TransRelUpdater(self, assumptions)
 
         # Work in reverse order so indices don't need to be updated.
@@ -274,8 +277,8 @@ class Mult(Operation):
 
         expr = self
 
-        # A convenience to allow successive update to the equation via transitivities.
-        # (starting with self=self).
+        # A convenience to allow successive updates to the equation
+        # via transitivities. (starting with self=self).
         eq = TransRelUpdater(self, assumptions)
 
         # Work in reverse order so indices don't need to be updated.
@@ -301,7 +304,7 @@ class Mult(Operation):
 
         if self.operands[idx] != one:
             raise ValueError(
-                "Operand at the index %d expected to be zero for %s" %
+                "Operand at the index %d expected to be 1 for %s" %
                 (idx, str(self)))
 
         if self.operands.is_double():
@@ -340,14 +343,14 @@ class Mult(Operation):
     def cancelations(self, assumptions=USE_DEFAULTS):
         '''
         Deduce and return an equality between self and a form in which
-        all simple division cancellations are performed across the
+        all simple division cancelations are performed across the
         factors of this multiplication.
         '''
         from proveit.numbers import Div
         expr = self
 
-        # A convenience to allow successive update to the equation via transitivities.
-        # (starting with self=self).
+        # A convenience to allow successive updates to the equation
+        # via transitivities. (starting with self=self).
         eq = TransRelUpdater(self, assumptions)
 
         # Eliminate any ones "deeply".  Ones can be eliminated without
@@ -368,7 +371,7 @@ class Mult(Operation):
                     else:
                         denom_factors.append(factor.denominator)
             elif isinstance(factor, Mult):
-                numer_factors.extend(factor.factors)
+                numer_factors.extend(factor.factors.entries)
             else:
                 numer_factors.append(factor)
         denom_factors_set = set(denom_factors)
@@ -426,7 +429,7 @@ class Mult(Operation):
             set(denom_occurrence_indices))
         if len(intersection_indices) > 0:
             idx = sorted(intersection_indices)[0]
-            eq.update(expr.inner_expr().factors[idx].cancellation(
+            eq.update(expr.inner_expr().factors[idx].cancelation(
                 term_to_cancel, assumptions=assumptions))
             return eq.relation
 
@@ -438,7 +441,7 @@ class Mult(Operation):
 
             # First, let's eliminate any ones from the canceling
             # parts (and division by one).  We'll also do this
-            # for the instantiated theorm to ensure there is a match.
+            # for the instantiated theorem to ensure there is a match.
             numer_idx = numer_occurrence_indices[0]
             denom_idx = denom_occurrence_indices[0]
 
@@ -551,6 +554,7 @@ class Mult(Operation):
                 cancelation = mult_frac_cancel_denom_left.instantiate(
                     {a: _a, b: _b, c: _c, d: _d, e: _e},
                     assumptions=assumptions)
+
             # Eliminate ones in the cancelation; it should now
             # match with the expression where we have already
             # eliminated ones.
@@ -576,7 +580,7 @@ class Mult(Operation):
             expr = eq.update(expr.inner_expr().association(
                 left_idx, 2, assumptions=assumptions))
             expr = eq.update(
-                expr.inner_expr().factors[left_idx].cancellation(
+                expr.inner_expr().factors[left_idx].cancelation(
                     term_to_cancel, assumptions=assumptions))
             if isinstance(expr.factors[left_idx], Mult):
                 expr = eq.update(
@@ -596,11 +600,24 @@ class Mult(Operation):
                 denom_idx, numer_idx, assumptions=assumptions))
         expr = eq.update(expr.inner_expr().cancelation(
             term_to_cancel, assumptions=assumptions))
-        if expr.factors.num_entries() < self.factors.num_entries():
-            # It must have been a complete cancelation, so no
-            # reason to move anything back.
+
+        # Recursive cancelation process might return a 1, in which case
+        # the eq.relation will look like |- old = 1*(something),
+        # so check and simplify once more
+        if isinstance(expr, Mult):
+            if expr.factors[0] == one:
+                expr = eq.update(expr.inner_expr().deep_one_eliminations(
+                        assumptions=assumptions))
+
+        if ((not isinstance(expr, Mult)) or
+                expr.factors.num_entries() < self.factors.num_entries()):
+            # It must have been a complete cancelation, producing a
+            # single non-Mult element or a Mult with fewer factors,
+            # so no reason to move anything back.
             return eq.relation
-        # We should put things back where they were to play nice.
+
+        # If not already finished and returned, we should put things
+        # back where they were to play nice.
         expr = eq.update(
             expr.inner_expr().commutation(
                 numer_idx, denom_idx, assumptions=assumptions))
@@ -608,15 +625,17 @@ class Mult(Operation):
 
     def do_reduced_evaluation(self, assumptions=USE_DEFAULTS, **kwargs):
         '''
-        Derive and return this multiplication expression equated with an irreducible value.
-        Handle the trivial case of a zero factor or do pairwise evaluation
-        after simplifying negations and eliminating one factors.
+        Derive and return this multiplication expression equated with
+        an irreducible value. Handle the trivial case of a zero factor
+        or do pairwise evaluation after simplifying negations and
+        eliminating one factors.
         '''
         from . import mult_zero_left, mult_zero_right, mult_zero_any
         from proveit.logic import is_irreducible_value, EvaluationError
         from proveit.numbers import zero
 
-        # First check for any zero factors -- quickest way to do an evaluation.
+        # First check for any zero factors -- quickest way to do
+        # an evaluation.
         try:
             zero_idx = self.operands.index(zero)
             if self.operands.is_double():
@@ -633,12 +652,13 @@ class Mult(Operation):
             return mult_zero_any.instantiate({i: _i, j: _j, a: _a, b: _b},
                                              assumptions=assumptions)
         except (ValueError, ProofFailure):
-            pass  # No such "luck" regarding a simple multiplication by zero.
+            # No such "luck" regarding a simple multiplication by zero.
+            pass
 
         expr = self
 
-        # A convenience to allow successive update to the equation via transitivities.
-        # (starting with self=self).
+        # A convenience to allow successive updates to the equation
+        # via transitivities. (starting with self=self).
         eq = TransRelUpdater(self, assumptions)
 
         # Simplify negations -- factor them out.
@@ -657,7 +677,7 @@ class Mult(Operation):
         if is_irreducible_value(expr):
             return eq.relation  # done
 
-        if self.operands.num_entries() > 2:
+        if isinstance(expr, Mult) and expr.operands.num_entries() > 2:
             eq.update(pairwise_evaluation(expr, assumptions))
             return eq.relation
 
@@ -674,8 +694,8 @@ class Mult(Operation):
             reps = self.operands[0].as_int()
         else:
             raise ValueError(
-                "Cannot 'expand_as_addition' unless the first operand is a literal integer: %s" %
-                str(self))
+                "Cannot 'expand_as_addition' unless the first operand "
+                "is a literal integer: %s" % str(self))
 
         expr = self
         # for convenience updating our equation
@@ -693,15 +713,15 @@ class Mult(Operation):
 
     def index(self, the_factor, also_return_num=False):
         '''
-        Return the starting index of the_factor, which may be a single 
-        operand, a list of consecutive operands, or a Mult expression 
+        Return the starting index of the_factor, which may be a single
+        operand, a list of consecutive operands, or a Mult expression
         that represents the product of the list of consecutive operands.
-        If also_return_num is True, return a tuple of the index and 
+        If also_return_num is True, return a tuple of the index and
         number of operands for the_factor.
         '''
         if isinstance(the_factor, Mult):
             the_factor = the_factor.operands.entries
-        if (hasattr(the_factor, '__getitem__') and 
+        if (hasattr(the_factor, '__getitem__') and
                 hasattr(the_factor, '__len__')):
             # multiple operands in the_factor
             first_factor = the_factor[0]
@@ -710,7 +730,8 @@ class Mult(Operation):
             try:
                 while True:
                     idx = self.operands.index(first_factor, start=idx + 1)
-                    if self.operands[idx:idx + num].entries == tuple(the_factor):
+                    if self.operands[idx:idx + num].entries == (
+                            tuple(the_factor)):
                         break  # found it all!
             except ValueError:
                 raise ValueError("Factor is absent!")
@@ -729,10 +750,13 @@ class Mult(Operation):
             direction='left',
             assumptions=USE_DEFAULTS):
         '''
-        Pull a subset of consecutive operands, self.operands[start_idx:end_idx],
-        to one side or another. Returns the equality that equates self to
-        this new version.  Give any assumptions necessary to prove that the
-        operands are in the Complex numbers so that the commutation theorem is applicable.
+        Pull a subset of consecutive operands,
+        self.operands[start_idx:end_idx],
+        to one side or another.
+        Returns the equality that equates self to this new version.
+        Give any assumptions necessary to prove that the operands
+        are in the Complex numbers so that the commutation theorem
+        is applicable.
         '''
         if direction == "left":  # pull the factor(s) to the left
             if start_idx == 0 or start_idx is None:
@@ -748,7 +772,8 @@ class Mult(Operation):
                 start_idx, end_idx, end_idx, None, assumptions=assumptions)
         else:
             raise ValueError(
-                "Invalid pull direction!  (Acceptable values are \"left\" and \"right\".)")
+                "Invalid pull direction! "
+                "(Acceptable values are \"left\" and \"right\".)")
 
     def distribution(self, idx=None, assumptions=USE_DEFAULTS):
         r'''
@@ -758,13 +783,15 @@ class Mult(Operation):
             :math:`a (b + c + a) d = a b d + a c d + a a d`
             :math:`a (b - c) d = a b d - a c d`
             :math:`a \left(\sum_x f(x)\right c = \sum_x a f(x) c`
-        Give any assumptions necessary to prove that the operands are in the Complex numbers so that
-        the associative and commutation theorems are applicable.
+        Give any assumptions necessary to prove that the operands are
+        in the Complex numbers so that the associative and commutation
+        theorems are applicable.
         '''
-        from . import distribute_through_sum, distribute_through_subtract  # , distribute_through_summation
-        from proveit.numbers.division import prod_of_fracs  # , frac_in_prod
-        from proveit.numbers import Add, Div, Neg, Sum
-        if (idx is None and self.factors.is_double() and 
+        from . import (distribute_through_sum, distribute_through_subtract,
+                       distribute_through_abs_sum)
+        from proveit.numbers.division import prod_of_fracs
+        from proveit.numbers import Add, Neg, Abs, Div, Sum
+        if (idx is None and self.factors.is_double() and
                 all(isinstance(factor, Div) for factor in self.factors)):
             return prod_of_fracs.instantiate(
                 {
@@ -778,30 +805,53 @@ class Mult(Operation):
         _c = self.operands[idx + 1:]
         _i = _a.num_elements(assumptions)
         _k = _c.num_elements(assumptions)
-        if isinstance(operand, Add):
-            _b = self.operands[idx].operands
-            _j = _b.num_elements(assumptions)
-            return distribute_through_sum.instantiate(
-                {i: _i, j: _j, k: _k, a: _a, b: _b, c: _c},
-                assumptions=assumptions)
-        elif (isinstance(operand, Add) and operand.operands.is_double()
-              and isinstance(operand.operands[0], Neg)):
+        if (isinstance(operand, Add) and operand.operands.is_double()
+                and isinstance(operand.operands[0], Neg)):
             _j = _k
             _x = self.operands[idx].operands[0]
             _y = self.operands[idx].operands[1].operand
             return distribute_through_subtract.instantiate(
                 {i: _i, j: _j, a: _a, x: _x, y: _y, c: _c},
                 assumptions=assumptions)
+        elif isinstance(operand, Add):
+            _b = self.operands[idx].operands
+            _j = _b.num_elements(assumptions)
+            return distribute_through_sum.instantiate(
+                {i: _i, j: _j, k: _k, a: _a, b: _b, c: _c},
+                assumptions=assumptions)
+        elif isinstance(operand, Abs) and isinstance(operand.operand, Add):
+            # For example,
+            # x * |a + b + c| * y * z = |x*a*y*z + x*b*y*z + x*c*y*z|
+            # if x, y, and z are non-negative.
+            _b = self.operands[idx].operand.operands
+            _j = _b.num_elements(assumptions)
+            equiv = distribute_through_abs_sum.instantiate(
+                {i: _i, j: _j, k: _k, a: _a, b: _b, c: _c},
+                assumptions=assumptions)
+            # As a convenient "side-effect" of this derivation,
+            # if we know that the original was positive,
+            # so is the new one.
+            if all(InSet(operand, RealPos).proven(assumptions) for
+                   operand in self.operands):
+                InSet(self, RealPos).prove(assumptions)
+            return equiv
         elif isinstance(operand, Div):
             raise NotImplementedError("Mult.distribution must be updated "
                                       "for Div case.")
             '''
-            eqn = frac_in_prod.instantiate({w_multi:self.operands[:idx], x:self.operands[idx].operands[0], y:self.operands[idx].operands[1], z_multi:self.operands[idx+1:]}, assumptions=assumptions)
+            eqn = frac_in_prod.instantiate(
+                    {w_multi:self.operands[:idx],
+                     x:self.operands[idx].operands[0],
+                     y:self.operands[idx].operands[1],
+                     z_multi:self.operands[idx+1:]}, assumptions=assumptions)
             try:
                 # see if the numerator can simplify (e.g., with a one factor)
-                numer_simplification = eqn.rhs.numerator.simplification(assumptions=assumptions)
+                numer_simplification = eqn.rhs.numerator.simplification(
+                        assumptions=assumptions)
                 dummy_var = eqn.safe_dummy_var()
-                return numer_simplification.sub_right_side_into(Equals(eqn.lhs, frac(dummy_var, eqn.rhs.denominator)), dummy_var)
+                return numer_simplification.sub_right_side_into(
+                        Equals(eqn.lhs, frac(dummy_var, eqn.rhs.denominator)),
+                               dummy_var)
             except:
                 return eqn
             '''
@@ -813,68 +863,97 @@ class Mult(Operation):
             Pop, Pop_sub = Operation(P, operand.indices), operand.summand
             S_sub = operand.domain
             x_dummy, z_dummy = self.safe_dummy_vars(2)
-            spec1 = distribute_through_summation.instantiate({Pop:Pop_sub, S:S_sub, y_multi:y_multi_sub,
-                                                           x_multi:Etcetera(Multi_variable(x_dummy)), z_multi:Etcetera(Multi_variable(z_dummy))}, assumptions=assumptions)
-            return spec1.derive_conclusion().instantiate({Etcetera(Multi_variable(x_dummy)):self.operands[:idx], \
-                                                        Etcetera(Multi_variable(z_dummy)):self.operands[idx+1:]}, assumptions=assumptions)
+            spec1 = distribute_through_summation.instantiate(
+                    {Pop:Pop_sub, S:S_sub, y_multi:y_multi_sub,
+                     x_multi:Etcetera(Multi_variable(x_dummy)),
+                     z_multi:Etcetera(Multi_variable(z_dummy))},
+                     assumptions=assumptions)
+            return spec1.derive_conclusion().instantiate(
+                    {Etcetera(Multi_variable(x_dummy)):self.operands[:idx],
+                     Etcetera(Multi_variable(z_dummy)):self.operands[idx+1:]},
+                     assumptions=assumptions)
             '''
         else:
             raise Exception(
-                "Unsupported operand type to distribute over: " + str(operand.__class__))
+                "Unsupported operand type to distribute over: " +
+                str(operand.__class__))
 
-    def factorization(
-            self,
-            the_factor,
-            pull="left",
-            group_factor=True,
-            group_remainder=False,
-            assumptions=USE_DEFAULTS):
+    def factorization(self, the_factor_or_index, pull="left",
+                      group_factor=True,
+                      group_remainder=False,
+                      assumptions=USE_DEFAULTS):
         '''
-        Factor out "the_factor" from this product, pulling it either to the "left" or "right".
-        If "the_factor" is a product, this may factor out a subset of the operands as
-        long as they are next to each other (use commute to make this happen).  If
-        there are multiple occurrences, the first occurrence is used.  If group_factor is
-        True and the_factor is a product, these operands are grouped together as a sub-product.
-        If group_remainder is True and there are multiple remaining operands (those not in
-        "the_factor"), then these remaining operands are grouped together as a sub-product.
-        Returns the equality that equates self to this new version.
-        Give any assumptions necessary to prove that the operands are in the Complex numbers so that
-        the associative and commutation theorems are applicable.
+        Return the proven factorization (equality with the factored
+        form) from pulling "the_factor" from this product to the "left"
+        or "right".  If there are multiple occurrences, the first
+        occurrence is used.  If group_factor is True and the_factor is
+        a product, these operands are grouped together as a sub-product.
+        If group_remainder is True and there are multiple remaining
+        operands (those not in "the_factor"), then these remaining
         '''
         expr = self
         eq = TransRelUpdater(expr, assumptions)
-        idx, num = self.index(the_factor, also_return_num=True)
+        if the_factor_or_index == self:
+            return eq.relation  # self = self
+        if isinstance(the_factor_or_index, int):
+            idx, num = the_factor_or_index, 1
+        else:
+            the_factor = the_factor_or_index
+            idx, num = self.index(the_factor, also_return_num=True)
         expr = eq.update(self.group_commutation(
             idx, 0 if pull == 'left' else -num, length=num,
             assumptions=assumptions))
         if group_factor and num > 1:
-            if pull == 'left':  # use 0:num type of convention like standard pythong
+            # use 0:num type of convention like standard python
+            if pull == 'left':
                 expr = eq.update(expr.association(0, num,
                                                   assumptions=assumptions))
             elif pull == 'right':
                 expr = eq.update(expr.association(-num, num,
                                                   assumptions=assumptions))
         if group_remainder and self.operands.num_entries() - num > 1:
-            # if the factor has been group, effectively there is just 1 factor
-            # operand now
+            # if the factor has been group, effectively there is just 1
+            # factor operand now
             num_factor_operands = 1 if group_factor else num
+            num_remainder_operands = (
+                    self.operands.num_entries() - num_factor_operands)
             if pull == 'left':
-                expr = eq.update(
-                    expr.association(
-                        num_factor_operands, 
-                        self.operands.num_entries() - num_factor_operands, 
+                expr = eq.update(expr.association(
+                        num_factor_operands, num_remainder_operands,
                         assumptions=assumptions))
             elif pull == 'right':
-                expr = eq.update(expr.association(0, num_factor_operands,
-                                                  assumptions=assumptions))
+                expr = eq.update(expr.association(
+                        0, num_remainder_operands, assumptions=assumptions))
         return eq.relation
 
     def exponent_combination(self, start_idx=None, end_idx=None,
-                             assumptions=USE_DEFAULTS):
+                             simplify_exp=True, simplify_base=True,
+                             reductions=None, assumptions=USE_DEFAULTS):
         '''
-        Equates $a^b a^c$ to $a^{b+c}$, $a^b a^{-c}$ to $a^{b-c}$,
-        $a^b a$ to $a^{b+1}, $a a^b$ to $a^{1+b}, or
-        $a^c b^c$ to $(a b)^c$.
+        Derive and return this Mult expression equated to the
+        expression in which some or all of the exponential factors
+        with common bases have been combined, or all or some of the
+        exponential factors with common exponents have been combined.
+        For example:
+        |- a^b a^c    = a^{b+c},
+        |- a^b a^{-c} = a^{b-c},
+        |- a^b a      = a^{b+1},
+        |- a a^b      = a^{1+b},
+        |- a^c b^c    = (a b)^c.
+        This also should work more generally with more than 2 factors,
+        for example taking a^b a^c a^d to
+        |- (a^b a^c a^d) = a^{b+c+d}.
+        The start_idx and end_idx can be used to apply the process to
+        a contiguous subset of factors within a larger set of factors.
+        Automatically attempts to reduce the resulting new exponent sum
+        or new base product, unless the simplify_exp or simplify_base
+        flags set to False, and will consider user-supplied reductions
+        in doing so.
+        Planned but not implemented: allow user to specify non-
+        contiguous factors to combine. For example, given self as
+        a^b a^c b^a a^d
+        allow user to specify indices 0, 1, 3 to produce something like
+        |- a^{b+c+d} b^a
         '''
         from proveit import ExprRange, free_vars
         from proveit.logic import And
@@ -883,59 +962,199 @@ class Mult(Operation):
             product_of_pos_powers, products_of_pos_powers,
             product_of_real_powers, products_of_real_powers,
             product_of_complex_powers, products_of_complex_powers)
-        # from proveit.numbers.exponentiation import (
-        #        sum_in_exp, diff_in_exp, diff_frac_in_exp)
         from proveit.numbers.exponentiation import (
-            add_one_right_in_exp, add_one_left_in_exp)
+            add_one_right_in_exp, add_one_left_in_exp,
+            add_one_left_in_exp_poss_zero_base)
         from proveit.numbers import Exp
+
+        if reductions is None:
+            reductions = []
+
+        error_msg = ""
+
+        # If the start_idx and/or end_idx has been specified
         if start_idx is not None or end_idx is not None:
-            dummy_var = self.safe_dummy_var()
-            grouped = self.group(start_idx, end_idx, assumptions=assumptions)
+
+            # Compensate for potential missing indices in this block:
+            # omission of either start or end idx defaults to a pair
+            # of contiguous multiplicands
+            if end_idx is None:
+                end_idx = min(start_idx + 1, self.factors.num_entries())
+            elif start_idx is None:
+                start_idx = max(0, end_idx - 1)
+
+            assoc_length = end_idx - start_idx + 1
+
+            # associate the factors intended for combination
+            # warning: 2nd arg of association fxn is length not index
+            grouped = self.association(start_idx, assoc_length,
+                                       assumptions=assumptions)
+            # isolate the targeted factors and combine them as desired
+            # using call to this same method
             inner_combination = (
-                grouped.rhs.factors[start_idx].
-                exponent_combination(assumptions=assumptions))
-            combine_in_group = (
-                inner_combination.
-                substitution(Mult(*(self.factors[:start_idx]
-                                    + (dummy_var,)
-                                    + self.factors[end_idx:])), dummy_var))
-            return grouped.apply_transitivity(combine_in_group)
-        # if all(isinstance(factor, Sqrt) for factor in self.factors):
-        #     # combine the square roots into one square root
-        #     factor_bases = [factor.base for factor in self.factors]
-        #     return prod_of_sqrts.instantiate({x_multi:factor_bases},
-        #                                   assumptions=assumptions)
-        # the following sqrt instantiation modified by wdc on 2/29/2020
-        # based on the above-commented-out code (kept here temporarily
-        # until we're sure this works ok)
+                    grouped.rhs.factors[start_idx].
+                    exponent_combination(reductions=reductions,
+                                         assumptions=assumptions))
+            # substitute the combined factors back into the
+            # grouped expression and return the deduced equality
+            return inner_combination.sub_right_side_into(
+                    grouped, assumptions=assumptions)
+
+        # Else neither the start_idx nor the end_idx has been specified,
+        # indicating we intend to combine all possible factors, either:
+        # (1) all like-bases combined with a single exponent, such as
+        #     a^b a^c a^d = a^{b+c+d},
+        # OR
+        # (2) all like-exponents
+        #     a^z b^z c^z = (abc)^z
+        # for the moment assuming we have all exponential factors of
+        # the form Exp(a, b) instead of something like a^b * a
+        if (all(isinstance(factor, Exp) for factor in self.factors)):
+
+            factor_bases = [factor.base for factor in self.factors]
+            factor_exponents = [factor.exponent for factor in self.factors]
+            from proveit.numbers.exponentiation import (
+                    products_of_complex_powers)
+
+            # (1) all same bases to combine with a single exponent,
+            # such as a^b a^c a^d = a^{b+c+d}
+            if len(set(factor_bases)) == 1:
+                # Create some (possible) reduction formulas for the
+                # combined exponents expression which will then be passed
+                # through to the instantiation as "reductions" for
+                # simpifying the final form of the new exponent(s).
+                # If the (supposed) reduction is trivial (like |– x = x),
+                # the instantiation process itself will ignore or
+                # eventually eliminate it.
+                if (simplify_exp):
+                    new_exp_simplified = (
+                        Add(*factor_exponents).simplification(
+                            shallow=True, assumptions=assumptions))
+                    reductions = [*reductions, new_exp_simplified]
+
+                _m_sub = num(len(factor_exponents))
+                _a_sub = factor_bases[0]
+                _b_sub = factor_exponents
+                try:
+                    return products_of_complex_powers.instantiate(
+                            {m: _m_sub, a: _a_sub, b: _b_sub},
+                            reductions=reductions, assumptions=assumptions)
+                except Exception as the_exception:
+                    # something went wrong
+                    error_msg = (
+                            error_msg +
+                            "All factors appeared to have same base, but "
+                            "attempt failed with error message: \n" +
+                            str(the_exception))
+                    pass
+
+            # (2) all same exponent to combine with a single base,
+            # such as a^d b^d c^d = (a b c)^d.
+            # Less common but sometimes useful.
+            if len(set(factor_exponents)) == 1:
+                # Create some (possible) reduction formulas for the
+                # combined bases expression which will then be passed
+                # through to the instantiation as "reductions" for
+                # simpifying the final form of the new exponent(s).
+                # If the (supposed) reduction produced is trivial
+                # (like |– x = x), the instantiation process itself
+                # will ignore or eventually eliminate it.
+                if (simplify_base):
+                    new_base_simplified = (
+                        Mult(*factor_bases).simplification(
+                            shallow=True, assumptions=assumptions))
+                    reductions = [*reductions, new_base_simplified]
+
+                # Same exponent: equate $a^c b^c = (a b)^c$
+                # Combining the exponents in this case is the reverse
+                # of disibuting an exponent.
+                # will need to add a reductions to the distribution() method!
+                _new_prod = Mult(*factor_bases)
+                _new_exp = Exp(_new_prod, factor_exponents[0])
+                try:
+                    return (_new_exp.distribution(assumptions=assumptions).
+                            derive_reversed(assumptions=assumptions))
+                except Exception as the_exception:
+                    # something went wrong; append to error message
+                    error_msg = (
+                            error_msg +
+                            "All factors appeared to have the same exponent, "
+                            "but attempt failed with error message: \n" +
+                            str(the_exception)) + "\n"
+                    pass
 
         exp_operand_msg = (
             'Combine exponents only implemented for a product '
             'of two exponentiated operands (or a simple variant)')
 
-        if not self.operands.is_double() or not isinstance(
-                self.operands[0], Exp) or not isinstance(
-                self.operands[1], Exp):
-            if self.operands.is_double() and isinstance(
-                    self.operands[0], Exp) and self.operands[0].base == self.operands[1]:
-                # Of the form a^b a
+        # I wonder if we might simply take any non-exp factor a and
+        # convert it to Exp(a, one) (i.e. a^1). This might simplify
+        # the process, making things a bit more mechanical ....
+
+        if (not self.operands.is_double()
+                or not isinstance(self.operands[0], Exp)
+                or not isinstance(self.operands[1], Exp)):
+
+            if (self.operands.is_double()
+                    and isinstance(self.operands[0], Exp)
+                    and self.operands[0].base == self.operands[1]):
+                # self is of the form: (a^b) a
+
+                # Create some (possible) reduction formulas for the
+                # combined exponents expression which will then be
+                # passed through to the instantiation as "reductions"
+                # for simpifying the final form of the new exponent(s).
+                # If the (supposed) reduction produced is trivial,
+                # like |– x = x, the instantiation process itself will
+                # ignore or eventually eliminate it.
+                if (simplify_exp):
+                    new_exp_simplified = (
+                        Add(self.operands[0].exponent, one).simplification(
+                            shallow=True, assumptions=assumptions))
+                    reductions = reductions + [new_exp_simplified]
+
                 return add_one_right_in_exp.instantiate(
-                    {
-                        a: self.operands[1],
-                        b: self.operands[0].exponent},
-                    assumptions=assumptions).derive_reversed(assumptions)
-            elif self.operands.is_double() and isinstance(self.operands[1], Exp) and self.operands[1].base == self.operands[0]:
-                # Of the form a a^b
-                return add_one_left_in_exp.instantiate(
-                    {
-                        a: self.operands[0],
-                        b: self.operands[1].exponent},
-                    assumptions=assumptions).derive_reversed(assumptions)
+                    {a: self.operands[1], b: self.operands[0].exponent},
+                    reductions=reductions, assumptions=assumptions)
+
+            elif (self.operands.is_double() and
+                  isinstance(self.operands[1], Exp) and
+                  self.operands[1].base == self.operands[0]):
+                # self is of the form: a (a^b)
+
+                # Create some (possible) reduction formulas for the
+                # combined exponents expression which will then be
+                # passed through to the instantiation as "reductions"
+                # for simpifying the final form of the new exponent(s).
+                # If the (supposed) reduction produced is trivial,
+                # like |– x = x, the instantiation process itself will
+                # ignore or eventually eliminate it.
+                if (simplify_exp):
+                    new_exp_simplified = (
+                        Add(one, self.operands[1].exponent).simplification(
+                            shallow=True, assumptions=assumptions))
+                    reductions = reductions + [new_exp_simplified]
+
+                try: # case where base a != 0
+                    return add_one_left_in_exp.instantiate(
+                        {a: self.operands[0], b: self.operands[1].exponent},
+                        reductions=reductions, assumptions=assumptions)
+                except Exception as the_exception:
+                    # case where base might be 0 but exponent != 0
+                    return add_one_left_in_exp_poss_zero_base.instantiate(
+                        {a: self.operands[0], b: self.operands[1].exponent},
+                        reductions=reductions, assumptions=assumptions)
+
+
             raise NotImplementedError(
+                "Accumulated error_msg: " + error_msg + "\n"
                 "Need to better implement degenerate cases "
                 "of a^b*a and a*a^b.")
-            #raise ValueError(exp_operand_msg)
+            # raise ValueError(exp_operand_msg)
 
+        # More complex efforts if code above does not catch the
+        # specific instance. The code below remains from earlier.
+        # ============================================================
         # Create a list of bases and ranges of bases,
         # and a list of exponents and ranges of exponents,
         # and determine if all of the represented bases are the same
@@ -1014,7 +1233,7 @@ class Mult(Operation):
             known_exponent_type = possible_exponent_types[0]
 
             if known_exponent_type == NaturalPos:
-                if self.base.operands.is_double():
+                if self.operands.is_double():
                     _m, _n = operand_exponents
                     return product_of_posnat_powers.instantiate(
                         {a: same_base, m: _m, n: _n}, assumptions=assumptions)
@@ -1062,9 +1281,10 @@ class Mult(Operation):
             final_idx=None,
             assumptions=USE_DEFAULTS):
         '''
-        Given numerical operands, deduce that this expression is equal to a form in which the operand
-        at index init_idx has been moved to final_idx.
-        For example, (a + b + ... + y + z) = (a + ... + y + b + z)
+        Given numerical operands, deduce that this expression is
+        equal to a form in which the operand at index init_idx has
+        been moved to final_idx. For example,
+            (a + b + ... + y + z) = (a + ... + y + b + z)
         via init_idx = 1 and final_idx = -2.
         '''
         from . import commutation, leftward_commutation, rightward_commutation
@@ -1085,10 +1305,12 @@ class Mult(Operation):
             disassociate=True,
             assumptions=USE_DEFAULTS):
         '''
-        Given numerical operands, deduce that this expression is equal to a form in which the operands
-        at indices [init_idx, init_idx+length) have been moved to [final_idx. final_idx+length).
-        It will do this by performing association first.  If disassocate is True, it
-        will be disassociated afterwards.
+        Given numerical operands, deduce that this expression is
+        equal to a form in which the operands at indices
+        [init_idx, init_idx+length) have been moved to
+        [final_idx. final_idx+length).
+        It will do this by performing association first.
+        If disassociate is True, it will be disassociated afterwards.
         '''
         return group_commutation(
             self,
@@ -1100,9 +1322,12 @@ class Mult(Operation):
 
     def association(self, start_idx, length, assumptions=USE_DEFAULTS):
         '''
-        Given numerical operands, deduce that this expression is equal to a form in which operands in the
-        range [start_idx, start_idx+length) are grouped together.
-        For example, (a + b + ... + y + z) = (a + b ... + (l + ... + m) + ... + y + z)
+        Given numerical operands, deduce that this expression is equal
+        to a form in which operands in the range
+            [start_idx, start_idx+length)
+        are grouped together. For example,
+            (a + b + ... + y + z) =
+            (a + b ... + (l + ... + m) + ... + y + z)
         '''
         from . import association
         return apply_association_thm(
@@ -1110,15 +1335,131 @@ class Mult(Operation):
 
     def disassociation(self, idx, assumptions=USE_DEFAULTS):
         '''
-        Given numerical operands, deduce that this expression is equal to a form in which the operand
-        at index idx is no longer grouped together.
-        For example, (a + b ... + (l + ... + m) + ... + y+ z) = (a + b + ... + y + z)
+        Given numerical operands, deduce that this expression is
+        equal to a form in which the operand at index idx is no
+        longer grouped together. For example,
+        (a + b ... + (l + ... + m) + ... + y+ z) = (a + b + ... + y + z)
         '''
         from . import disassociation
         return apply_disassociation_thm(self, idx, disassociation, assumptions)
 
+    def deduce_bound(self, factor_relation_or_relations,
+                     assumptions=USE_DEFAULTS):
+        from proveit.numbers import NumberOrderingRelation
+        expr = self
+        eq = TransRelUpdater(expr, assumptions)
+        if (isinstance(factor_relation_or_relations, Judgment) or
+                isinstance(factor_relation_or_relations,
+                           NumberOrderingRelation)):
+            # Just a single relation.
+            factor_relations = [factor_relation_or_relations]
+        else:
+            factor_relations = factor_relation_or_relations
+        for factor_relation in factor_relations:
+            expr = eq.update(expr.deduce_bound_by_factor(
+                    factor_relation, assumptions=assumptions))
+        assert eq.relation.lhs == self
+        return eq.relation
+
+    def deduce_bound_by_factor(self, factor_relation,
+                               assumptions=USE_DEFAULTS):
+        from proveit.numbers import (zero, NumberOrderingRelation,
+                                     Less, greater, greater_eq)
+        if isinstance(factor_relation, Judgment):
+            factor_relation = factor_relation.expr
+        if not isinstance(factor_relation, NumberOrderingRelation):
+            raise TypeError("'factor_relation' expected to be a number "
+                            "relation (<, >, ≤, or ≥)")
+        idx = None
+        for side in factor_relation.operands:
+            try:
+                idx, num = self.index(side, also_return_num=True)
+                break
+            except ValueError:
+                pass
+        if idx is None:
+            raise TypeError("'factor_relation' expected to be a relation "
+                            "for one of the factors; neither factor of %s "
+                            "appears in the %s relation."
+                            % (self, factor_relation))
+        expr = self
+        eq = TransRelUpdater(expr, assumptions)
+        if num > 1:
+            expr = eq.update(expr.association(idx, num,
+                                              assumptions=assumptions))
+        if expr.operands.is_double():
+            # Handle the binary cases.
+            assert 0 <= idx < 2
+            if idx == 0:
+                relation = factor_relation.right_mult_both_sides(
+                        expr.factors[1], assumptions=assumptions)
+            elif idx == 1:
+                relation = factor_relation.left_mult_both_sides(
+                        expr.factors[0], assumptions=assumptions)
+            expr = eq.update(relation)
+        else:
+            thm = None
+            if (isinstance(factor_relation, Less) and
+                    all(greater(factor, zero).proven(assumptions) for
+                        factor in self.factors)):
+                # We can use the strong bound.
+                from . import strong_bound_by_factor
+                thm = strong_bound_by_factor
+            elif all(greater_eq(factor, zero).proven(assumptions) for
+                     factor in self.factors):
+                # We may only use the weak bound.
+                from . import weak_bound_by_factor
+                thm = weak_bound_by_factor
+            if thm is not None:
+                _a = self.factors[:idx]
+                _b = self.factors[idx+1:]
+                _i = _a.num_elements(assumptions)
+                _j = _b.num_elements(assumptions)
+                _x = factor_relation.normal_lhs
+                _y = factor_relation.normal_rhs
+                expr = eq.update(thm.instantiate(
+                        {i: _i, j: _j, a: _a, b: _b, x: _x, y: _y},
+                        assumptions=assumptions))
+            else:
+                # Not so simple.  Let's make it simpler by
+                # factoring it into a binary multiplication.
+                expr = eq.update(expr.factorization(
+                        idx, pull='left', group_factor=True,
+                        group_remainder=True, assumptions=assumptions))
+                expr = eq.update(expr.deduce_bound_by_factor(
+                        factor_relation, assumptions=assumptions))
+                # Put things back as the were before the factorization.
+                if isinstance(expr.factors[1], Mult):
+                    expr = eq.update(expr.disassociation(1, assumptions))
+                if idx != 0:
+                    expr = eq.update(expr.commutation(0, idx, assumptions))
+        if num > 1 and isinstance(expr.factors[idx], Mult):
+            expr = eq.update(expr.disassociation(idx, assumptions))
+        relation = eq.relation
+        if relation.lhs != self:
+            relation = relation.with_direction_reversed()
+        assert relation.lhs == self
+        return relation
+
+    def deduce_positive(self, assumptions=USE_DEFAULTS):
+        # Deduce that this absolute value is greater than zero
+        # given its argument is not equal zero.
+        from proveit.numbers import RealPos, zero, greater
+        InSet(self, RealPos).prove(assumptions)
+        return greater(self, zero).prove(assumptions)
+
 
 # Register these expression equivalence methods:
+InnerExpr.register_equivalence_method(
+    Mult,
+    'one_elimination',
+    'eliminated_one',
+    'eliminate_one')
+InnerExpr.register_equivalence_method(
+    Mult,
+    'one_eliminations',
+    'eliminated_ones',
+    'eliminate_ones')
 InnerExpr.register_equivalence_method(
     Mult,
     'deep_one_eliminations',
@@ -1147,3 +1488,8 @@ InnerExpr.register_equivalence_method(
     'exponent_combination',
     'combined_exponents',
     'combine_exponents')
+InnerExpr.register_equivalence_method(
+    Mult,
+    'cancelation',
+    'canceled',
+    'cancel')

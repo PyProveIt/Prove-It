@@ -26,7 +26,7 @@ class ExprType(type):
     # of the core.
     protected = ('_canonical_version',
                  'replaced', '_replaced', '_replaced_entries', 'relabeled',
-                 '_make', '_checked_make', '_auto_reduced', '_used_vars',
+                 '_make', '_checked_make', '_reduced', '_used_vars',
                  '_possibly_free_var_ranges', '_parameterized_var_ranges',
                  '_repr_html_', '_core_info',
                  '_sub_expressions', '_canonical_expr',
@@ -435,31 +435,44 @@ class Expression(metaclass=ExprType):
         assert made._sub_expressions == sub_expressions, (
             "%s vs %s" % (made._sub_expressions, sub_expressions))
         return made
-
-    def _auto_reduced(self, assumptions, requirements,
-                      equality_repl_requirements):
-        if defaults.auto_reduce and hasattr(self, 'auto_reduction'):
+    
+    def _reduced(self, reduction_map, assumptions, requirements,
+                 equality_repl_requirements):
+        '''
+        Return a possibly reduced version of this expression.  It may
+        be reduced due to a reduction_map replacement or due to an 
+        automatic reduction via the 'auto_reduction' method.
+        '''
+        if reduction_map is not None and self in reduction_map:
+            reduction = reduction_map[self]
+        elif defaults.auto_reduce and hasattr(self, 'auto_reduction'):
+            reduction = self.auto_reduction(assumptions=assumptions)
+        else:
+            return self
+        if reduction is None:
+            return self # no reduction
+        else:
             from proveit import Judgment
             from proveit.logic import Equals
-            reduction = self.auto_reduction(assumptions=assumptions)
-            if reduction is not None:
-                if not isinstance(reduction, Judgment):
-                    raise TypeError("'auto_reduction' must return a "
-                                    "proven equality as a Judgment: "
-                                    "got %s for %s" % (reduction, self))
-                if not isinstance(reduction.expr, Equals):
-                    raise TypeError("'auto_reduction' must return a "
-                                    "proven equality: got %s for %s"
-                                    % (reduction, self))
-                if reduction.expr.lhs != self:
-                    raise TypeError("'auto_reduction' must return a "
-                                    "proven equality with 'self' on the "
-                                    "left side: got %s for %s"
-                                    % (reduction, self))
-                requirements.append(reduction)
-                equality_repl_requirements.add(reduction)
-                return reduction.expr.rhs
-        return self  # No reduction, just return 'self'.
+            if not isinstance(reduction, Judgment):
+                raise TypeError("'auto_reduction' must return a "
+                                "proven equality as a Judgment: "
+                                "got %s for %s" % (reduction, self))
+            if not isinstance(reduction.expr, Equals):
+                raise TypeError("'auto_reduction' must return a "
+                                "proven equality: got %s for %s"
+                                % (reduction, self))
+            if reduction.expr.lhs != self:
+                raise TypeError("'auto_reduction' must return a "
+                                "proven equality with 'self' on the "
+                                "left side: got %s for %s"
+                                % (reduction, self))
+            if not reduction.is_sufficient(assumptions):
+                # The assumptions aren't adequate to use this reduction.
+                return self
+            requirements.append(reduction)
+            equality_repl_requirements.add(reduction)
+            return reduction.expr.rhs
 
     def core_info(self):
         '''
@@ -547,7 +560,8 @@ class Expression(metaclass=ExprType):
         if self != expr_with_different_style:
             raise ValueError(
                 "'with_matching_style' must an expression with "
-                "the same meaning as self.")
+                "the same meaning as self: %s ≠ %s."%
+                (self, expr_with_different_style))
         return self._with_matching_style(expr_with_different_style)
 
     def _with_matching_style(self, expr_with_different_style):
@@ -559,7 +573,13 @@ class Expression(metaclass=ExprType):
         for my_sub_expr, other_sub_expr in zip(
                 self.sub_expr_iter(), expr_with_different_style.sub_expr_iter()):
             my_sub_expr._with_matching_style(other_sub_expr)
-        return self.with_styles(**expr_with_different_style.get_styles())
+        # Note, within lambda maps, "meanings" may diverge.
+        # We only "guarantee" the new styles exist where "meanings"
+        # are the same.
+        styles_must_exist = (self == expr_with_different_style)
+        return self._with_these_styles(
+                expr_with_different_style.get_styles(),
+                styles_must_exist = styles_must_exist)
     
     def with_mimicked_style(self, other_expr):
         '''
@@ -803,7 +823,7 @@ class Expression(metaclass=ExprType):
         '''
         return iter(())
 
-    def replaced(self, repl_map, allow_relabeling=False,
+    def replaced(self, repl_map, allow_relabeling=False, reduction_map=None,
                  assumptions=USE_DEFAULTS, requirements=None,
                  equality_repl_requirements=None):
         '''
@@ -847,15 +867,15 @@ class Expression(metaclass=ExprType):
         if equality_repl_requirements is None:
             # Not passing back the equality replacement requirements.
             equality_repl_requirements = set()
-        return self._replaced(
+        replacement = self._replaced(
             repl_map, allow_relabeling=allow_relabeling,
-            assumptions=assumptions, requirements=requirements,
-            equality_repl_requirements=equality_repl_requirements)\
-            ._auto_reduced(
-            assumptions=assumptions, requirements=requirements,
+            reduction_map=reduction_map, assumptions=assumptions, 
+            requirements=requirements,
             equality_repl_requirements=equality_repl_requirements)
+        return replacement._reduced(reduction_map, assumptions,
+                                    requirements, equality_repl_requirements)
 
-    def _replaced(self, repl_map, allow_relabeling,
+    def _replaced(self, repl_map, allow_relabeling, reduction_map,
                   assumptions, requirements, equality_repl_requirements):
         '''
         Implementation for Expression.replaced except for the
@@ -865,9 +885,9 @@ class Expression(metaclass=ExprType):
             replaced = repl_map[self]
         else:
             subbed_sub_exprs = \
-                tuple(sub_expr.replaced(repl_map, allow_relabeling,
-                                        assumptions, requirements,
-                                        equality_repl_requirements)
+                tuple(sub_expr.replaced(
+                        repl_map, allow_relabeling, reduction_map,
+                        assumptions, requirements, equality_repl_requirements)
                       for sub_expr in self._sub_expressions)
             replaced = self.__class__._checked_make(
                 self._core_info, subbed_sub_exprs)
@@ -1034,7 +1054,7 @@ class Expression(metaclass=ExprType):
    """
 
     def simplification(self, assumptions=USE_DEFAULTS, *, automation=True,
-                       **kwargs):
+                       shallow=False, **kwargs):
         '''
         If possible, return a Judgment of this expression equal to a
         canonically simplified form. Checks for an existing simplifcation.
@@ -1054,13 +1074,16 @@ class Expression(metaclass=ExprType):
 
         method_called = None
         try:
-            # First try the default tricks. If a reduction succesfully occurs,
+            # If shallow = False,
+            # First try the default tricks.
+            # If a reduction succesfully occurs,
             # simplification will be called on that reduction.
+            assert not shallow
             simplification = default_simplification(self.inner_expr(),
                                                     assumptions=assumptions,
                                                     automation=automation)
             method_called = default_simplification
-        except SimplificationError:
+        except (AssertionError, SimplificationError):
             if automation is False:
                 # When automation is False, we raise an exception if there
                 # is not a known simplification.
@@ -1077,7 +1100,7 @@ class Expression(metaclass=ExprType):
                 if simplification is None:
                     raise EvaluationError(self, assumptions)
                 method_called = self.do_reduced_evaluation
-            except (NotImplementedError, EvaluationError):
+            except (NotImplementedError, EvaluationError, ProofFailure):
                 try:
                     simplification = self.do_reduced_simplification(
                         assumptions, **kwargs)
@@ -1108,10 +1131,15 @@ class Expression(metaclass=ExprType):
                 (method_called, simplification, self, assumptions))
             raise ValueError(msg)
 
+        # If this was not a shallow simplification request,
         # Remember this simplification for next time:
-        assumptions_sorted = sorted(assumptions, key=lambda expr: hash(expr))
-        known_simplifications_key = (self, tuple(assumptions_sorted))
-        Equals.known_simplifications[known_simplifications_key] = simplification
+        # assumptions_sorted = sorted(assumptions, key=lambda expr: hash(expr))
+        # known_simplifications_key = (self, tuple(assumptions_sorted))
+        # Equals.known_simplifications[known_simplifications_key] = simplification
+        if not shallow:
+            assumptions_sorted = sorted(assumptions, key=lambda expr: hash(expr))
+            known_simplifications_key = (self, tuple(assumptions_sorted))
+            Equals.known_simplifications[known_simplifications_key] = simplification
 
         return simplification
 

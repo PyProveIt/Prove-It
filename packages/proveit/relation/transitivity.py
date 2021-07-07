@@ -97,7 +97,7 @@ class TransitiveRelation(Relation):
                    " from the proven relation of %s."
                    % (str(self), str(relation)))
             raise TransitivityException(self, assumptions, msg)
-        return proven_relation
+        return proven_relation.with_matching_style(self)
 
     @classmethod
     def _RelationClasses(cls):
@@ -581,8 +581,12 @@ class TransitiveRelation(Relation):
         don't generate new relations through transitivities; assume that
         we already have the necessary direct relationships proven.
         '''
-        items_list = list(
-            items)  # in case the items are a non-indexable iterable
+        from proveit import ExprTuple
+        if isinstance(items, ExprTuple):
+            items_list = items.entries
+        else:
+            # in case the items are a non-indexable iterable
+            items_list = list(items)
         relations = []
         for item1, item2 in zip(items_list[:-1], items_list[1:]):
             relations.append(cls._transitivitySearch(item1, item2,
