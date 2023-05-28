@@ -1,2 +1,2 @@
 This repository has moved to
-https://github.com/sandialabs/ProveIt/
+https://github.com/sandialabs/Prove-It/
