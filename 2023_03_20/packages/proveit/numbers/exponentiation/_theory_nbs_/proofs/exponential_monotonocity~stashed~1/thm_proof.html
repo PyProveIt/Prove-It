@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.exponentiation.exponential_monotonocity theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.exponentiation.exponential_monotonocity-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">exponentiation</a>.<a class="ProveItLink" href="../../theorems.html#exponential_monotonocity">exponential_monotonocity</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.exponentiation.exponential_monotonocity-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> exponential_monotonocity
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="exponential_monotonocity">exponential_monotonocity:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/d2c693d4a6556f5df0150dfc466a8d5c54c99d0f0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANsAAAAbBAMAAAAHRefHAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAyVJREFUSMe9Vl1IFFEUPrM7M/szs+tYSUUhKQqRPUhEhhTog2RQMNFS
+D0G7Qk09GAnbQxHoho+C2kMRYTBQCIHRJGGlsq2EgRC0iQ9BPaygUG/6sCBB0Lkzc2dmZ2d3lV2a
+hzvf/eF8995zzncuQG2/ewn4H5+oGv9oV8klQg3pfph//0DJJcHaHZwbN8FQ/brnAvagBAs1o+Mz
+JtglH/BccCTQDj4ZIEc6P6ulG6agH5Y8/ZbgBoBBrlnSe1It3VsKOiDtNe8nkcTlAQZr4sQ/FGzA
+aa/5uhRpJwBCeKFstkq2QJ6iVtHeesS+tJAKmCEzmDDo5FC1h2MOUXS/3k7FNtlOgvkF7OxGdKy5
++Xi1dFGSB8G1fZJzCy0m22j3A3PoNY68A7he3hhbOQ/IDT5P8Xl7KNZkgvBJuG0SD6EGjEIwV96Y
+UFGFQmiBOwWCdacwcpSiixmYNuEYxicvs6rl8scFVpbPph86aPiSIuzTcNUG+CzBjD6z5j4CtJgw
+jkQRyREpa3awNSoqw0Jvl5uOirDsOp0/oZsrojsBHE2TMSKo4w4t67DQHE4xDCxK7Nz03KyDzhTh
+kXUXXVyCr1B8mdwmiBtUUEn2nX9EPLvQS4602SgbesoQEUS6Bs19OkOEB39h0003GsULjmfhdyRV
+FCrcX4zb73ZkwjDx8+HAFrHfymiGnl7SY5kN9mXcdLoIT74nHlOTNOjbcVaKtDmD6UKTcd19sKxp
+xtAnfWt4O4KGik2EXRw39HRKtyJcSxSFChHhyR6CZuAyDXbMAG71zOjegoprJN7VPXdXzSKYtiWU
+yDX6RcgZerqkKEqWYdhXjrzjqQgHDF3stE13elZ4t/JPUBBP8Yu4lzrwZw09vaOfjgm/cAQgb4lw
+7BZBWx4VoWwNtlTAnxqakmNYAD9DTNdTXtZ9Bz2am04XYaYf0VNbb5Lbes9YchKe/3YOktnAGwlb
+oqfBGzj6cn/XlQ9uOkOEReQb+dJg5dl2aoovVdjPOtqYoqhuZXR2Ijc93yrlPtdbJSzbracQlzG1
+UpnNXcRFR7tTOlGtSCfIO6tqwepfbP8AvESvZ3zEb+EAAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/441f69ffa3fab0057567973915e78e690f0e148c0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-10-10 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>proveit.numbers.ordering.number_ordering_relation &#8212; Prove-It 0.3 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for proveit.numbers.ordering.number_ordering_relation</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">proveit</span> <span class="k">import</span> <span class="n">Judgment</span><span class="p">,</span> <span class="n">UnsatisfiedPrerequisites</span><span class="p">,</span> <span class="n">prover</span><span class="p">,</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Equals</span>
+<span class="kn">from</span> <span class="nn">proveit.relation</span> <span class="k">import</span> <span class="n">TransitiveRelation</span><span class="p">,</span> <span class="n">total_ordering</span>
+
+
+<div class="viewcode-block" id="NumberOrderingRelation"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation">[docs]</a><span class="k">class</span> <span class="nc">NumberOrderingRelation</span><span class="p">(</span><span class="n">TransitiveRelation</span><span class="p">):</span>    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">styles</span><span class="p">):</span>
+        <span class="n">TransitiveRelation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span>
+                                    <span class="n">styles</span><span class="o">=</span><span class="n">styles</span><span class="p">)</span>
+        <span class="c1"># The lower bound side of this inequality.</span>
+        <span class="c1"># (regardless of the &#39;direction&#39; style).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># The upper bound side of this inequality.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    
+<div class="viewcode-block" id="NumberOrderingRelation.side_effects"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation.side_effects">[docs]</a>    <span class="k">def</span> <span class="nf">side_effects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">judgment</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        In addition to the TransitiveRelation side-effects, also</span>
+<span class="sd">        attempt derive_negated, derive_relaxed (if applicable),</span>
+<span class="sd">        and derive_reversed.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">side_effect</span> <span class="ow">in</span> <span class="n">TransitiveRelation</span><span class="o">.</span><span class="n">side_effects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">judgment</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">side_effect</span>
+        <span class="c1"># yield self.derive_negated # Needs to be implemented (again)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;derive_relaxed&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">derive_relaxed</span></div>
+
+    <span class="k">def</span> <span class="nf">_readily_provable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">check_number_sets</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">must_be_direct</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">check_transitive_pair</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.less</span> <span class="k">import</span> <span class="n">Less</span>
+        <span class="kn">from</span> <span class="nn">.less_eq</span> <span class="k">import</span> <span class="n">LessEq</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="p">(</span>
+                <span class="n">zero</span><span class="p">,</span> <span class="n">Add</span><span class="p">,</span> <span class="n">Neg</span><span class="p">,</span> <span class="n">greater</span><span class="p">,</span> <span class="n">greater_eq</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span>
+                <span class="n">NaturalPos</span><span class="p">,</span> <span class="n">IntegerNeg</span><span class="p">,</span> <span class="n">IntegerNonPos</span><span class="p">,</span> 
+                <span class="n">less_numeric_rationals</span><span class="p">,</span> <span class="n">less_eq_numeric_rationals</span><span class="p">,</span>
+                <span class="n">RealPos</span><span class="p">,</span> <span class="n">RealNeg</span><span class="p">,</span> <span class="n">RealNonNeg</span><span class="p">,</span> <span class="n">RealNonPos</span><span class="p">,</span> <span class="n">Complex</span><span class="p">,</span>
+                <span class="n">readily_provable_number_set</span><span class="p">,</span> <span class="n">is_numeric_rational</span><span class="p">,</span> 
+                <span class="n">less_numeric_rationals</span><span class="p">,</span> <span class="n">less_eq_numeric_rationals</span><span class="p">)</span>
+        <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        lower_cf, upper_cf = lower.canonical_form(), upper.canonical_form()</span>
+<span class="sd">        if is_numeric_rational(lower_cf) and (</span>
+<span class="sd">                is_numeric_rational(upper_cf)):</span>
+<span class="sd">            # Numeric rationals can be compared directly.</span>
+<span class="sd">            if isinstance(self, Less):</span>
+<span class="sd">                return less_numeric_rationals(lower_cf, upper_cf)</span>
+<span class="sd">            else:</span>
+<span class="sd">                return less_eq_numeric_rationals(lower_cf, upper_cf)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">Equals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">.</span><span class="n">readily_provable</span><span class="p">()):</span>
+            <span class="c1"># LessEq via Equal.</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">must_be_direct</span><span class="p">:</span>
+            <span class="n">judgment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_similar_but_possibly_stronger_bound</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">judgment</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># There is a similar but possibly stronger bound we can</span>
+                <span class="c1"># derive this one from.</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_number_sets</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">check_transitive_pair</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">TransitiveRelation</span><span class="o">.</span><span class="n">_readily_provable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        
+        <span class="c1"># See if we can determine the validity of the inequality</span>
+        <span class="c1"># based upon provable number sets and how they relate to zero.</span>
+        
+        <span class="c1"># _check_order_against_zero=False to avoid infinite recursion.</span>
+        <span class="n">lower_ns</span> <span class="o">=</span> <span class="n">readily_provable_number_set</span><span class="p">(</span>
+                    <span class="n">lower</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">Complex</span><span class="p">,</span> <span class="n">_check_order_against_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">upper_ns</span> <span class="o">=</span> <span class="n">readily_provable_number_set</span><span class="p">(</span>
+                    <span class="n">upper</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">Complex</span><span class="p">,</span> <span class="n">_check_order_against_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">lower</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">less_eq_numeric_rationals</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">one</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="n">NaturalPos</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">upper_ns</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">upper</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">less_eq_numeric_rationals</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">Neg</span><span class="p">(</span><span class="n">one</span><span class="p">))</span>
+                    <span class="ow">and</span> <span class="n">IntegerNeg</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">lower_ns</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">RealNonPos</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">lower_ns</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">RealNonNeg</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">upper_ns</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">lower</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">less_numeric_rationals</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">one</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="n">NaturalPos</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">upper_ns</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">upper</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">less_numeric_rationals</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">Neg</span><span class="p">(</span><span class="n">one</span><span class="p">))</span>
+                    <span class="ow">and</span> <span class="n">IntegerNeg</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">lower_ns</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">RealNonPos</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">lower_ns</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">RealPos</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">upper_ns</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">RealNeg</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">lower_ns</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">RealNonNeg</span><span class="o">.</span><span class="n">readily_includes</span><span class="p">(</span><span class="n">upper_ns</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        if ((isinstance(self.lower, Add) and </span>
+<span class="sd">                self.upper in self.lower.terms.entries) or</span>
+<span class="sd">             (isinstance(self.upper, Add) and </span>
+<span class="sd">                self.lower in self.upper.terms.entries)):</span>
+<span class="sd">            TODO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_readily_disprovable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">check_number_sets</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">must_be_direct</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">check_transitive_pair</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.less</span> <span class="k">import</span> <span class="n">Less</span>
+        <span class="kn">from</span> <span class="nn">.less_eq</span> <span class="k">import</span> <span class="n">LessEq</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Less</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">LessEq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">)</span><span class="o">.</span><span class="n">readily_provable</span><span class="p">()):</span>
+            <span class="c1"># Not(x &lt; y) via x ≥ y.</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+        
+    <span class="nd">@prover</span>
+    <span class="k">def</span> <span class="nf">conclude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">defaults_config</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Automatically conclude an OrderingRelation if a canonical</span>
+<span class="sd">        version is known that is at least as strong.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">.less</span> <span class="k">import</span> <span class="n">Less</span>
+        <span class="kn">from</span> <span class="nn">.less_eq</span> <span class="k">import</span> <span class="n">LessEq</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">is_numeric_int</span><span class="p">,</span> <span class="n">is_numeric_rational</span>
+        <span class="n">judgment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_similar_but_possibly_stronger_bound</span><span class="p">()</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        lower, upper = self.lower, self.upper</span>
+<span class="sd">        lower_cf, upper_cf = lower.canonical_form(), upper.canonical_form()</span>
+<span class="sd">        if is_numeric_rational(lower_cf) and is_numeric_rational(upper_cf):</span>
+<span class="sd">            if isinstance(self, LessEq) and lower_cf == upper_cf:</span>
+<span class="sd">                return self.conclude_via_equality()</span>
+<span class="sd">            # TODO: MAYBE USE SAME CANONICAL FORMS FOR RATIONAL COMPARISONS</span>
+<span class="sd">        &#39;&#39;&#39;</span> 
+        <span class="k">if</span> <span class="n">judgment</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conclude_from_similar_bound</span><span class="p">(</span><span class="n">judgment</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readily_provable</span><span class="p">(</span><span class="n">check_transitive_pair</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <span class="c1"># Provable via number sets -- so there should be a</span>
+            <span class="c1"># transitive relation.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conclude_via_transitivity</span><span class="p">()</span>
+        <span class="c1"># Explore transitive relations as a last resort.</span>
+        <span class="k">return</span> <span class="n">TransitiveRelation</span><span class="o">.</span><span class="n">conclude</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">known_similar_but_possibly_stronger_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        If there is a similar but possibly stronger known relation</span>
+<span class="sd">        based upon canonical forms, return the known Judgment.</span>
+<span class="sd">        Otherwise, return None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">.less</span> <span class="k">import</span> <span class="n">Less</span>
+        <span class="kn">from</span> <span class="nn">.less_eq</span> <span class="k">import</span> <span class="n">LessEq</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">subtract</span><span class="p">,</span>
+                                     <span class="n">is_numeric_int</span><span class="p">,</span> <span class="n">is_numeric_rational</span><span class="p">,</span>
+                                     <span class="n">less_eq_numeric_rationals</span><span class="p">,</span>
+                                     <span class="n">less_numeric_rationals</span><span class="p">)</span>
+        <span class="n">canonical_form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+        <span class="n">desired_bound</span> <span class="o">=</span> <span class="n">canonical_form</span><span class="o">.</span><span class="n">rhs</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">desired_bound</span><span class="p">):</span>
+            <span class="c1"># If the canonical form doesn&#39;t have a numeric rational on</span>
+            <span class="c1"># the right side, then this is something trivially either</span>
+            <span class="c1"># true or not true.</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">is_weak</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_weak</span><span class="p">:</span>
+            <span class="c1"># x ≤ a, a ≤ b =&gt; x ≤ b</span>
+            <span class="n">comparator</span> <span class="o">=</span> <span class="n">less_eq_numeric_rationals</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># x ≤ a, a &lt; b =&gt; x &lt; b</span>
+            <span class="n">comparator</span> <span class="o">=</span> <span class="n">less_numeric_rationals</span>
+        <span class="k">if</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">canonical_form</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">canonical_form</span><span class="o">.</span><span class="n">rhs</span><span class="p">)):</span>
+            <span class="c1"># If the canonical form simply compares numeric rationals,</span>
+            <span class="c1"># we should be able to readily prove a similar form.</span>
+            <span class="n">rhs</span> <span class="o">=</span> <span class="n">subtract</span><span class="p">(</span><span class="n">canonical_form</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">canonical_form</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+            <span class="n">rhs</span> <span class="o">=</span> <span class="n">rhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">comparator</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">is_numeric_int</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># rescaled version.</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">)</span>
+        <span class="n">known_strong_bounds</span> <span class="o">=</span> <span class="n">Less</span><span class="o">.</span><span class="n">known_canonical_bounds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">canonical_form</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">())</span>
+        <span class="n">known_weak_bounds</span> <span class="o">=</span> <span class="n">LessEq</span><span class="o">.</span><span class="n">known_canonical_bounds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">canonical_form</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">())</span>
+        <span class="c1"># For the case where the known bound is strong, use:</span>
+        <span class="c1"># x &lt; a, a ≤ b =&gt; x &lt; b as well as x ≤ b</span>
+        <span class="k">for</span> <span class="n">judgment</span><span class="p">,</span> <span class="n">strong_bound</span> <span class="ow">in</span> <span class="n">known_strong_bounds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">judgment</span><span class="o">.</span><span class="n">is_applicable</span><span class="p">():</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">strong_bound</span> <span class="o">==</span> <span class="n">desired_bound</span> <span class="ow">or</span> 
+                        <span class="p">(</span><span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">strong_bound</span><span class="p">)</span> <span class="ow">and</span>
+                         <span class="n">less_eq_numeric_rationals</span><span class="p">(</span><span class="n">strong_bound</span><span class="p">,</span> 
+                                                   <span class="n">desired_bound</span><span class="p">))):</span>
+                    <span class="k">return</span> <span class="n">judgment</span>
+        <span class="k">for</span> <span class="n">judgment</span><span class="p">,</span> <span class="n">weak_bound</span> <span class="ow">in</span> <span class="n">known_weak_bounds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">judgment</span><span class="o">.</span><span class="n">is_applicable</span><span class="p">():</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">is_weak</span> <span class="ow">and</span> <span class="n">weak_bound</span> <span class="o">==</span> <span class="n">desired_bound</span><span class="p">)</span> <span class="ow">or</span> 
+                        <span class="p">(</span><span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">weak_bound</span><span class="p">)</span> <span class="ow">and</span> 
+                         <span class="n">comparator</span><span class="p">(</span><span class="n">weak_bound</span><span class="p">,</span> <span class="n">desired_bound</span><span class="p">))):</span>
+                    <span class="k">return</span> <span class="n">judgment</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@prover</span>
+    <span class="k">def</span> <span class="nf">conclude_from_known_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">defaults_config</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Conclude this statement by using a known similar but possibly</span>
+<span class="sd">        stronger bound based upon canonical forms.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">judgment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_similar_but_possibly_stronger_bound</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">judgment</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">UnsatisfiedPrerequisites</span><span class="p">(</span>
+                <span class="s2">&quot;No known bound that is similar to </span><span class="si">%s</span><span class="s2"> and at least &quot;</span>
+                <span class="s2">&quot;as strong&quot;</span><span class="o">%</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conclude_from_similar_bound</span><span class="p">(</span><span class="n">judgment</span><span class="p">)</span>
+
+    <span class="nd">@prover</span>
+    <span class="k">def</span> <span class="nf">conclude_from_similar_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similar_bound</span><span class="p">,</span> 
+                                      <span class="o">**</span><span class="n">defaults_config</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Prove this number ordering relation given a proven (or provable)</span>
+<span class="sd">        bound that is as strong as the desired bound w.r.t. canonical </span>
+<span class="sd">        forms (scaling and rearronging terms).</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Equals</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">Add</span><span class="p">,</span> <span class="n">Neg</span><span class="p">,</span> <span class="n">subtract</span><span class="p">,</span>
+                                     <span class="n">Less</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">,</span> <span class="n">is_numeric_rational</span><span class="p">,</span>
+                                     <span class="n">simplified_numeric_rational</span><span class="p">,</span>
+                                     <span class="n">numeric_rational_ints</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">similar_bound</span><span class="p">,</span> <span class="n">Judgment</span><span class="p">):</span>
+            <span class="n">similar_bound</span> <span class="o">=</span> <span class="n">similar_bound</span><span class="o">.</span><span class="n">expr</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">similar_bound</span><span class="p">,</span> <span class="n">NumberOrderingRelation</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;similar_bound&#39; should be a &quot;</span>
+                            <span class="s2">&quot;NumberOrderingRelation&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Get the canonical forms and make sure they are &#39;similar&#39;</span>
+        <span class="c1"># (the same on the left side).</span>
+        <span class="n">canonical_form</span><span class="p">,</span> <span class="n">inv_scale</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_canonical_form_and_inv_scale_factor</span><span class="p">(</span>
+                        <span class="n">reduce_numeric_rational_form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">other_canonical_form</span><span class="p">,</span> <span class="n">other_inv_scale</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">similar_bound</span><span class="o">.</span><span class="n">_canonical_form_and_inv_scale_factor</span><span class="p">(</span>
+                        <span class="n">reduce_numeric_rational_form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">canonical_form</span><span class="o">.</span><span class="n">normal_lhs</span> <span class="o">!=</span> <span class="n">other_canonical_form</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Attempting to conclude </span><span class="si">%s</span><span class="s2"> from </span><span class="si">%s</span><span class="s2">, but these do not &quot;</span>
+                    <span class="s2">&quot;have the same canonical form lhs: </span><span class="si">%s</span><span class="s2"> vs </span><span class="si">%s</span><span class="s2">&quot;</span>
+                    <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similar_bound</span><span class="p">,</span> <span class="n">canonical_form</span><span class="p">,</span> 
+                      <span class="n">other_canonical_form</span><span class="p">))</span>
+        
+        <span class="c1"># Obtain the difference of the canonical form right sides</span>
+        <span class="c1"># and make sure that similar_bound is stronger than self.</span>
+        <span class="c1"># Note:</span>
+        <span class="c1"># x ≤ a, 0 ≤ b-a =&gt; x ≤ b</span>
+        <span class="c1"># x ≤ a, 0 &lt; b-a =&gt; x &lt; b</span>
+        <span class="n">fails_strength_check</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">other_canonical_form</span><span class="o">.</span><span class="n">rhs</span> <span class="o">==</span> <span class="n">canonical_form</span><span class="o">.</span><span class="n">rhs</span><span class="p">:</span>
+            <span class="n">rhs_diff</span> <span class="o">=</span> <span class="n">zero</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">similar_bound</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Less</span><span class="p">):</span>
+                <span class="n">fails_strength_check</span> <span class="o">=</span> <span class="kc">True</span>                
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rhs_diff</span> <span class="o">=</span> <span class="n">subtract</span><span class="p">(</span><span class="n">canonical_form</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                                <span class="n">other_canonical_form</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span>
+            <span class="n">rhs_diff</span> <span class="o">=</span> <span class="n">rhs_diff</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">rhs_diff</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs_diff</span><span class="p">,</span> <span class="n">Neg</span><span class="p">):</span>
+                <span class="n">fails_strength_check</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">fails_strength_check</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;similar_bound&#39; ` &quot;</span>
+                    <span class="s2">&quot;bound than what we are trying to conclude. &quot;</span>
+                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is weaker than </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">similar_bound</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span>
+        
+        <span class="c1"># Start a sequence of transformation of the similar bound</span>
+        <span class="c1"># to obtain the desired bound.</span>
+        <span class="n">known_bound</span> <span class="o">=</span> <span class="n">similar_bound</span><span class="o">.</span><span class="n">prove</span><span class="p">()</span>        
+        <span class="k">with</span> <span class="n">defaults</span><span class="o">.</span><span class="n">temporary</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp_defaults</span><span class="p">:</span>
+            <span class="c1"># We want full control -- no auto-simplification.</span>
+            <span class="n">tmp_defaults</span><span class="o">.</span><span class="n">auto_simplify</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">tmp_defaults</span><span class="o">.</span><span class="n">replacements</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+            <span class="c1"># Rescale appropriately</span>
+            <span class="c1">#   from &#39;similar_bound&#39;:</span>
+            <span class="n">denom</span><span class="p">,</span> <span class="n">numer</span> <span class="o">=</span> <span class="n">numeric_rational_ints</span><span class="p">(</span><span class="n">other_inv_scale</span><span class="p">)</span>
+            <span class="c1">#   to &#39;self&#39;:</span>
+            <span class="n">numer_factor</span><span class="p">,</span> <span class="n">denom_factor</span> <span class="o">=</span> <span class="n">numeric_rational_ints</span><span class="p">(</span><span class="n">inv_scale</span><span class="p">)</span>
+            <span class="n">numer</span> <span class="o">*=</span> <span class="n">numer_factor</span>
+            <span class="n">denom</span> <span class="o">*=</span> <span class="n">denom_factor</span>
+            <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">simplified_numeric_rational</span><span class="p">(</span><span class="n">numer</span><span class="p">,</span> <span class="n">denom</span><span class="p">)</span>
+            <span class="c1"># Multiply both sides (distribution will be dealt with</span>
+            <span class="c1"># automatically when we equate expression with the </span>
+            <span class="c1"># same canonical forms below).</span>
+            <span class="k">if</span> <span class="n">scale_factor</span> <span class="o">!=</span> <span class="n">one</span><span class="p">:</span>
+                <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">left_mult_both_sides</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">)</span>
+
+            <span class="c1"># Weaken as appropriate.</span>
+            <span class="k">if</span> <span class="n">rhs_diff</span> <span class="o">==</span> <span class="n">zero</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                        <span class="nb">isinstance</span><span class="p">(</span><span class="n">similar_bound</span><span class="p">,</span> <span class="n">Less</span><span class="p">)):</span>
+                    <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">derive_relaxed</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rhs_diff_numer</span><span class="p">,</span> <span class="n">rhs_diff_denom</span> <span class="o">=</span> <span class="n">numeric_rational_ints</span><span class="p">(</span>
+                        <span class="n">rhs_diff</span><span class="p">)</span>
+                <span class="c1"># scale the rhs diff from the canonical scaling to</span>
+                <span class="c1"># the desired scaling.</span>
+                <span class="n">scaled_rhs_diff</span> <span class="o">=</span> <span class="n">simplified_numeric_rational</span><span class="p">(</span>
+                        <span class="n">rhs_diff_numer</span><span class="o">*</span><span class="n">numer_factor</span><span class="p">,</span>
+                        <span class="n">rhs_diff_denom</span><span class="o">*</span><span class="n">denom_factor</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scaled_rhs_diff</span><span class="p">,</span> <span class="n">Neg</span><span class="p">)</span>
+                <span class="n">strong</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Less</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">is_reversed</span><span class="p">():</span>
+                    <span class="c1"># a &gt; x =&gt; a + c &gt; x   with c &gt; 0</span>
+                    <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">add_left</span><span class="p">(</span>
+                        <span class="n">scaled_rhs_diff</span><span class="p">,</span> <span class="n">strong</span><span class="o">=</span><span class="n">strong</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># x &lt; a =&gt; x &lt; a + c   with c &gt; 0</span>
+                    <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">add_right</span><span class="p">(</span>
+                        <span class="n">scaled_rhs_diff</span><span class="p">,</span> <span class="n">strong</span><span class="o">=</span><span class="n">strong</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LessEq</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">known_bound</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">Less</span><span class="p">):</span>
+                <span class="c1"># weaken from &lt; to ≤.</span>
+                <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">derive_relaxed</span><span class="p">()</span>
+            
+            <span class="c1"># See if we need to add something terms to both sides,</span>
+            <span class="c1"># making replacements to the desired form.</span>
+            <span class="n">lhs_diff</span> <span class="o">=</span> <span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">,</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">)</span>
+            <span class="n">lhs_diff</span> <span class="o">=</span> <span class="n">lhs_diff</span><span class="o">.</span><span class="n">simplified</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">lhs_diff</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span> <span class="o">!=</span> <span class="n">zero</span><span class="p">:</span>
+                <span class="c1"># Replacements will be used to get the expression</span>
+                <span class="c1"># in the desired form.</span>
+                <span class="n">replacements</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">replacements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">Equals</span><span class="p">(</span><span class="n">Add</span><span class="p">(</span><span class="n">known_bound</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">,</span> <span class="n">lhs_diff</span><span class="p">),</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">))</span>
+                <span class="n">replacements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">Equals</span><span class="p">(</span><span class="n">Add</span><span class="p">(</span><span class="n">known_bound</span><span class="o">.</span><span class="n">normal_rhs</span><span class="p">,</span> <span class="n">lhs_diff</span><span class="p">),</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">normal_rhs</span><span class="p">))</span>
+                <span class="c1"># Check and prove the replacments.</span>
+                <span class="k">for</span> <span class="n">_k</span><span class="p">,</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">replacements</span><span class="p">):</span>
+                    <span class="k">assert</span> <span class="p">(</span><span class="n">replacement</span><span class="o">.</span><span class="n">normal_lhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span> <span class="o">==</span> 
+                            <span class="n">replacement</span><span class="o">.</span><span class="n">normal_rhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">())</span>
+                    <span class="n">replacements</span><span class="p">[</span><span class="n">_k</span><span class="p">]</span> <span class="o">=</span> <span class="n">replacement</span><span class="o">.</span><span class="n">prove</span><span class="p">()</span>
+                <span class="c1"># Add to both sides.</span>
+                <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">right_add_both_sides</span><span class="p">(</span>
+                        <span class="n">lhs_diff</span><span class="p">,</span> <span class="n">replacements</span><span class="o">=</span><span class="n">replacements</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Both sides should already be equal (with the same</span>
+                <span class="c1"># canonical forms).  Make the substitutions.</span>
+                <span class="k">assert</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_lhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span> <span class="o">==</span> 
+                        <span class="n">known_bound</span><span class="o">.</span><span class="n">normal_lhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">())</span>
+                <span class="k">assert</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_rhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span> <span class="o">==</span> 
+                        <span class="n">known_bound</span><span class="o">.</span><span class="n">normal_rhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">())</span>
+                <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">inner_expr</span><span class="p">()</span><span class="o">.</span><span class="n">normal_lhs</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">)</span>
+                <span class="n">known_bound</span> <span class="o">=</span> <span class="n">known_bound</span><span class="o">.</span><span class="n">inner_expr</span><span class="p">()</span><span class="o">.</span><span class="n">normal_rhs</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">normal_rhs</span><span class="p">)</span>        
+        <span class="k">return</span> <span class="n">known_bound</span> <span class="c1"># Should be done!</span>
+    
+    <span class="k">def</span> <span class="nf">_build_canonical_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a form of this number ordering relation in which,</span>
+<span class="sd">        after putting both sides of the relation in canonical form,</span>
+<span class="sd">        all terms except rational literals are moved to the left side</span>
+<span class="sd">        and the entire relation is deterministically scaled.  All </span>
+<span class="sd">        relations with this same canonical form may be derived from </span>
+<span class="sd">        one to the other.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canonical_form_and_inv_scale_factor</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="k">def</span> <span class="nf">_canonical_form_and_inv_scale_factor</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">reduce_numeric_rational_form</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns the canonical form and the inverse scale factor used in </span>
+<span class="sd">        obtaining the canonical form.  Helper function for</span>
+<span class="sd">        canonical_form.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">Add</span><span class="p">,</span> <span class="n">Neg</span><span class="p">,</span> <span class="n">Mult</span><span class="p">,</span> <span class="n">Div</span><span class="p">,</span> 
+                                     <span class="n">is_numeric_int</span><span class="p">,</span> <span class="n">is_numeric_rational</span><span class="p">)</span>
+        <span class="c1"># Obtain the canonical forms of both sides.</span>
+        <span class="n">canonical_lhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_lhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+        <span class="n">canonical_rhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_rhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+        <span class="c1"># Extract the literal, rational (constant) terms to add to</span>
+        <span class="c1"># both sides to move the constant to the right side.</span>
+        <span class="n">constant_terms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">side</span><span class="p">,</span> <span class="n">sign</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="n">canonical_lhs</span><span class="p">,</span> <span class="n">canonical_rhs</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+            <span class="n">terms</span> <span class="o">=</span> <span class="n">side</span><span class="o">.</span><span class="n">terms</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">Add</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">side</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">terms</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">term</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">sign</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">term</span> <span class="o">!=</span> <span class="n">zero</span><span class="p">:</span>
+                        <span class="n">term</span> <span class="o">=</span> <span class="n">Neg</span><span class="p">(</span><span class="n">term</span><span class="p">)</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+                    <span class="n">constant_terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+        <span class="c1"># lhs: original_lhs - original_rhs + constants</span>
+        <span class="c1"># rhs: constants</span>
+        <span class="n">lhs</span> <span class="o">=</span> <span class="n">Add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_lhs</span><span class="p">,</span> <span class="n">Neg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_rhs</span><span class="p">),</span> <span class="o">*</span><span class="n">constant_terms</span><span class="p">)</span>
+        <span class="n">lhs</span> <span class="o">=</span> <span class="n">lhs</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+        <span class="n">rhs</span> <span class="o">=</span> <span class="n">Add</span><span class="p">(</span><span class="o">*</span><span class="n">constant_terms</span><span class="p">)</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">lhs</span> <span class="o">==</span> <span class="n">zero</span><span class="p">:</span>
+            <span class="c1"># Special case involving only numeric rationals (after</span>
+            <span class="c1"># cancelations, possibly).</span>
+            <span class="k">if</span> <span class="n">rhs</span> <span class="o">==</span> <span class="n">zero</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">Neg</span><span class="p">):</span>
+                <span class="c1"># This is something trivial like 5 &lt;= 5 or</span>
+                <span class="c1"># something untrue like 6 &lt; 5; let&#39;s keep it close </span>
+                <span class="c1"># to the original.</span>
+                <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">canonical_lhs</span><span class="p">,</span> <span class="n">canonical_rhs</span><span class="p">),</span> 
+                        <span class="n">one</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">canonical_rhs</span><span class="p">):</span>
+                <span class="c1"># For example, x &lt; x + 2 converts to 0 &lt; 1 with 2 as</span>
+                <span class="c1"># the inverse scale factor.</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">),</span> <span class="n">rhs</span>                
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">reduce_numeric_rational_form</span><span class="p">:</span>
+                <span class="c1"># Just use the canonical forms of each side with no</span>
+                <span class="c1"># further manipulation.</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">canonical_lhs</span><span class="p">,</span> <span class="n">canonical_rhs</span><span class="p">),</span> <span class="n">one</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">is_numeric_int</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
+                    <span class="c1"># For example, -2 &lt; 5 converts to 0 &lt; 7</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">rhs</span><span class="p">),</span> <span class="n">one</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># For example, 1/4 &lt; 2/3 converts to 0 &lt; 1 with 5/12</span>
+                    <span class="c1"># as the inverse scale factor.</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">),</span> <span class="n">rhs</span>
+        
+        <span class="c1"># Now deterministically scale both sides.</span>
+        <span class="n">inv_scale_factor</span> <span class="o">=</span> <span class="n">one</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">Add</span><span class="p">):</span>
+            <span class="c1"># Choose the first term to normalize according.</span>
+            <span class="n">term</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">lhs</span><span class="o">.</span><span class="n">terms</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">Mult</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="c1"># Term with rational coefficient.</span>
+                <span class="n">inv_scale_factor</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Term with no rational coefficient.</span>
+                <span class="n">inv_scale_factor</span> <span class="o">=</span> <span class="n">one</span> <span class="c1"># No need to rescale</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">Mult</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_numeric_rational</span><span class="p">(</span><span class="n">lhs</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1"># Scale inversely by the one and only coefficient.</span>
+            <span class="n">inv_scale_factor</span> <span class="o">=</span> <span class="n">lhs</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+        <span class="n">inv_scale_factor</span> <span class="o">=</span> <span class="n">inv_scale_factor</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inv_scale_factor</span><span class="p">,</span> <span class="n">Neg</span><span class="p">):</span>
+            <span class="c1"># Only resclae positively</span>
+            <span class="n">inv_scale_factor</span> <span class="o">=</span> <span class="n">inv_scale_factor</span><span class="o">.</span><span class="n">operand</span>
+        <span class="k">if</span> <span class="n">inv_scale_factor</span> <span class="o">!=</span> <span class="n">one</span><span class="p">:</span>
+            <span class="c1"># Rescale</span>
+            <span class="n">lhs</span> <span class="o">=</span> <span class="n">Div</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">inv_scale_factor</span><span class="p">)</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+            <span class="n">rhs</span> <span class="o">=</span> <span class="n">Div</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">inv_scale_factor</span><span class="p">)</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+        
+        <span class="c1"># Return the expression indicating that the</span>
+        <span class="c1"># sum of terms is less than (or equal) to a literal rational.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">),</span> <span class="n">inv_scale_factor</span>
+    
+    <span class="k">def</span> <span class="nf">_deduce_canonically_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Prove that this NumberOrderingRelation is equal to an expression </span>
+<span class="sd">        that has the same canonical form.  Do this through mutual</span>
+<span class="sd">        implication.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Iff</span>
+        <span class="n">mutual_impl</span> <span class="o">=</span> <span class="n">Iff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span><span class="o">.</span><span class="n">conclude_by_definition</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">mutual_impl</span><span class="o">.</span><span class="n">derive_equality</span><span class="p">()</span>
+        
+<div class="viewcode-block" id="NumberOrderingRelation.WeakRelationClass"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation.WeakRelationClass">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">WeakRelationClass</span><span class="p">():</span>
+        <span class="kn">from</span> <span class="nn">.less_eq</span> <span class="k">import</span> <span class="n">LessEq</span>
+        <span class="k">return</span> <span class="n">LessEq</span>  <span class="c1"># &lt;= is weaker than &lt;</span></div>
+
+<div class="viewcode-block" id="NumberOrderingRelation.StrongRelationClass"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation.StrongRelationClass">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">StrongRelationClass</span><span class="p">():</span>
+        <span class="kn">from</span> <span class="nn">.less</span> <span class="k">import</span> <span class="n">Less</span>
+        <span class="k">return</span> <span class="n">Less</span>  <span class="c1"># &lt; is stronger than &lt;=</span></div>
+
+<div class="viewcode-block" id="NumberOrderingRelation.derive_shifted"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation.derive_shifted">[docs]</a>    <span class="k">def</span> <span class="nf">derive_shifted</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">addend</span><span class="p">,</span>
+            <span class="n">addend_side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
+            <span class="n">assumptions</span><span class="o">=</span><span class="nb">frozenset</span><span class="p">()):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s1">&#39;derive_shifted is implemented for each specific LesserRelation&#39;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="NumberOrderingRelation.derive_added"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation.derive_added">[docs]</a>    <span class="k">def</span> <span class="nf">derive_added</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_ordering_relation</span><span class="p">,</span> <span class="n">assumptions</span><span class="o">=</span><span class="nb">frozenset</span><span class="p">()):</span>
+        <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add this ordering relation with another ordering relation.</span>
+<span class="sd">        For example, if self is (a &lt; b) and other_ordering_relation is </span>
+<span class="sd">        (c &lt; d), then this derives and returns (a + c &lt; b + d).</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">LessThan</span><span class="p">,</span> <span class="n">LessThanEquals</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other_ordering_relation</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">NumberOrderingRelation</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Expecting &#39;other_ordering_relation&#39; to be an &quot;</span>
+                <span class="s2">&quot;NumberOrderingRelation&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LessThan</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LessThanEquals</span><span class="p">))</span> <span class="o">!=</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">LessThan</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">LessThanEquals</span><span class="p">)):</span>
+            <span class="c1"># reverse other to be consistent with self (both less than type or</span>
+            <span class="c1"># greater than type)</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">derive_reversed</span><span class="p">()</span>
+        <span class="n">shifted_self</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">derive_shifted</span><span class="p">(</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">assumptions</span><span class="p">)</span>  <span class="c1"># e.g., a + c &lt; b + c</span>
+        <span class="n">shifted_other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">derive_shifted</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">assumptions</span><span class="p">)</span>  <span class="c1"># e.g., b + c &lt; b + d</span>
+        <span class="n">new_rel</span> <span class="o">=</span> <span class="n">shifted_self</span><span class="o">.</span><span class="n">apply_transitivity</span><span class="p">(</span>
+            <span class="n">shifted_other</span><span class="p">)</span>  <span class="c1"># e.g., a + c &lt; b + d</span>
+        <span class="c1"># Match style (e.g., use &#39;&gt;&#39; if &#39;direction&#39; is &#39;reversed&#39;).</span>
+        <span class="k">return</span> <span class="n">new_rel</span><span class="o">.</span><span class="n">with_mimicked_style</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">readily_in_bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        A number ordering relation is a boolean iff the operands </span>
+<span class="sd">        are Real.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">InSet</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">Real</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">InSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">Real</span><span class="p">)</span><span class="o">.</span><span class="n">readily_provable</span><span class="p">()</span> <span class="ow">and</span> 
+                <span class="n">InSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">Real</span><span class="p">)</span><span class="o">.</span><span class="n">readily_provable</span><span class="p">())</span>
+
+<div class="viewcode-block" id="NumberOrderingRelation.square_both_sides"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation.square_both_sides">[docs]</a>    <span class="nd">@prover</span>
+    <span class="k">def</span> <span class="nf">square_both_sides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">defaults_config</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">two</span>
+        <span class="c1"># Match style (e.g., use &#39;&gt;&#39; if &#39;direction&#39; is &#39;reversed&#39;).</span>
+        <span class="n">new_rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exponentiate_both_sides</span><span class="p">(</span><span class="n">two</span><span class="p">)</span>
+        <span class="c1"># Match style (e.g., use &#39;&gt;&#39; if &#39;direction&#39; is &#39;reversed&#39;).</span>
+        <span class="k">return</span> <span class="n">new_rel</span><span class="o">.</span><span class="n">with_mimicked_style</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="NumberOrderingRelation.square_root_both_sides"><a class="viewcode-back" href="../../../../api/proveit.numbers.NumberOrderingRelation.html#proveit.numbers.NumberOrderingRelation.square_root_both_sides">[docs]</a>    <span class="nd">@prover</span>
+    <span class="k">def</span> <span class="nf">square_root_both_sides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">defaults_config</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">frac</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">,</span> <span class="n">Exp</span>
+        <span class="n">new_rel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exponentiate_both_sides</span><span class="p">(</span><span class="n">frac</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">new_rel</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">Exp</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">new_rel</span><span class="o">.</span><span class="n">lhs</span><span class="o">.</span><span class="n">exponent</span> <span class="o">==</span> <span class="n">frac</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">)):</span>
+            <span class="n">new_rel</span> <span class="o">=</span> <span class="n">new_rel</span><span class="o">.</span><span class="n">inner_expr</span><span class="p">()</span><span class="o">.</span><span class="n">lhs</span><span class="o">.</span><span class="n">with_styles</span><span class="p">(</span><span class="n">exponent</span><span class="o">=</span><span class="s1">&#39;radical&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">new_rel</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">Exp</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">new_rel</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">exponent</span> <span class="o">==</span> <span class="n">frac</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">)):</span>
+            <span class="n">new_rel</span> <span class="o">=</span> <span class="n">new_rel</span><span class="o">.</span><span class="n">inner_expr</span><span class="p">()</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">with_styles</span><span class="p">(</span><span class="n">exponent</span><span class="o">=</span><span class="s1">&#39;radical&#39;</span><span class="p">)</span>
+        <span class="c1"># Match style (e.g., use &#39;&gt;&#39; if &#39;direction&#39; is &#39;reversed&#39;).</span>
+        <span class="k">return</span> <span class="n">new_rel</span><span class="o">.</span><span class="n">with_mimicked_style</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+<span class="k">def</span> <span class="nf">_make_term</span><span class="p">(</span><span class="n">rational_coef</span><span class="p">,</span> <span class="n">remainder</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Make an expression that multiplies a rational coefficient and a </span>
+<span class="sd">    remainder.  The coefficient should be in the form of a pair of </span>
+<span class="sd">    integers for the numerator and denominator respectively.</span>
+<span class="sd">    Assume it coefficient is already simplified.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">proveit.numbers</span> <span class="k">import</span> <span class="n">Mult</span><span class="p">,</span> <span class="n">Div</span><span class="p">,</span> <span class="n">num</span>
+    <span class="n">numer</span><span class="p">,</span> <span class="n">denom</span> <span class="o">=</span> <span class="n">rational_coef</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">numer</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">denom</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">numer</span> <span class="o">==</span> <span class="n">denom</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">remainder</span>
+    <span class="k">if</span> <span class="n">denom</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">coef</span> <span class="o">=</span> <span class="n">num</span><span class="p">(</span><span class="n">numer</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">coef</span> <span class="o">=</span> <span class="n">Div</span><span class="p">(</span><span class="n">num</span><span class="p">(</span><span class="n">numer</span><span class="p">),</span> <span class="n">num</span><span class="p">(</span><span class="n">denom</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">remainder</span> <span class="o">==</span> <span class="n">one</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">coef</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">remainder</span><span class="p">,</span> <span class="n">Mult</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Mult</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="o">*</span><span class="n">remainder</span><span class="o">.</span><span class="n">factors</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Mult</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">remainder</span><span class="p">)</span>
+
+<div class="viewcode-block" id="number_ordering"><a class="viewcode-back" href="../../../../api/proveit.numbers.number_ordering.html#proveit.numbers.number_ordering">[docs]</a><span class="k">def</span> <span class="nf">number_ordering</span><span class="p">(</span><span class="o">*</span><span class="n">relations</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Return a conjunction of number ordering relations</span>
+<span class="sd">    with a total-ordering style; for example,</span>
+<span class="sd">    a &lt; b &lt;= c = d &lt; e</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Equals</span>
+    <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">relations</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">relation</span><span class="p">,</span> <span class="n">NumberOrderingRelation</span><span class="p">)</span> <span class="ow">and</span>
+               <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">relation</span><span class="p">,</span> <span class="n">Equals</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;For a set inclusion ordering expression, &quot;</span>
+                            <span class="s2">&quot;all relations must be either &quot;</span>
+                            <span class="s2">&quot;NumberOrderingRelation or Equals objects.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total_ordering</span><span class="p">(</span><span class="o">*</span><span class="n">relations</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">Prove-It</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.as_expression.html">as_expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.as_expressions.html">as_expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.auto_equality_prover.html">auto_equality_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.auto_prover.html">auto_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.auto_relation_prover.html">auto_relation_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.bundle.html">bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.composite_expression.html">composite_expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.equality_prover.html">equality_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.expression_depth.html">expression_depth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.extract_var_tuple_indices.html">extract_var_tuple_indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.free_var_ranges.html">free_var_ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.free_vars.html">free_vars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.generate_inner_expressions.html">generate_inner_expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.horiz_var_array.html">horiz_var_array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.maybe_fenced.html">maybe_fenced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.maybe_fenced_latex.html">maybe_fenced_latex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.maybe_fenced_string.html">maybe_fenced_string</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.prover.html">prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.relation_prover.html">relation_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.reset.html">reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.safe_default_or_dummy_var.html">safe_default_or_dummy_var</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.safe_dummy_var.html">safe_dummy_var</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.safe_dummy_vars.html">safe_dummy_vars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.simplified_index.html">simplified_index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.simplified_indices.html">simplified_indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.single_or_composite_expression.html">single_or_composite_expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.total_ordering.html">total_ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.traverse_inner_expressions.html">traverse_inner_expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.unbundle.html">unbundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.used_literals.html">used_literals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.used_vars.html">used_vars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.var_array.html">var_array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.var_range.html">var_range</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.vert_var_array.html">vert_var_array</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ArgumentExtractionError.html">ArgumentExtractionError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Assumption.html">Assumption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Axiom.html">Axiom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Composite.html">Composite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Composition.html">Composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Conditional.html">Conditional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ConditionalSet.html">ConditionalSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Deduction.html">Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.DuplicateLiteralError.html">DuplicateLiteralError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ExprArray.html">ExprArray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ExprRange.html">ExprRange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ExprTuple.html">ExprTuple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ExprTupleError.html">ExprTupleError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Expression.html">Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Function.html">Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Generalization.html">Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.GeneralizationFailure.html">GeneralizationFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ImproperReplacement.html">ImproperReplacement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.IndexedVar.html">IndexedVar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.InnerExpr.html">InnerExpr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.InnerExprGenerator.html">InnerExprGenerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Instantiation.html">Instantiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.InstantiationFailure.html">InstantiationFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.InvalidAssumptions.html">InvalidAssumptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Judgment.html">Judgment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Label.html">Label</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Lambda.html">Lambda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.LambdaApplicationError.html">LambdaApplicationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Literal.html">Literal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.MakeNotImplemented.html">MakeNotImplemented</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ModusPonens.html">ModusPonens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ModusPonensFailure.html">ModusPonensFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.NamedExprs.html">NamedExprs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Operation.html">Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.OperationError.html">OperationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.OperationOverInstances.html">OperationOverInstances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ParameterCollisionError.html">ParameterCollisionError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ParameterMaskingError.html">ParameterMaskingError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ParameterRelabelingError.html">ParameterRelabelingError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Proof.html">Proof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.ProofFailure.html">ProofFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.RangeInstanceError.html">RangeInstanceError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.SimplificationDirectives.html">SimplificationDirectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.StyleOptions.html">StyleOptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Theorem.html">Theorem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.TheoryException.html">TheoryException</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.TheoryPackage.html">TheoryPackage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.TransRelUpdater.html">TransRelUpdater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.TransitiveRelation.html">TransitiveRelation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.TransitivityException.html">TransitivityException</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.UnsatisfiedPrerequisites.html">UnsatisfiedPrerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.UnusableProof.html">UnusableProof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.Variable.html">Variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.VertExprArray.html">VertExprArray</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.core_expr_types.Len.html">Len</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.compose.html">compose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.conclude_via_implication.html">conclude_via_implication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.deduce_equal_or_not.html">deduce_equal_or_not</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.evaluate_falsehood.html">evaluate_falsehood</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.evaluate_truth.html">evaluate_truth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.evaluation_or_simplification.html">evaluation_or_simplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.in_bool.html">in_bool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.is_irreducible_value.html">is_irreducible_value</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.not_proper_superset.html">not_proper_superset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.not_superset_eq.html">not_superset_eq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.proper_superset.html">proper_superset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.superset_eq.html">superset_eq</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.And.html">And</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Bijections.html">Bijections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.BooleanSet.html">BooleanSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Card.html">Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.CartExp.html">CartExp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.CartProd.html">CartProd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.ClassMembership.html">ClassMembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.ClassNonmembership.html">ClassNonmembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Difference.html">Difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Disjoint.html">Disjoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Distinct.html">Distinct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Equals.html">Equals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.EvaluationError.html">EvaluationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Exists.html">Exists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.FalseLiteral.html">FalseLiteral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Forall.html">Forall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Iff.html">Iff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Image.html">Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Implies.html">Implies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.InClass.html">InClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.InSet.html">InSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Injections.html">Injections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Intersect.html">Intersect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.IntersectAll.html">IntersectAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.InvImage.html">InvImage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.IrreducibleValue.html">IrreducibleValue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Not.html">Not</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.NotEquals.html">NotEquals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.NotExists.html">NotExists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.NotInClass.html">NotInClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.NotInSet.html">NotInSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.NotProperSubset.html">NotProperSubset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.NotSubsetEq.html">NotSubsetEq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Or.html">Or</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.PowerSet.html">PowerSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.ProperSubset.html">ProperSubset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Set.html">Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SetEquiv.html">SetEquiv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SetMembership.html">SetMembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SetNonmembership.html">SetNonmembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SetNotEquiv.html">SetNotEquiv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SetOfAll.html">SetOfAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SimplificationError.html">SimplificationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.StrictSubset.html">StrictSubset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SubsetEq.html">SubsetEq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.SubsetProper.html">SubsetProper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Surjections.html">Surjections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.TrueLiteral.html">TrueLiteral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.Union.html">Union</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.UnionAll.html">UnionAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.logic.UniqueExists.html">UniqueExists</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.complex_polar_coordinates.html">complex_polar_coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.compose_fraction.html">compose_fraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.compose_product.html">compose_product</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.deduce_as_mon_dec_func.html">deduce_as_mon_dec_func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.deduce_in_number_set.html">deduce_in_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.deduce_not_equal_numeric_rationals.html">deduce_not_equal_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.deduce_number_set.html">deduce_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.dist_add.html">dist_add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.dist_subtract.html">dist_subtract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.exp2pi_i.html">exp2pi_i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.frac.html">frac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.greater.html">greater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.greater_eq.html">greater_eq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.is_numeric_int.html">is_numeric_int</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.is_numeric_natural.html">is_numeric_natural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.is_numeric_rational.html">is_numeric_rational</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.less_eq_numeric_ints.html">less_eq_numeric_ints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.less_eq_numeric_rationals.html">less_eq_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.less_numeric_ints.html">less_numeric_ints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.less_numeric_rationals.html">less_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.negated.html">negated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.not_equal_numeric_rationals.html">not_equal_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.num.html">num</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.number_ordering.html">number_ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.numeric_rational_ints.html">numeric_rational_ints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.quick_simplified_index.html">quick_simplified_index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.readily_factorable.html">readily_factorable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.readily_provable_number_set.html">readily_provable_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.remove_common_factors.html">remove_common_factors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.simplified_numeric_rational.html">simplified_numeric_rational</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.sqrd.html">sqrd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.sqrt.html">sqrt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.standard_number_set.html">standard_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.subtract.html">subtract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.union_number_set.html">union_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.unit_length_complex_polar_angle.html">unit_length_complex_polar_angle</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Abs.html">Abs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Add.html">Add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.BinarySequence.html">BinarySequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Ceil.html">Ceil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Conjugate.html">Conjugate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.DecimalSequence.html">DecimalSequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Div.html">Div</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Divides.html">Divides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.DividesProper.html">DividesProper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Exp.html">Exp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Floor.html">Floor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.GCD.html">GCD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Integrate.html">Integrate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Interval.html">Interval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.IntervalCC.html">IntervalCC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.IntervalCO.html">IntervalCO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.IntervalOC.html">IntervalOC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.IntervalOO.html">IntervalOO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.KroneckerDelta.html">KroneckerDelta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Less.html">Less</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.LessEq.html">LessEq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Log.html">Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Max.html">Max</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Min.html">Min</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Mod.html">Mod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.ModAbs.html">ModAbs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.MonDecFuncs.html">MonDecFuncs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Mult.html">Mult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Neg.html">Neg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.NumberOperation.html">NumberOperation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.NumberOrderingRelation.html">NumberOrderingRelation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Numeral.html">Numeral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Prod.html">Prod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.RealInterval.html">RealInterval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Round.html">Round</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/proveit.numbers.Sum.html">Sum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../proveit.html">proveit</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Wayne Witzel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

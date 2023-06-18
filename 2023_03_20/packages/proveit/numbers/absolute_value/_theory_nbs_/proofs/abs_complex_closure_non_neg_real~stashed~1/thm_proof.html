@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.absolute_value.abs_complex_closure_non_neg_real theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.absolute_value.abs_complex_closure_non_neg_real-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">absolute_value</a>.<a class="ProveItLink" href="../../theorems.html#abs_complex_closure_non_neg_real">abs_complex_closure_non_neg_real</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.absolute_value.abs_complex_closure_non_neg_real-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> abs_complex_closure_non_neg_real
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="abs_complex_closure_non_neg_real">abs_complex_closure_non_neg_real:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/7766d7e541c55b09fa681415edf67c262db36e2c0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJsAAAAaBAMAAABSozPCAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAqFJREFUSMellUtoE1EUhv885pFXE62PjQhGF4ILg4jWXbIR0QojFkGQ
+mIqZah8aULAomCnu24AoLqrMQhShaBB8oFJTNAuli+iqCxfpQkF8oIuICgXPzNxJZiaZTooH5ubO
+nZvv3nP+c+8B/s+EYf0nmEl3M/ut54yBMa2dwx1EPOfGyt4r+kap2Y24Iua8ph4FRLOvuE2KDkJs
+IFCjLXoYLRxUWX+/nXFV/rN5lPX7hAb8FfgloK4NfOhME1OuOPBiPfw1r/W4vSrhAgn4iPVMG7nR
+GRdJL4dLI3dZW3O2oDkbr4FrAPqISxDj6vK4pyH67/cCkwKYBkLkcLDWGVeU2nHrkslSE8eD+6JL
+tAr3qX1McawQ0kWJ1WjD3Vtr2d3HLDiJpfEjanvp2ZFM7nTBfWa4ycwEw4nXLM4KY46YPyD2EyDv
+gpMNXLgPZyUDF1JauD3bN0mO4FAYJyHWbVk+sjjBurcM3OEKHrLdhSxS9FcpiIJMdoqNTZEnvNQM
+j7BRVrkzSuwke99m4F4CWxjuXJIsx5zNzzu8OU6gWKK55HPabPAQ8Nq+u13g/jLcEWuiXOIdzk5p
+OVPSztrA3D74SGQcu9g6pwaO+4noD4bzW3GRcUe+FrXIHiS1uK3Cb2PphYXW508Gbgk9pQUD50tY
+cFxuQ7uyuEJKRMpCCjPaULXa+txrODuI9+Uyy7ubLVwZ87xqw73Smh7yOKDS+X1DItUu3LWvRrjs
+mvHFAsNlhyXzRvml8KeXbLjZpiYKX5XO6/lNUnBsNNDhzN4+YRyyTjZtdgJKcUbShRIPKMh0caN0
+MO1GMSz84l0/xCH98r8+UjDzMLUiXLTuKCOybI/ttxXh/Ip3rfCZW13vifOsFbGuqqdZCjwrWRd1
+1lIKSMl/8WimrxcgWasAAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/a2a2ffde758ed509146770dcffbd313f7d8647e20/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-02-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

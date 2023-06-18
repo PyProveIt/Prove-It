@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.physics.quantum.QPE._psi_t_as_tensor_prod theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.physics.quantum.QPE._psi_t_as_tensor_prod-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">physics</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">quantum</a>.<a class="ProveItLink" href="../../theory.html">QPE</a>.<a class="ProveItLink" href="../../theorems.html#_psi_t_as_tensor_prod">_psi_t_as_tensor_prod</a> theorem<a class="anchor-link" href="#Proof-of-proveit.physics.quantum.QPE._psi_t_as_tensor_prod-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> _psi_t_as_tensor_prod
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="_psi_t_as_tensor_prod">_psi_t_as_tensor_prod:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/83ab40882f21b4fe1938f4a37f9e90a01d4a07ca0/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/3608e0ca0020710c94143c752f9c7ba2c8a9e2f60/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-12-16 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

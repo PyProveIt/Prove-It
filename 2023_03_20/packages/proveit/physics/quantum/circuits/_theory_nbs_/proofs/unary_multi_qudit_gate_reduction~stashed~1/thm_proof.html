@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.physics.quantum.circuits.unary_multi_qudit_gate_reduction theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.physics.quantum.circuits.unary_multi_qudit_gate_reduction-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">physics</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">quantum</a>.<a class="ProveItLink" href="../../theory.html">circuits</a>.<a class="ProveItLink" href="../../theorems.html#unary_multi_qudit_gate_reduction">unary_multi_qudit_gate_reduction</a> theorem<a class="anchor-link" href="#Proof-of-proveit.physics.quantum.circuits.unary_multi_qudit_gate_reduction-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> unary_multi_qudit_gate_reduction
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="unary_multi_qudit_gate_reduction">unary_multi_qudit_gate_reduction:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/08dbe886a7e1aacd55df2befe527d2b4e4a374e80/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhEAAAAmBAMAAACIUNQdAAAAMFBMVEX///8QEBCIiIhmZma6urrM
+zMxUVFQiIiJERETc3Nzu7u6qqqp2dnaYmJgyMjIAAAAcRTyBAAAAAXRSTlMAQObYZgAABIxJREFU
+aN7dml9IU1Ecx39uu3P3euc06KE/xOqpp5J8CKI/QlBPpQQGgeigLHrKkCKhQgpkIjHzxQhkVwoM
+pRzIqJdQsIhMamIvUcnQ6kEorazUEjvnnrt27u6he7bdyzZ/sLt7f9vOzv3c7/2d3++3ATCst3wz
+8Jk3BoVtUgBvneXlCvPlXu6Bdpi87lvls9yhOEqeitgk+niHcW00I8E3ji93JBwBS0j01hQ8Cfhs
+CYnTUPgkbioWkBCW8pBESmiaN3u/O2ABidJAPpLQH5qSEJYtIBHuXAMkYNoCEvthLZCYsIDEukxP
+seffXklnzkmEqwiJOD54byDBcqea+INrWuKZrx3gWZ2mErtW8lyPHmdzTqJohJB4gQ9mDSRYbkOq
+Pc83LXkBbbbRkVaLL3Po8SDnJNxxQuIWvmqtBhIsd6o5m/imVYpns4fyTmok59DNKfttIEHJ0JyE
+Y56QKMWziRhIsNypVtzKR8KH30cvuC3kaeAA0oZUZocmkjI0J1GyREh4x/r7u40Rk+U2fGcF37Sq
+0WWXRqj4omkpthPHqg92kEjK0JyE8FtbOxaDwcuMtYPhVo06I5+fb1qvUHXirVKPL6pyJARdyjCu
+6UftIJGUoTkJaUUj0QjQDkJoGup/0iRUN8MoHQzG+KZ1HscU8qVb8NZDPncXGjDKKT4SL79gm4F0
+ZWhOAr5pJA6ChIJntQKuCE2CuMHAgyIR5iMhYcJuOr6QL6qCMB7soR2aSMqQg8QfjUQxONAZPUOi
+VWgSxI3GW9DupuYnsDWgI9EQMS+CcETC6uuiF3B1isLJynNYww2GD2RZd+llyNEO+q6RkGPFaO86
+2tHFCeIGuIPPY2B0HzySFacyWtlcGTElob9AMk7AnhtIuNBOPEHCYk1QMuTQRIKEGD+O9lZSSRA3
+wFgz0kXHbQUe+yvkjO4OeT5lESV3B9oU4xX0cDpx4hMfCUqGHBEzcXdA+ynSaejR1x3YjV7wB3HM
+QBaNdqWQGORbO0pQ2eumq1Y1YooRba2bskETlAzNSYiJtQOG0PLuQFfnjZ7EkLrqu2G3VoRE5ft1
+ehK+Eb7wNQNiI1Brh4zHwMmKB+c0e+0gkZRhGvmEmhY4W+lMoS+ZLbyFnSCpZx+FkVE9iaIAHwm5
+bVfiWM0nXIjxvdVZKAn9QqN9tIEEJUNzEq6FBAkvDpsBEGJ6EtgN0sx4SBEuBYPXEIkeHEOpHq4n
+nmFV3kLfpU12rKJJGZqT8C7T/QmhCepY/QmnAuEaorMouI7ph5DLMiQxSQ9iRwVGydCchHoayU7N
+ofEYi8QRNHIMnuLd1wDvUkqX5QxJeKj4mfuqXO3GmvWsPIsghq6AB8V519UqXaKYSNgzISFRRWx7
+zkmoRQNv9247ihMMa8u+e+fNffduuDP7PuZEpiQyfJs9JNS+dJYkBiNrgcQmC0g44vlIIs3fwBxl
+FpCA9XlIIl0rillBYmoNkCB/AcmWhMefnlTz8J8k4gZLSEgXoNCtL/I/EoPs9IFh3Z2FTuKGGjWD
+ITYJofYEr7ZqChyEpPbPxNpa+AsIGt17nq4v9wAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/f59a1bf51df4b01ec3b4d65553d67577f60973b80/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2021-12-16 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

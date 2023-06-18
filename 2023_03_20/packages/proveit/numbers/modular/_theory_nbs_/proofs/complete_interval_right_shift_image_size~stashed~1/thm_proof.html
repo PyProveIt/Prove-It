@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.modular.complete_interval_right_shift_image_size theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.modular.complete_interval_right_shift_image_size-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">modular</a>.<a class="ProveItLink" href="../../theorems.html#complete_interval_right_shift_image_size">complete_interval_right_shift_image_size</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.modular.complete_interval_right_shift_image_size-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> complete_interval_right_shift_image_size
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="complete_interval_right_shift_image_size">complete_interval_right_shift_image_size:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/9a531f1d7343d227aafb0a2ec85c56ead1b1e4970/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/c7be1dba885a3b17770c9a947433bfd360038e3c0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

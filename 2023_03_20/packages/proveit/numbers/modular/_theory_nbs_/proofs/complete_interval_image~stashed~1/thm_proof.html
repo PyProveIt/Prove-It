@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.modular.complete_interval_image theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.modular.complete_interval_image-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">modular</a>.<a class="ProveItLink" href="../../theorems.html#complete_interval_image">complete_interval_image</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.modular.complete_interval_image-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> complete_interval_image
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="complete_interval_image">complete_interval_image:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/30f4aedded08995834b26c46b3da7e685c1740af0/expr.html"><img src="data:image/png;base64,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
+AABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/25d9775947524d7ee02e4e5999355e4db70837040/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.division.neg_frac_neg_denominator_gen theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.division.neg_frac_neg_denominator_gen-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">division</a>.<a class="ProveItLink" href="../../theorems.html#neg_frac_neg_denominator_gen">neg_frac_neg_denominator_gen</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.division.neg_frac_neg_denominator_gen-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> neg_frac_neg_denominator_gen
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="neg_frac_neg_denominator_gen">neg_frac_neg_denominator_gen:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/31953d5f6b0f78c92cc67b9cdcc0761c33895a980/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/3dce2cb8bd21baf95178e2bea2979f8476bb180b0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

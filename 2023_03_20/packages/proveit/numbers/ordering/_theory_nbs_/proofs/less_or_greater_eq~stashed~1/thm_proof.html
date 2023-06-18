@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.ordering.less_or_greater_eq theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.ordering.less_or_greater_eq-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">ordering</a>.<a class="ProveItLink" href="../../theorems.html#less_or_greater_eq">less_or_greater_eq</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.ordering.less_or_greater_eq-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> less_or_greater_eq
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="less_or_greater_eq">less_or_greater_eq:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/81e5c635f0cab6dfc9972d8195ca833be52c1a5e0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO4AAAAWBAMAAAA1Ab1lAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAA1NJREFUSMe9Vk9IFFEY/1Z39s/M7DZb1CFLVAzBCrZIgk5TlFBg7JoZ
+4UUPWgjFmtUxJywvQWxQEWQgdDKIzP5ZeVg7SCHRoF5EoZXU/tDBi+ShQ983M2925u04eurB782+
+936/98373vd9swAbaBHqNP/ldWZcSxHYWNuJCOhrLouKl8CHTMjTYM7XbEzFbtqHsMNL4EdGvKPf
+D3ztnkUIWR9CNEX9InVdTGCLcx5kxDXyd6uv3VGElPMhyEPUj1F3jglYE44oxWQEmQ/qvnaTiNIi
+5zt9VEddCZ0gywSFtvmYW1lnQMaDRP2vl/aa4Y+4O+UY9VNHby/pTOBoH9yG+03sr6o64GtXoih5
+iUiXnzlqeSZQbZpNj4KAkXkSrLOWMIGQWLzcwHaYGeHJiDcA7b52oznrJYcC81KFMdVUaa2pUyAv
+A3wyBt8BEkwgQbkybG8xuMiREbchki/2bfXDnyweSuiMe9G1mrwSN8Lr1h5rKawPQxyDcsoYYYju
+YoKP8CX1u2C3nSMjQqnggNto11InKGrwhjUspeVDqAPJvLj4IztYYR+U4vv1mI7RYkNMkIG3hQ1n
+fvBkREzhwkpCz4OiyGnOLhgql10QV6AnA/DYKhdRzRagETuuXhWRCVlKvMRIGWrEcoib1UdRAi2c
+nwGeaULK5WfywBZ8TJqjiqsFgbgKp7k8cpAJDfcwPrWlKLLTm1LdglFEFLWPVb8QnbINoHngGwTB
+HVehPFzEx7hVAn8xgdAZT4LK1Q0HmdCLYSVDWxh/3pyEbaIROsrrekYP5s3A/3rlBTy15tKVZh5J
+efGvlWXYGrNMEPvTkhR1rk46yIR4hiZXjaUFmJfvd3RcQD+fYEUsTLlzCaAlERu1C5tsJrCwUEbC
+WmtjnQmE58rsZz5JHORaNhdOGh/FWjgYVs37fWJXmRq6swxfsKw6GcQzRircazVrlQJGtgW9wawE
+TagQl80qgnnE4gom7NJf1I7DKb34ozEB65BtgbT98Fbo1mF2PAt9eDTxzl3hPSuzIcqO855bVeLN
+APRxsyHHf5PGKmo1bjIn0AUtlAOhvqPTfS8U4c2edufKBjzeSWhdh+wWiKm4MugluE5VX1mzgAc0
+L4EPmRPIII6p8H/aP6761TFFP4KlAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/31ac53eda69a4f54b6da032b7d412bb7b42f42740/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

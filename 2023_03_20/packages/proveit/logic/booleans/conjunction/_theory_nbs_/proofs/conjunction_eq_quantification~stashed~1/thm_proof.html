@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.logic.booleans.conjunction.conjunction_eq_quantification theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.logic.booleans.conjunction.conjunction_eq_quantification-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">logic</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">booleans</a>.<a class="ProveItLink" href="../../theory.html">conjunction</a>.<a class="ProveItLink" href="../../theorems.html#conjunction_eq_quantification">conjunction_eq_quantification</a> theorem<a class="anchor-link" href="#Proof-of-proveit.logic.booleans.conjunction.conjunction_eq_quantification-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> conjunction_eq_quantification
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="conjunction_eq_quantification">conjunction_eq_quantification:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/a699ff123d70f81b0119eb1f03f7e8f4cae279850/expr.html"><img src="data:image/png;base64,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
+xoDs5oV/AeLyTA0pfAx7AAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/c732da08826873fd228198089b03b6d7eb9fbe810/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

@@ -1,0 +1,3 @@
+proveit.logic.equality.equals_reflexivity
+proveit.numbers.rounding.floor_is_an_int
+proveit.numbers.rounding.floor_of_x_less_eq_x

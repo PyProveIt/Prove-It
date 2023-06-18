@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.physics.quantum.QPE._neg_and_pos_domain_are_disjoint theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.physics.quantum.QPE._neg_and_pos_domain_are_disjoint-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">physics</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">quantum</a>.<a class="ProveItLink" href="../../theory.html">QPE</a>.<a class="ProveItLink" href="../../theorems.html#_neg_and_pos_domain_are_disjoint">_neg_and_pos_domain_are_disjoint</a> theorem<a class="anchor-link" href="#Proof-of-proveit.physics.quantum.QPE._neg_and_pos_domain_are_disjoint-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> _neg_and_pos_domain_are_disjoint
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="_neg_and_pos_domain_are_disjoint">_neg_and_pos_domain_are_disjoint:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/a194ff82762b45cea5dee2d68c7e6d097ecdb69a0/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/18e5820f717890c54f67c30d1f58fd27210673490/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

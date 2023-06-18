@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.number_sets.integers.interval_cardinality theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.number_sets.integers.interval_cardinality-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">number_sets</a>.<a class="ProveItLink" href="../../theory.html">integers</a>.<a class="ProveItLink" href="../../theorems.html#interval_cardinality">interval_cardinality</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.number_sets.integers.interval_cardinality-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> interval_cardinality
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="interval_cardinality">interval_cardinality:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/e8828e274c2cf0c5e4ac2a72f66068d88c70f9540/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVEAAAAXBAMAAABALmG0AAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAABBdJREFUSMfNl1tIFGEUx89eZnd2Z1fXEhIKE0uKIijphihJIYVajWVC
+PbRJtRlZLNVLRDoU9FS6L0ZUmCH0UtAGQTex9aEgopoudIGgFexBumCQdIGgc2Zm57Jz2XWD6JOZ
+nct3zvy+853z/z4B/qIJ+Idt24B9F/aN3NHCNs/GTqm3dXOJ0Eg/53iHTl278dRoZZtnC0bwdAmP
+NN29K4j0pYzw3g60rZrOByxJXwKzsyL3Jw6i71k0sBTAHXpwthBQJiEjrLbtcR6U141WtoFkzi98
+vIikAYpEH84OpcKOQki5VC7S37akZFtsnwDBlHIxGylDNKJHMrFXLITUAzlIg5O2pGR7zT69wxEd
+KSwjAx5CiB8oKE3f5iL1VtiSvnWciyzSC3gEELO6snJpQaQ3dKTsWFnE1CEwWi7akJJtf8nnLD1S
+nRhJN9CosfJvAux2SEb7VxcUhNt4DAq+SVOHaB/zA2B6hpSrlFpasWV+8lGjTGpOjKQP8QhhCfYA
+m8709Z9RLoqWN+2SStNnnJUOOKJW3yIZga3Fr9YCZ9YclK8lAL2iRUzRNjwJHsM86JwYSV/Qk8XI
+wnu1NWaMcMtjA27B28KbSMPtOIb6zF2NRMqOozU3Ae56EykG+xsCjItmUrTlElCMNlulQM8DzQnG
+fk61EnuJtJugJohfV1Ar8Lgbx2DDsVOQTRrqpCKMG0nhKOaOZwdEzUvqXAiiTnnPgSUpUl0zaI7O
+iTGmg6QjGFNIjOCpdWQdkX8t512yliWTOlKmuVQA13667C75YJx9WoSiEXhqJafcpLyEmfJ0kSSn
+9ww6pXNiJH1OTygv1qP+M/P9P2jRqnIl2+T4nY7rSDcJ3YK/Trqcxs9UvLRrtR8VYTxs2kV8h804
+6jVWtY+2xXFMTAOp5sRI+oB4qDxO4Ci5pJ/C60uFElelLi1e0JHehUMArxroslMqRVDEQyH1RcIL
+JZVgftInE3KHT7DPTk/RtijlMy6nqhMd6UZBkTSOMrgIo+cZcKWlJOTSD2OxmAj1DbBFI62Bcjxf
+bpAyeTize9BImdG1PTOkhwvxcCsE25tSdqRoy4wNZa3yqhOV9MuqfnSxgHxmyiAq+O5joIvBIx6W
+FsLXKWhQSVEWO4m76xbABNQpNu54rnUfbNcod9zRJqyXL5ZS9Lhad0L3Vb4V3PwDVC1aEjgIVmgx
+Xen/dZ9+ez5AVSgjqLRzKJQ05LyPUncomd0MqPEPDj1rhkOi/3oE2D14/+RL6d60RnrlcWlK2akf
+LVFddMgI051Jb1vuTzvyX7VPWuz2ZHlrjcU0bfQ5uGiTEXodd2JSgTda2ebbaFA+o7AELbZhTqRs
+BKgC2GEHVHYDvZxhZZvv/0AEWZaVPOBE6kdNiE1h0v51Y/8bkj8N1faoarxPowAAAABJRU5ErkJg
+gg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/4f54d0f47ad2bd131c5d2a99a8a5943eec6969c80/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

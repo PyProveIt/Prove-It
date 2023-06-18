@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.multiplication.mult_complex_nonzero_closure_bin theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.multiplication.mult_complex_nonzero_closure_bin-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">multiplication</a>.<a class="ProveItLink" href="../../theorems.html#mult_complex_nonzero_closure_bin">mult_complex_nonzero_closure_bin</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.multiplication.mult_complex_nonzero_closure_bin-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> mult_complex_nonzero_closure_bin
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="mult_complex_nonzero_closure_bin">mult_complex_nonzero_closure_bin:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/e88bd72c620c568cd991ab5a7094173909e42ebb0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAAAbCAMAAADYiepIAAAARVBMVEX///82NjYbGxsSEhJKSko9
+PT0oKChfX1+IiIgiIiIQEBB2dnbu7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAABvRl5h
+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA5JJREFUWMPdWNmS4yAMZM8RNwjw
+/3/qIg4bH7G9U548DFVxSEIASd0tAWPfoCn2LZv05SlBvmnB4N+xik1lLWDM69zBL18w4lu8lyw9
+hcmPKXet/mrUu9mj9/z+uWV8QZ+diGQitsh9ZdOhdSDe2+Cd/SipuXNgTbYGNbVf+RWYKXbxsiSn
+blpgE56FvejzntNZacGb/dcbgCTyIIWT7hhvf6p2CaiDiGYzt5191C6UWzi+aq7v0V0JNkJFHQvd
+LtXYVHE4FWQo6psesKf5NjWH4WUUpo7TcCE0BplupiesOPz5QxccLrpB/gmDk2R81KwKDMLGJa+m
+OUxiHTDQPLcl3kmx7nzV4DfTCEjn2yekUaH50z0bLmikiZfzSr4gcoytd7DBpWZ2E1G9jMh5Gdsn
+KL4U5BQuHk7Wya1pltOnBHskeS4BpAoWmQbd2bEtJ2Cz3mWEEwSg2Vj+jMrrdQi8yNjX034VNWUD
+VGVGGIK7l7FslF+T1b3igOl1iE2fSr3kPgsR7EEU6juvkVCkzwz5QVUyKHQUZ3vOIFznuPiiTrNV
+syhU8mCIcXuJBI1pgRN2dd5vgjcmiDoxTuVLOUSpz1E6k6yOXhav9MhNj/y6xRZV7SKUHkY09VkM
+JK09ZQsqxqKWQ12rxF7Ihng1u4Re1lvZXW31Veu9GNL1AbYXPTwvCQoOyajjmkqY5lJsHanKuCCZ
+RMSPv5izuiVscXOOQzXRH8P0KnthJV4ccHoAWb/kL+ZPc4xtqatrj5IBpJ1/zkKlhvpGBeOHEhUb
+c8gDO4Kl5lkN1a5YNTLuBpJvK/uojBgQD4f1RhrRe5ERrWijFbezsZSCFAMcEBHtvK0crz+/keJV
+ILxfBRqkmnSTeTFjb19RpGxSr4pwpI87KBRAO7RMRX5amYQO5zQDjgg7FuRZeRdtDSosPFJ96qyH
+wb70mal4UgmksQnMnuRJzqUW96sftFcH9byYOJ6XsrgVdyI5pJFeeUhw5TygIzPGL/vCi4TXBOOA
+eq/5zrdHK72qo+42F7b6SLkzqLbjqZ7UhhzfdIMuSi7P+B1T4f6pGZ85Kald9hdEL5/BVhJuplch
+8lKKWFkQIO+cAGc867vnn6dOFCHthTREkIE2FelYUDXJarPAO4MS7yGr1XyHmei49HroAMjP5olr
+suqSlz93v2HvXTjAQ2ad3m/4B8rg+K77vP9A8yMMfs/94VZ8SkT+AW+tLpbbPT6JAAAAAElFTkSu
+QmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/6550910c1ff03352f797e2abe967bb58ed6a40500/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-02-10 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

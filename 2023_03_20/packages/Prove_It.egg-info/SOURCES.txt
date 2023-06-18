@@ -1,0 +1,10 @@
+setup.py
+packages/Prove_It.egg-info/PKG-INFO
+packages/Prove_It.egg-info/SOURCES.txt
+packages/Prove_It.egg-info/dependency_links.txt
+packages/Prove_It.egg-info/top_level.txt
+packages/proveit/__init__.py
+packages/proveit/_version.py
+packages/proveit/decorators.py
+packages/proveit/magics.py
+packages/proveit/util.py

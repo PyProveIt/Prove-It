@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.integration.boundedInvSqrdIntegral theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.integration.boundedInvSqrdIntegral-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">integration</a>.<a class="ProveItLink" href="../../theorems.html#boundedInvSqrdIntegral">boundedInvSqrdIntegral</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.integration.boundedInvSqrdIntegral-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> boundedInvSqrdIntegral
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="boundedInvSqrdIntegral">boundedInvSqrdIntegral:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/ee730de5cf003ff24e502158228c94877e00ce120/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATEAAAA/BAMAAAB6NuKfAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAABiJJREFUaN6tWFtoHFUY/mevSXb2Uo2CCMkaW6ooJBVr6yV0Www0UOlS
+oy+BZoO69iGSYAQtQrPSB4VCEx+sCtrugxXESralom0k2T5E6IMYK4gPQlKwfRGS3bTbTXP1zJmd
+zfwz55zJmd0Pki/Z78zZb87t/88PUBdctLAY/s/cq5JQxjA74eEaVDmMZzA7IZBwr0rB/xJmHcdT
+/Ac6hd111s1ZaAyzjojg1f9MivoTqzIYGcKswzvEf8KTE/UnVmVw1sIVn9tucZ8IL4n6E6sSMDqy
+dPhA8lH+M2eEPZ6pkzNPCjNdZPthAK5X/nnXvm5m2VNdaTk7VKdlNoNZw83x/B6Y1Lfaf+fszrys
+pVRt6a3TQluwMEGwNJwtgLH7W+3OQgVmV5WWHFX6NFvBTCeTTOwONcV31rQqcsZRZaGWMWuIxgA+
+3AZ8Z/C8yBlHlUWggJmGqSHW95kxlRE5m8rUw1k0hZn2DE7OZvMiZ2xVOpwnMGt40tHZ6JzIGVuV
+xVQWs2UzcJx5O0TO2KosjNPKdGqFVx2dBUoiZ2xVFosW1s6jsqMzZU3kjK1KouEeZhqnCo7Owisi
+Z2xVNp6v2Dvri6MmhxlnQPAeqzOjJVuVvQMUMdNNj7bW/L6z9kPAv8joq9pSU2kf/9SS0K5hpq8e
+47U+/iIc0BfhhrBXol7V+ItaQkAZM92mWW7zNVD1RdhuWnxhmwGintAWb6oGZ41LmOkbcxP5ppJx
+Wzi3ufjUp2ztidpIPvTN1ODMW8Ksrd873Na+OHj0qR6sjquy3f4iRFXJkmusKWwWMGtjwN9ZjTkY
+1aP9gjEcPY+xcj6iPtPW9mydnUXuctqe3k/y3t8BOet9GjjOfgJ4q87OPJwTvGkvDCbhdiXM6ufD
+0a/ZwZiop6GBG9h9xskgcNZXwKyZ5NzKXs3DFYBdyFmE7yyQ9FXXYtC4Tt3onvzU5CiAT/1j5spA
+Xwdm7apiDk4bFehZ23YILuEz71R1NqNGu4oajpk2wL+avZZ0VvHBwQTHWbgfVQYYzlo5JaHnwL8M
+SoflNGbuAKqOXdv8YA/5mSB7R1FgOsZ2pg7gygDD2QL7UuYvaqdsYC5piROsU4Oqr2iVtJ5rB7Xh
+KrYkFW3+ibOHcr6JSxNXTc78h5ozoLxjqQwwdkA7O1f2r0Fk7O9oPmFeZ5yTlqonyQbwP0GnX9mh
+5F6nr+Fr6M9bx+xIZiQT7LRWBhjONixXbP/L8/Sr++FGLhc9H7M6g/DnTGcR0k8oF9QmI5BXxy5Q
+Z6E3U7YdMAHDAH91aX9uVgYYzoLWYB2CEE2LjjZ/cHNIvYzPM87t2lC9WWWOLp/Q3PV0Oj2jKL4f
+bM5egBby+9suuh4nq9GpgJmMwH30JQfK0WxDmf/dYmd9mcA0GfAoeGfeo2OmNH2T3DzPqDP/Egy8
+RvjEzwCblQHwlDCTp3AIUAtqkuFsUFhVqarezMiFZA94kr+S842uM+gybTB9zPYGl6dpjLllqgww
+sqDAsq0i6YvbvrtdzzWOtGnYyVFJ3Pjlj0MwPBO8GIOGt8n/3z2S6L1idfb9b836qs2YKgMQWsaM
+sg46mDFmnWqfMOZZVH1ue9Jpa+IXEGXbq5httwCSWzQwIvMdoTOsNnHzPZEz9S5mclnHcZjkFqfg
+E9uVa5GZi3zEVFVwdhYkOzd9DL3POmZiBR+0t8kCef9HW96xzstFeCr7Tikqn93HbCvk7ALvxoat
+VKcWmbnIJb4qj3YLw+P4YslOiUJlRuqj5SJc1UXFJWMZKjwTCrt40ljg5CJcVR7GsjI4iMstRm5h
+TYXjnFyEp7rAaA6zgqfPyC0sGElwchGe6uZaF8cciRtJle7sPPPC3soITjQX4ary8JUwexNGUqVv
+s8vMp95gfEZzEa7qokxVxDyeNJIq0Vmz7l7dOr40czfMV5MqUeQou1clNmfGxOng7mpSJaqGxN2r
+W0dfwsS9LZlKUiXe0Hn3qkQFrQNzJakS4nAN6tbhL2KWeMSNKoMHLbyFYY67V2VQqYhVeQtxI+te
+lUHTEmZnzNegSqHbwk5Qd7tX5RCIYXbCySH3quTu3InZCV/VoEriYws7vEh2C+r/5CHegxPj8RYA
+AAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/11ff32b4b25fff616917af340016a5596faabf350/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

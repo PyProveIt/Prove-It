@@ -1,0 +1,4 @@
+# THEOREMS AND THEORIES THAT MAY BE PRESUMED:
+proveit.logic.booleans.implication.modus_tollens_affirmation
+proveit.logic.booleans.negation.double_negation_intro
+# THEOREMS AND THEORIES TO EXCLUDE:

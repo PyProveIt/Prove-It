@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.exponentiation.nth_root_of_nth_power theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.exponentiation.nth_root_of_nth_power-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">exponentiation</a>.<a class="ProveItLink" href="../../theorems.html#nth_root_of_nth_power">nth_root_of_nth_power</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.exponentiation.nth_root_of_nth_power-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> nth_root_of_nth_power
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="nth_root_of_nth_power">nth_root_of_nth_power:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/06c231a495d14ff67e272b8ddc49236bbbc04b070/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO4AAAAmBAMAAAAxe7rIAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAA/1JREFUWMO1WFto01AY/rOlTZp0tQMV5mWMoYjuwU4UBS/UB8V5o+oU
+RMUJGmUodiq+qRlDxRetD4oPPgz0RbzVC6irl4rXbcxVfRh4rQ9OBMEJXsa8/ifJSXvSxskJHmjz
+JydfvnP+y3dOAuCp3eDA+I6A16ZmeVDbYl5527lQwaxHWmkKH26LR95AlDn9+Luw9RXDLfPo6NcM
+Xsr+37TItTE0YG1dOHN//F9xcr+38H6xjLLhUAWw89+R6z3xhhqo9U5O4B+ZCTMtV+QdT7xD0tSq
+EjpihBpG5/crYTfkoQwYIX7BxbtHpwqULVsIoVZ0OJvgo9yQJUloI8djXLzdzNkB/K2kJ50PypNY
+Z271oiZgNwlEAxfv+wKpvk4d0DEDpmGeJ12QQp8xJjHDxTuLUXsS3gjNqCUJIMnupmdl3yCIyRHg
+y6vP+Sdk7GUJO9XDChnDcbcK/Akwqbp6Mh/vj/yTpSRsmFa+8rc7FkFpXE2ijCx2LoFGJx4RegVg
+Q5GHRotziXnl+dMyltPcDaDvVKgMX4RDULIrbq1XarXRSOGYndg+ARwEuZhcuqSEyjrLOE43SpiU
+B/r6IXTHPsA5EBbihacOtNlphsgfE1vzRaZmPtzJFvI+qbt5mOVVBszjy60kQ4lGlOKD4nAtr8Id
+D7E7v2MyhHNp1dTbCK/EmBpjeaVKrVUQYV606HzhPLq3BCxegNrcLScK/FVr80Litu3EK0S7wkkR
+FqRqUjkvpDBUggD3wmLqYqqtgLcEfXwXLD+D0m8G3HCSI752J8YXFuE+K3i9aaSlaz3PmsVcfMuv
+jtQFosPIOyzJzFem+RxEh48lhj8MvsZQJJeT9x3pbHcSaAuOZPWJdKnuM2SrR1xz0uYV9N5AZoVh
+ifK6NMPr+0Str5Ywi1lUhFURxZahy065sDqNUgihF/dWwJCYYqwvPZAcbvMGYZ0EZwxedX0Dm1cw
+nRq3dFOJpSrwXQg/77LvmOCYL+2UBuilN5gDwaOatgV56wN59Ytbg3ZN0zKCIJ5l6xeO2sta8rRp
+jHPsK6rcdJLuGGAqpCQpas5XeZyXtBEZdhjzFZSTjuXlEjX8fdaC1uko9rQLr0gHJPfBuB5TtzoA
+Kq2r9dAiJlSscCO+MMdR0910HMovS3n8OnPDPjeF9VOlUrIwNA37MNLSeB1C1tXtGXXE7GEgb0T7
+VEV01TUWvdbOn4kWn49dUDcNvlMxYXO1RuaC9eB6TWstNmp7/o+o0cyssrob73n9rwuO8vf9dTDC
+uzOrG+RFZpAXuwFe3pne9u11nDgh4o23NM6Jy3jjDSb4cBVe33+Pc6HkaV55l+pcqIxXXpnrU8Vm
+z983YD/PdxWiQX8AONUB3g3iz/4AAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/3872b1a98fcdd1d835e11f95202c18318906eca30/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>nth_root_of_nth_power may now be readily provable (assuming required theorems are usable).  Simply execute &#34;%qed&#34;.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-09-14 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

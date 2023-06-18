@@ -1,0 +1,918 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>proveit.decorators &#8212; Prove-It 0.3 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for proveit.decorators</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">signature</span><span class="p">,</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">proveit._core_.defaults</span> <span class="k">import</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">proveit.util</span> <span class="k">import</span> <span class="n">OrderedSet</span>
+
+<span class="k">def</span> <span class="nf">_make_decorated_prover</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Use for decorating &#39;prover&#39; methods </span>
+<span class="sd">    (@prover, @relation_prover, or @equality_prover).</span>
+<span class="sd">    This allows for extra keyword arguments for temporarily altering</span>
+<span class="sd">    any attributes of the Prove-It &#39;defaults&#39; (e.g., </span>
+<span class="sd">    defaults.assumptions) before calling the decorated method.</span>
+<span class="sd">    It will then check to see if the return type is a Judgment that is</span>
+<span class="sd">    valid under &quot;active&quot; assumptions.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">sig</span> <span class="o">=</span> <span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;defaults_config&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span> <span class="ow">or</span>
+            <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;defaults_config&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">VAR_KEYWORD</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;As a @prover or any @..._prover method, the final &quot;</span>
+                        <span class="s2">&quot;parameter of </span><span class="si">%s</span><span class="s2"> must be a keyword argument called &quot;</span>
+                        <span class="s2">&quot;&#39;defaults_config&#39; to signify that it accepts &quot;</span>
+                        <span class="s2">&quot;keyword arguments for temporarily re-configuring &quot;</span>
+                        <span class="s2">&quot;attributes of proveit.defaults &quot;</span>
+                        <span class="s2">&quot;(&#39;assumptions&#39;, &#39;styles&#39;, etc.)&quot;</span><span class="o">%</span><span class="n">func</span><span class="p">)</span>
+    
+    <span class="n">is_conclude_method</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;conclude&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">decorated_prover</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">proveit</span> <span class="k">import</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">Judgment</span><span class="p">,</span> <span class="n">InnerExpr</span>
+        <span class="kn">from</span> <span class="nn">proveit._core_.proof</span> <span class="k">import</span> <span class="n">Assumption</span>
+        <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Equals</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;preserve_all&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> 
+                <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;replacements&#39;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Adding &#39;replacements&#39; and setting &#39;preserve_all&#39; &quot;</span>
+                    <span class="s2">&quot;to True are incompatible settings.&quot;</span><span class="p">)</span>
+        <span class="n">preserve_lhs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;preserve_lhs&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">preserve_expr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;preserve_expr&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_self</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">Judgment</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">InnerExpr</span><span class="p">):</span>
+                <span class="c1"># Include the assumptions of the Judgment or InnerExpr</span>
+                <span class="n">_assumptions</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;assumptions&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_assumptions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_assumptions</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">assumptions</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">_self</span><span class="o">.</span><span class="n">assumptions</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">_assumptions</span><span class="p">):</span>
+                    <span class="n">_assumptions</span> <span class="o">=</span> <span class="n">OrderedSet</span><span class="p">(</span><span class="n">_assumptions</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assumptions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_assumptions</span> <span class="o">+</span> <span class="n">_self</span><span class="o">.</span><span class="n">assumptions</span>
+            <span class="k">if</span> <span class="n">is_conclude_method</span><span class="p">:</span>
+                <span class="c1"># If the method starts with conclude &#39;conclude&#39;, we must</span>
+                <span class="c1"># preserve _self.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">Expression</span><span class="p">)</span> 
+                        <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="s1">&#39;expr&#39;</span><span class="p">)):</span>
+                    <span class="n">preserve_expr</span> <span class="o">=</span> <span class="n">_self</span><span class="o">.</span><span class="n">expr</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">preserve_expr</span> <span class="o">=</span> <span class="n">_self</span>
+        <span class="n">defaults_to_change</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span>
+                <span class="n">defaults</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">if</span> <span class="s1">&#39;automation&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c1"># While &#39;automation&#39; isn&#39;t a defaults key, it can be set</span>
+            <span class="c1"># to set &#39;sideeffect_automation&#39; and &#39;conclude_automation&#39;.</span>
+            <span class="n">defaults_to_change</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;automation&#39;</span><span class="p">)</span>
+        <span class="c1"># Check to see if there are any unexpected keyword</span>
+        <span class="c1"># arguments.</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">defaults_to_change</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> got an unexpected keyword argument &#39;</span><span class="si">%s</span><span class="s2">&#39; which &quot;</span>
+                        <span class="s2">&quot;is not an attribute of proveit.defaults&quot;</span><span class="o">%</span>
+                        <span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
+        <span class="k">def</span> <span class="nf">public_attributes_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="c1"># Return a dictionary of public attributes and values of</span>
+            <span class="c1"># an object.</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> 
+                    <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;_&#39;</span><span class="p">}</span>
+
+        <span class="n">exprs_to_replace</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">&#39;replacements&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;replacements&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">replacement</span><span class="p">,</span> <span class="n">Judgment</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The &#39;replacements&#39; must be Judgments&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">replacement</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">Equals</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;The &#39;replacements&#39; must be equality Judgments&quot;</span><span class="p">)</span>
+                <span class="n">exprs_to_replace</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">replacement</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+
+        <span class="c1"># Make sure a preserved expression isn&#39;t also being replaced.</span>
+        <span class="k">if</span> <span class="s1">&#39;preserved_exprs&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="c1"># Make sure a preserved expression isn&#39;t also</span>
+            <span class="c1"># being replaced.</span>
+            <span class="n">preserved_exprs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserved_exprs&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">exprs_to_replace</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">preserved_exprs</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot simultaneously replace and preserve these &quot;</span>
+                    <span class="s2">&quot;expression: </span><span class="si">%s</span><span class="s2">&quot;</span>
+                    <span class="o">%</span><span class="n">exprs_to_replace</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">preserved_exprs</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">preserve_expr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Make sure this preserved expression isn&#39;t also being replaced.</span>
+            <span class="k">if</span> <span class="n">preserve_expr</span> <span class="ow">in</span> <span class="n">exprs_to_replace</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot simultaneously replace and preserve </span><span class="si">%s</span><span class="s2">&quot;</span>
+                    <span class="o">%</span><span class="n">preserve_expr</span><span class="p">)</span>
+            <span class="c1"># Preserve the &#39;preserve_expr&#39;.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;preserved_exprs&#39;</span> <span class="ow">in</span> <span class="n">defaults_to_change</span>
+                    <span class="ow">or</span>  <span class="n">preserve_expr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">preserved_exprs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="s1">&#39;preserved_exprs&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserved_exprs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">preserve_expr</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">defaults_to_change</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;preserved_exprs&#39;</span><span class="p">)</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserved_exprs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">defaults</span><span class="o">.</span><span class="n">preserved_exprs</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="n">preserve_expr</span><span class="p">}))</span>
+
+        <span class="k">def</span> <span class="nf">checked_truth</span><span class="p">(</span><span class="n">proven_truth</span><span class="p">):</span>
+            <span class="c1"># Check that the proven_truth is a Judgment and has</span>
+            <span class="c1"># appropriate assumptions.</span>
+            <span class="k">if</span> <span class="n">proven_truth</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">is_conclude_method</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">proven_truth</span> <span class="c1"># we&#39;ll raise an exception later.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">proven_truth</span><span class="p">,</span> <span class="n">Judgment</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;@prover method </span><span class="si">%s</span><span class="s2"> is expected to return &quot;</span>
+                                <span class="s2">&quot;a proven Judgment, not </span><span class="si">%s</span><span class="s2"> of type </span><span class="si">%s</span><span class="s2">.&quot;</span>
+                                <span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">proven_truth</span><span class="p">,</span> <span class="n">proven_truth</span><span class="o">.</span><span class="vm">__class__</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">is_applicable</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;@prover method </span><span class="si">%s</span><span class="s2"> returned a Judgment, &quot;</span>
+                                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">, that is not proven under the active &quot;</span>
+                                <span class="s2">&quot;assumptions: </span><span class="si">%s</span><span class="s2">&quot;</span>
+                                <span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">proven_truth</span><span class="p">,</span> <span class="n">defaults</span><span class="o">.</span><span class="n">assumptions</span><span class="p">))</span> 
+            <span class="k">return</span> <span class="n">proven_truth</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">automatic</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">defaults</span><span class="o">.</span><span class="n">preserve_all</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">defaults_to_change</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="c1"># Temporarily reconfigure defaults</span>
+            <span class="k">with</span> <span class="n">defaults</span><span class="o">.</span><span class="n">temporary</span><span class="p">()</span> <span class="k">as</span> <span class="n">temp_defaults</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;assumptions&#39;</span> <span class="ow">in</span> <span class="n">defaults_to_change</span><span class="p">:</span>
+                    <span class="c1"># Set &#39;assumptions&#39; first (before turning off</span>
+                    <span class="c1"># &#39;automation&#39;, for example, so that the </span>
+                    <span class="c1"># side-effects will be processed).</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;assumptions&#39;</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">temp_defaults</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">defaults_to_change</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;assumptions&#39;</span><span class="p">:</span>
+                        <span class="c1"># Temporarily alter a default:</span>
+                        <span class="nb">setattr</span><span class="p">(</span><span class="n">temp_defaults</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">automatic</span><span class="p">:</span>
+                    <span class="n">temp_defaults</span><span class="o">.</span><span class="n">preserve_all</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="n">temp_defaults</span><span class="o">.</span><span class="n">preserved_exprs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">internal_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">internal_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">public_attributes_dict</span><span class="p">(</span><span class="n">defaults</span><span class="p">))</span>
+                <span class="c1"># Make sure we derive assumption side-effects first.</span>
+                <span class="n">Assumption</span><span class="o">.</span><span class="n">make_assumptions</span><span class="p">()</span>
+                <span class="c1"># Now call the prover function.</span>
+                <span class="n">proven_truth</span> <span class="o">=</span> <span class="n">checked_truth</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">internal_kwargs</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No defaults reconfiguration.</span>
+            <span class="n">internal_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">internal_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">public_attributes_dict</span><span class="p">(</span><span class="n">defaults</span><span class="p">))</span>
+            <span class="c1"># Make sure we derive assumption side-effects first.</span>
+            <span class="n">Assumption</span><span class="o">.</span><span class="n">make_assumptions</span><span class="p">()</span>
+            <span class="c1"># Now call the prover function.</span>
+            <span class="n">proven_truth</span> <span class="o">=</span> <span class="n">checked_truth</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">internal_kwargs</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">automatic</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">defaults</span><span class="o">.</span><span class="n">preserve_all</span><span class="p">:</span>
+            <span class="c1"># Temporarily reconfigure defaults</span>
+            <span class="k">with</span> <span class="n">defaults</span><span class="o">.</span><span class="n">temporary</span><span class="p">()</span> <span class="k">as</span> <span class="n">temp_defaults</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">defaults_to_change</span><span class="p">:</span>
+                    <span class="c1"># Temporarily alter a default:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">temp_defaults</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="c1">#print(func.__name__, proven_truth)</span>
+                <span class="c1"># Effect the replacements and/or auto-simplification by</span>
+                <span class="c1"># regenerating the proof object under the active defaults.</span>
+                <span class="n">orig_proven_truth</span> <span class="o">=</span> <span class="n">proven_truth</span>
+                <span class="k">if</span> <span class="n">preserve_lhs</span><span class="p">:</span>
+                    <span class="kn">from</span> <span class="nn">proveit</span> <span class="k">import</span> <span class="n">safe_dummy_var</span>
+                    <span class="kn">from</span> <span class="nn">proveit.relation</span> <span class="k">import</span> <span class="n">Relation</span>
+                    <span class="n">_expr</span> <span class="o">=</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">expr</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_expr</span><span class="p">,</span> <span class="n">Relation</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                            <span class="s2">&quot;@relation_proven, </span><span class="si">%s</span><span class="s2">, expected to prove a&quot;</span>
+                            <span class="s2">&quot;Relation expression but got </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">_expr</span><span class="p">))</span>
+                    <span class="n">simplify_only_where_marked</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">dummy_var</span> <span class="o">=</span> <span class="n">safe_dummy_var</span><span class="p">(</span><span class="n">_expr</span><span class="p">)</span>
+                    <span class="n">markers_and_marked_expr</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="p">(</span><span class="n">dummy_var</span><span class="p">,),</span> <span class="nb">type</span><span class="p">(</span><span class="n">_expr</span><span class="p">)(</span><span class="n">_expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">dummy_var</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">simplify_only_where_marked</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">marker_and_Marked_expr</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">new_proven_truth</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">proven_truth</span><span class="o">.</span><span class="n">proof</span><span class="p">()</span><span class="o">.</span><span class="n">regenerate_proof_object</span><span class="p">(</span>
+                        <span class="n">simplify_only_where_marked</span><span class="p">,</span> <span class="n">markers_and_marked_expr</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">proven_truth</span><span class="p">)</span>
+                <span class="n">proven_truth</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_proven_truth</span><span class="o">.</span><span class="n">inner_expr</span><span class="p">()</span>
+                                <span class="o">.</span><span class="n">with_mimicked_style</span><span class="p">(</span><span class="n">proven_truth</span><span class="o">.</span><span class="n">expr</span><span class="p">))</span>
+                <span class="c1">#print(&#39;preserved_exprs&#39;, defaults.preserved_exprs,</span>
+                <span class="c1">#      &#39;orig_proven_truth&#39;, orig_proven_truth,</span>
+                <span class="c1">#      &#39;proven_truth&#39;, proven_truth)</span>
+
+        <span class="k">if</span> <span class="n">is_conclude_method</span><span class="p">:</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Expression</span><span class="p">):</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;expr&#39;</span><span class="p">):</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expr</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;The @prover method </span><span class="si">%s</span><span class="s2"> beginning with &#39;conclude&#39; &quot;</span>
+                        <span class="s2">&quot;expected to be a method for an Expression type &quot;</span>
+                        <span class="s2">&quot;or the object must have an &#39;expr&#39; attribute.&quot;</span><span class="o">%</span><span class="n">func</span><span class="p">)</span>                
+            <span class="k">if</span> <span class="n">proven_truth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;@prover method </span><span class="si">%s</span><span class="s2"> is not implemented &quot;</span>
+                                 <span class="s2">&quot;for </span><span class="si">%s</span><span class="s2">.&quot;</span>
+                                <span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">expr</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;conclude_negation&#39;</span><span class="p">):</span>
+                <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Not</span>
+                <span class="n">not_expr</span> <span class="o">=</span> <span class="n">Not</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">expr</span> <span class="o">!=</span> <span class="n">not_expr</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="s2">&quot;@prover method </span><span class="si">%s</span><span class="s2"> whose name starts with &quot;</span>
+                            <span class="s2">&quot;&#39;conclude_negation&#39; must prove </span><span class="si">%s</span><span class="s2"> &quot;</span>
+                            <span class="s2">&quot;but got </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">not_expr</span><span class="p">,</span> <span class="n">proven_truth</span><span class="p">))</span>   
+                <span class="c1"># Match the style of not_self.</span>
+                <span class="k">return</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">with_matching_style</span><span class="p">(</span><span class="n">not_expr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">expr</span> <span class="o">!=</span> <span class="n">expr</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;@prover method </span><span class="si">%s</span><span class="s2"> whose name starts with &quot;</span>
+                                     <span class="s2">&quot;&#39;conclude&#39; must prove </span><span class="si">%s</span><span class="s2"> but got &quot;</span>
+                                     <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">proven_truth</span><span class="p">))</span>
+                <span class="c1"># Match the style of self.</span>
+                <span class="k">return</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">with_matching_style</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">proven_truth</span>
+    <span class="k">return</span> <span class="n">decorated_prover</span>    
+
+<span class="k">def</span> <span class="nf">_make_decorated_relation_prover</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Use for decorating &#39;relation_prover&#39; methods </span>
+<span class="sd">    (@relation_prover or @equality_prover).  In addition</span>
+<span class="sd">    to the @prover capabilities, temporarily altering &#39;defaults&#39; and</span>
+<span class="sd">    checking that a Judgment is returned check that the</span>
+<span class="sd">    Judgment is for a Relation.  Furthermore, unless alter_lhs=True </span>
+<span class="sd">    is set in the keyword arguments when the method is called,</span>
+<span class="sd">    automatically &#39;preserve&#39; the &#39;self&#39; expression and make sure it</span>
+<span class="sd">    is on the left side of the returned Relation Judgment.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">decorated_prover</span> <span class="o">=</span> <span class="n">_make_decorated_prover</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> 
+                                              <span class="n">automatic</span><span class="o">=</span><span class="n">automatic</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">decorated_relation_prover</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">proveit._core_.expression.expr</span> <span class="k">import</span> <span class="n">Expression</span>
+        <span class="kn">from</span> <span class="nn">proveit._core_.expression.composite</span> <span class="k">import</span> <span class="n">ExprRange</span><span class="p">,</span> <span class="n">ExprTuple</span>
+        <span class="kn">from</span> <span class="nn">proveit.relation</span> <span class="k">import</span> <span class="n">Relation</span>  
+        
+        <span class="c1"># &#39;preserve&#39; the &#39;self&#39; or &#39;self.expr&#39; expression so it will </span>
+        <span class="c1"># be on the left side without simplification.</span>
+        <span class="n">_self</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">Expression</span><span class="p">):</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="n">_self</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="s1">&#39;expr&#39;</span><span class="p">):</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="n">_self</span><span class="o">.</span><span class="n">expr</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;@relation_prover, </span><span class="si">%s</span><span class="s2">, expected to be a &quot;</span>
+                            <span class="s2">&quot;method for an Expression type or it must &quot;</span>
+                            <span class="s2">&quot;have an &#39;expr&#39; attribute.&quot;</span><span class="o">%</span><span class="n">func</span><span class="p">)</span>
+        <span class="n">alter_lhs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;alter_lhs&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">alter_lhs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">automatic</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserve_lhs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># preserve the left side.</span>
+                <span class="k">if</span> <span class="s1">&#39;preserve_expr&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;preserved_exprs&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserved_exprs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserved_exprs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">union</span><span class="p">([</span><span class="n">expr</span><span class="p">]))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserved_exprs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">defaults</span><span class="o">.</span><span class="n">preserved_exprs</span><span class="o">.</span><span class="n">union</span><span class="p">([</span><span class="n">expr</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserve_expr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">expr</span>
+        
+        <span class="c1"># Use the regular @prover wrapper.</span>
+        <span class="n">proven_truth</span> <span class="o">=</span> <span class="n">decorated_prover</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
+        <span class="c1"># Check that the result is of the expected form.</span>
+        <span class="n">proven_expr</span> <span class="o">=</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">expr</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">proven_expr</span><span class="p">,</span> <span class="n">Relation</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s2">&quot;@relation_prover, </span><span class="si">%s</span><span class="s2">, expected to prove a &quot;</span>
+                    <span class="s2">&quot;Relation expression, not </span><span class="si">%s</span><span class="s2"> of type </span><span class="si">%s</span><span class="s2">.&quot;</span>
+                    <span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">proven_expr</span><span class="p">,</span> <span class="n">proven_expr</span><span class="o">.</span><span class="vm">__class__</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">alter_lhs</span><span class="p">:</span>
+            <span class="n">expected_lhs</span> <span class="o">=</span> <span class="n">expr</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">ExprRange</span><span class="p">):</span>
+                <span class="n">expected_lhs</span> <span class="o">=</span> <span class="n">ExprTuple</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">proven_expr</span><span class="o">.</span><span class="n">lhs</span> <span class="o">!=</span> <span class="n">expected_lhs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;@relation_prover, </span><span class="si">%s</span><span class="s2">, expected to prove a &quot;</span>
+                        <span class="s2">&quot;relation with </span><span class="si">%s</span><span class="s2"> on its left side &quot;</span>
+                        <span class="s2">&quot;(&#39;lhs&#39;).  </span><span class="si">%s</span><span class="s2"> does not satisfy this &quot;</span>
+                        <span class="s2">&quot;requirement.&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">expected_lhs</span><span class="p">,</span> <span class="n">proven_expr</span><span class="p">))</span>
+            <span class="c1"># Make the style consistent with the original expression.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">proven_expr</span><span class="o">.</span><span class="n">lhs</span><span class="o">.</span><span class="n">has_same_style</span><span class="p">(</span><span class="n">expected_lhs</span><span class="p">):</span>
+                <span class="c1"># Make the left side of the proven truth have a style</span>
+                <span class="c1"># that matches the original expression.</span>
+                <span class="n">inner_lhs</span> <span class="o">=</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">inner_expr</span><span class="p">()</span><span class="o">.</span><span class="n">lhs</span>
+                <span class="n">proven_truth</span> <span class="o">=</span> <span class="n">inner_lhs</span><span class="o">.</span><span class="n">with_matching_style</span><span class="p">(</span><span class="n">expected_lhs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">proven_truth</span>
+    <span class="k">return</span> <span class="n">decorated_relation_prover</span>
+
+
+<span class="k">def</span> <span class="nf">_wraps</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">extra_doc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Perform functools.wraps as well as add an extra message to the doc</span>
+<span class="sd">    string.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">wrapped</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)(</span><span class="n">wrapper</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        Keyword arguments are accepted for temporarily changing any</span>
+<span class="s2">        of the attributes of proveit.defaults.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">extra_doc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="n">extra_doc</span>
+    <span class="k">return</span> <span class="n">wrapped</span>
+
+<div class="viewcode-block" id="prover"><a class="viewcode-back" href="../../api/proveit.prover.html#proveit.prover">[docs]</a><span class="k">def</span> <span class="nf">prover</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    @prover is a decorator for methods that are to return a proven</span>
+<span class="sd">    judgment valid under &quot;active&quot; (default) assumptions.  As a special</span>
+<span class="sd">    feature, this decorator allows for extra keyword arguments for</span>
+<span class="sd">    temporarily altering any attributes of the Prove-It &#39;defaults&#39;</span>
+<span class="sd">    (e.g., defaults.assumptions) before calling the decorated method.</span>
+<span class="sd">    It will then check to see if the return type is a Judgment that is</span>
+<span class="sd">    valid under &quot;active&quot; assumptions.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_wraps</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">_make_decorated_prover</span><span class="p">(</span><span class="n">func</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="auto_prover"><a class="viewcode-back" href="../../api/proveit.auto_prover.html#proveit.auto_prover">[docs]</a><span class="k">def</span> <span class="nf">auto_prover</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_wraps</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">_make_decorated_prover</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="relation_prover"><a class="viewcode-back" href="../../api/proveit.relation_prover.html#proveit.relation_prover">[docs]</a><span class="k">def</span> <span class="nf">relation_prover</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    @relation_prover is a decorator for methods that are to return a </span>
+<span class="sd">    proven judgment valid under &quot;active&quot; (default) assumptions, is a</span>
+<span class="sd">    Relation type Expression, and has the original expression (self</span>
+<span class="sd">    or self.expr) on the left hand side.  This &quot;original expression&quot;</span>
+<span class="sd">    will automatically be &quot;preserved&quot; (not automatically simplified).</span>
+<span class="sd">    The style of the original expression will be used on the left side.  </span>
+<span class="sd">    As with @prover methods, defaults may be temporarily set.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_wraps</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">_make_decorated_relation_prover</span><span class="p">(</span><span class="n">func</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="auto_relation_prover"><a class="viewcode-back" href="../../api/proveit.auto_relation_prover.html#proveit.auto_relation_prover">[docs]</a><span class="k">def</span> <span class="nf">auto_relation_prover</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_wraps</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">_make_decorated_relation_prover</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> 
+                                                        <span class="n">automatic</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+
+<span class="c1"># Keep track of equivalence provers so we may register them during</span>
+<span class="c1"># Expression class construction (see ExprType.__init__ in expr.py).</span>
+<span class="n">_equality_prover_fn_to_tenses</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">_equality_prover_name_to_tenses</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<div class="viewcode-block" id="equality_prover"><a class="viewcode-back" href="../../api/proveit.equality_prover.html#proveit.equality_prover">[docs]</a><span class="k">def</span> <span class="nf">equality_prover</span><span class="p">(</span><span class="n">past_tense</span><span class="p">,</span> <span class="n">present_tense</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    @equality_prover works the same way as the @relation_prover decorator</span>
+<span class="sd">    except that it also registers the &quot;equality method&quot; in</span>
+<span class="sd">    InnerExpr with the past tense and present tense names.  The method</span>
+<span class="sd">    name itself should be a noun form and return the proven equality</span>
+<span class="sd">    with &#39;self&#39; of the method on the left-hand side.  Calling the </span>
+<span class="sd">    past-tense version will return the right-hand side as equal</span>
+<span class="sd">    to &#39;self&#39;.  The present-tense version can be called on an</span>
+<span class="sd">    InnerExpr of a Judgment to return a Judgment where inner expression</span>
+<span class="sd">    is replaced according to the equality.</span>
+<span class="sd">    &#39;&#39;&#39;</span>    
+    
+    <span class="k">def</span> <span class="nf">wrapper_maker</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Make the wrapper for the equality_prover decorator.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_equality_prover_name_to_tenses</span><span class="p">:</span>
+            <span class="c1"># This name was used before; make sure past and present</span>
+            <span class="c1"># tenses are consistent.</span>
+            <span class="n">previous_tenses</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">_equality_prover_name_to_tenses</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+            <span class="n">current_tenses</span> <span class="o">=</span> <span class="p">(</span><span class="n">past_tense</span><span class="p">,</span> <span class="n">present_tense</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">previous_tenses</span> <span class="o">!=</span> <span class="n">current_tenses</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">InconsistentTenseNames</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">previous_tenses</span><span class="p">,</span> 
+                                             <span class="n">current_tenses</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_equality_prover_name_to_tenses</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">past_tense</span><span class="p">,</span> <span class="n">present_tense</span><span class="p">)</span>
+        <span class="n">is_evaluation_method</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">)</span>
+        <span class="n">is_shallow_simplification_method</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;shallow_simplification&#39;</span><span class="p">)</span>
+        <span class="n">is_simplification_method</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;simplification&#39;</span><span class="p">)</span>
+        <span class="n">decorated_relation_prover</span> <span class="o">=</span> <span class="n">_make_decorated_relation_prover</span><span class="p">(</span>
+            <span class="n">func</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="n">automatic</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>   
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            The wrapper for the equality_prover decorator.</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="kn">from</span> <span class="nn">proveit._core_.expression.expr</span> <span class="k">import</span> <span class="n">Expression</span>
+            <span class="kn">from</span> <span class="nn">proveit._core_.proof</span> <span class="k">import</span> <span class="p">(</span><span class="n">Assumption</span><span class="p">,</span> 
+                                              <span class="n">UnsatisfiedPrerequisites</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">Equals</span><span class="p">,</span> <span class="n">EvaluationError</span>
+            <span class="c1"># Obtain the original Expression to be on the left side</span>
+            <span class="c1"># of the resulting equality Judgment.</span>
+            <span class="n">_self</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">Expression</span><span class="p">):</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="n">_self</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="s1">&#39;expr&#39;</span><span class="p">):</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="n">_self</span><span class="o">.</span><span class="n">expr</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;@equality_prover, </span><span class="si">%s</span><span class="s2">, expected to be a &quot;</span>
+                                <span class="s2">&quot;method for an Expression type or it must &quot;</span>
+                                <span class="s2">&quot;have an &#39;expr&#39; attribute.&quot;</span><span class="o">%</span><span class="n">func</span><span class="p">)</span>            
+            <span class="n">proven_truth</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">is_simplification_method</span> <span class="ow">or</span> <span class="n">is_evaluation_method</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">is_irreducible_value</span>
+                <span class="k">if</span> <span class="n">is_irreducible_value</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+                    <span class="c1"># Already irreducible.  Done.</span>
+                    <span class="n">proven_truth</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">Equals</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">expr</span><span class="p">)</span><span class="o">.</span><span class="n">conclude_via_reflexivity</span><span class="p">())</span>
+
+            <span class="c1"># If _no_eval_check is set to True, don&#39;t bother</span>
+            <span class="c1"># checking for an existing evaluation.  Used internally</span>
+            <span class="c1"># in Operation.simplification, Operation.evaluation,</span>
+            <span class="c1"># Conditional.simplification, and Judgment.simplify.</span>
+            <span class="n">_no_eval_check</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_no_eval_check&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">_no_eval_check</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">is_evaluation_method</span> <span class="ow">or</span>
+                    <span class="p">(</span><span class="n">defaults</span><span class="o">.</span><span class="n">simplify_with_known_evaluations</span> 
+                     <span class="ow">and</span> <span class="n">is_simplification_method</span><span class="p">))):</span>
+                <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">evaluate_truth</span>
+                <span class="c1"># See if there is a known evaluation (directly or</span>
+                <span class="c1"># indirectly and/or via canonical forms).</span>
+                <span class="c1"># First, make sure we derive assumption side-effects.</span>
+                <span class="k">with</span> <span class="n">defaults</span><span class="o">.</span><span class="n">temporary</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp_defaults</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;assumptions&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">tmp_defaults</span><span class="o">.</span><span class="n">assumptions</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assumptions&#39;</span><span class="p">]</span>
+                    <span class="n">Assumption</span><span class="o">.</span><span class="n">make_assumptions</span><span class="p">()</span>
+                    <span class="n">cf</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">canonical_form</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">proven</span><span class="p">():</span>
+                        <span class="c1"># The expression is proven so it equals true.</span>
+                        <span class="n">proven_truth</span> <span class="o">=</span> <span class="n">evaluate_truth</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">is_irreducible_value</span><span class="p">(</span><span class="n">cf</span><span class="p">):</span>
+                        <span class="n">eq_cf</span> <span class="o">=</span> <span class="n">Equals</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">cf</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">eq_cf</span><span class="o">.</span><span class="n">proven</span><span class="p">():</span>
+                            <span class="n">proven_truth</span> <span class="o">=</span> <span class="n">eq_cf</span><span class="o">.</span><span class="n">prove</span><span class="p">()</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># Note: If the canonical form is </span>
+                            <span class="c1"># irreducible, don&#39;t divert from calling</span>
+                            <span class="c1"># the appropriate method to perform the</span>
+                            <span class="c1"># evaluation.</span>
+                            <span class="n">proven_truth</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">proven_truth</span> <span class="o">=</span> <span class="p">(</span><span class="n">Equals</span><span class="o">.</span><span class="n">get_readily_provable_evaluation</span><span class="p">(</span>
+                                            <span class="n">expr</span><span class="p">,</span> <span class="n">use_canonical_forms</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+                        <span class="k">except</span> <span class="n">UnsatisfiedPrerequisites</span><span class="p">:</span>
+                            <span class="n">proven_truth</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="c1"># For an &#39;evaluation&#39; or &#39;simplification&#39;, we should</span>
+                <span class="c1"># force auto_simplify on and preserve_all off to</span>
+                <span class="c1"># simplify as much as possible.</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;auto_simplify&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;preserve_all&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">proven_truth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">proven_truth</span> <span class="o">=</span> <span class="n">decorated_relation_prover</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">proven_expr</span> <span class="o">=</span> <span class="n">proven_truth</span><span class="o">.</span><span class="n">expr</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">proven_expr</span><span class="p">,</span> <span class="n">Equals</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;@equality_prover, </span><span class="si">%s</span><span class="s2">, expected to prove an &quot;</span>
+                        <span class="s2">&quot;Equals expression, not </span><span class="si">%s</span><span class="s2"> of type </span><span class="si">%s</span><span class="s2">.&quot;</span>
+                        <span class="o">%</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">proven_expr</span><span class="p">,</span> <span class="n">proven_expr</span><span class="o">.</span><span class="vm">__class__</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">is_evaluation_method</span> <span class="ow">or</span> <span class="p">(</span>
+                    <span class="n">is_shallow_simplification_method</span> <span class="ow">and</span>
+                    <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;must_evaluate&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">):</span>
+                <span class="c1"># The right side of an evaluation must be irreducible.</span>
+                <span class="kn">from</span> <span class="nn">proveit.logic</span> <span class="k">import</span> <span class="n">is_irreducible_value</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_irreducible_value</span><span class="p">(</span><span class="n">proven_expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="n">EvaluationError</span><span class="p">(</span><span class="n">_self</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">proven_truth</span>
+
+        <span class="n">_equality_prover_fn_to_tenses</span><span class="p">[</span><span class="n">wrapper</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">past_tense</span><span class="p">,</span> <span class="n">present_tense</span><span class="p">)</span>
+        <span class="n">extra_doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &#39;</span><span class="si">%s</span><span class="s2">&#39; returns the right-hand side of &#39;</span><span class="si">%s</span><span class="s2">&#39;.</span>
+<span class="s2">        &#39;</span><span class="si">%s</span><span class="s2">&#39;, called on an InnerExpr of a Judgment,</span>
+<span class="s2">        substitutes the right-hand side of &#39;</span><span class="si">%s</span><span class="s2">&#39; for</span>
+<span class="s2">        the inner expression.            </span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">past_tense</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">present_tense</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_wraps</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">extra_doc</span><span class="o">=</span><span class="n">extra_doc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper_maker</span></div>
+
+<div class="viewcode-block" id="auto_equality_prover"><a class="viewcode-back" href="../../api/proveit.auto_equality_prover.html#proveit.auto_equality_prover">[docs]</a><span class="k">def</span> <span class="nf">auto_equality_prover</span><span class="p">(</span><span class="n">past_tense</span><span class="p">,</span> <span class="n">present_tense</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">equality_prover</span><span class="p">(</span><span class="n">past_tense</span><span class="p">,</span> <span class="n">present_tense</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">def equality_prover(past_tense, present_tense):</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    @equality_prover works the same way as the @prover decorator</span>
+<span class="sd">    except that it also registers the &quot;equivalence method&quot; in</span>
+<span class="sd">    InnerExpr with the past tense and present tense names.  The method</span>
+<span class="sd">    name itself should be a noun form and return the proven equivalence</span>
+<span class="sd">    with &#39;self&#39; of the method on the left-hand side.  Calling the </span>
+<span class="sd">    past-tense version will return the right-hand side as equivalent</span>
+<span class="sd">    to &#39;self&#39;.  The present-tense version can be called on an</span>
+<span class="sd">    InnerExpr of a Judgment to return a Judgment where inner expression</span>
+<span class="sd">    is replaced according to the equivalence.</span>
+<span class="sd">    </span>
+<span class="sd">    To ensure that the left-hand side of the equivalence is not altered</span>
+<span class="sd">    via automatic simplification, we temporarily &#39;preserve&#39; the &#39;self&#39;</span>
+<span class="sd">    expression in the defaults before the equivalence method is called.</span>
+<span class="sd">    &#39;&#39;&#39;    </span>
+<span class="sd">    class EquivalenceProverDecorator:</span>
+<span class="sd">        def __init__(self, func):</span>
+<span class="sd">            functools.update_wrapper(self, func)</span>
+<span class="sd">            self.func = func</span>
+<span class="sd">        </span>
+<span class="sd">        def __set_name__(self, owner, name):</span>
+<span class="sd">            # Solution for obtaining the method class (owner) seen at: </span>
+<span class="sd">            # https://stackoverflow.com/questions/2366713/can-a-decorator-of-an-instance-method-access-the-class</span>
+
+<span class="sd">            # Register the equivalence method:</span>
+<span class="sd">            _register_equivalence_method(</span>
+<span class="sd">                owner, name, past_tense, present_tense)        </span>
+
+<span class="sd">        def __call__(self, *args, **kwargs):</span>
+<span class="sd">            from proveit.relation import TransitiveRelation</span>
+<span class="sd">            # &#39;preserve&#39; it so it will be on the left side without</span>
+<span class="sd">            # simplification.</span>
+<span class="sd">            print(self.func, args, kwargs)</span>
+<span class="sd">            kwargs[&#39;preserved_exprs&#39;] = set(defaults.preserved_exprs)</span>
+<span class="sd">            kwargs[&#39;preserved_exprs&#39;].add(self.func.__self__)</span>
+<span class="sd">            proven_truth = _make_decorated_prover(self.func)(*args, **kwargs)</span>
+<span class="sd">            proven_expr = proven_truth.expr</span>
+<span class="sd">            if not isinstance(proven_expr, TransitiveRelation):</span>
+<span class="sd">                raise TypeError(&quot;@equality_prover expected to prove a &quot;</span>
+<span class="sd">                                &quot;TranstiveRelation expression (more &quot;</span>
+<span class="sd">                                &quot;specifically, the EquivalenceClass type of &quot;</span>
+<span class="sd">                                &quot;relation), not %s of type %s&quot;</span>
+<span class="sd">                                %(proven_expr, proven_expr.__class__))</span>
+<span class="sd">            if not isinstance(proven_expr, </span>
+<span class="sd">                              proven_expr.__class__.EquivalenceClass()):</span>
+<span class="sd">                raise TypeError(&quot;@equality_prover expected to prove a &quot;</span>
+<span class="sd">                                &quot;TranstiveRelation of the EquivalenceClass, &quot;</span>
+<span class="sd">                                &quot;not %s of type %s&quot;</span>
+<span class="sd">                                %(proven_expr, proven_expr.__class__))</span>
+<span class="sd">            if proven_expr.lhs != self.func.__self__:</span>
+<span class="sd">                raise TypeError(&quot;@equality_prover expected to prove an &quot;</span>
+<span class="sd">                                &quot;equivalence relation with &#39;self&#39;, %s, on &quot;</span>
+<span class="sd">                                &quot;its left side (&#39;lhs&#39;).  %s does not satisfy &quot;</span>
+<span class="sd">                                &quot;this requirement&quot;%(self, proven_expr))</span>
+<span class="sd">            return proven_truth</span>
+<span class="sd">    </span>
+<span class="sd">    return EquivalenceProverDecorator</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">InconsistentTenseNames</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">previous_tenses</span><span class="p">,</span> <span class="n">current_tenses</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_tenses</span> <span class="o">=</span> <span class="n">previous_tenses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_tenses</span> <span class="o">=</span> <span class="n">current_tenses</span>
+    
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Past and present tenses for </span><span class="si">%s</span><span class="s2"> are inconsistent &quot;</span>
+                <span class="s2">&quot;with another occurrence: </span><span class="si">%s</span><span class="s2"> vs </span><span class="si">%s</span><span class="s2">.  It may be a typo.&quot;</span>
+                <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_tenses</span><span class="p">,</span> 
+                  <span class="bp">self</span><span class="o">.</span><span class="n">current_tenses</span><span class="p">))</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Prove-It</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.as_expression.html">as_expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.as_expressions.html">as_expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.auto_equality_prover.html">auto_equality_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.auto_prover.html">auto_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.auto_relation_prover.html">auto_relation_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.bundle.html">bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.composite_expression.html">composite_expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.equality_prover.html">equality_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.expression_depth.html">expression_depth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.extract_var_tuple_indices.html">extract_var_tuple_indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.free_var_ranges.html">free_var_ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.free_vars.html">free_vars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.generate_inner_expressions.html">generate_inner_expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.horiz_var_array.html">horiz_var_array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.maybe_fenced.html">maybe_fenced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.maybe_fenced_latex.html">maybe_fenced_latex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.maybe_fenced_string.html">maybe_fenced_string</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.prover.html">prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.relation_prover.html">relation_prover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.reset.html">reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.safe_default_or_dummy_var.html">safe_default_or_dummy_var</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.safe_dummy_var.html">safe_dummy_var</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.safe_dummy_vars.html">safe_dummy_vars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.simplified_index.html">simplified_index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.simplified_indices.html">simplified_indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.single_or_composite_expression.html">single_or_composite_expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.total_ordering.html">total_ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.traverse_inner_expressions.html">traverse_inner_expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.unbundle.html">unbundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.used_literals.html">used_literals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.used_vars.html">used_vars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.var_array.html">var_array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.var_range.html">var_range</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.vert_var_array.html">vert_var_array</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ArgumentExtractionError.html">ArgumentExtractionError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Assumption.html">Assumption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Axiom.html">Axiom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Composite.html">Composite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Composition.html">Composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Conditional.html">Conditional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ConditionalSet.html">ConditionalSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Deduction.html">Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.DuplicateLiteralError.html">DuplicateLiteralError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ExprArray.html">ExprArray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ExprRange.html">ExprRange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ExprTuple.html">ExprTuple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ExprTupleError.html">ExprTupleError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Expression.html">Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Function.html">Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Generalization.html">Generalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.GeneralizationFailure.html">GeneralizationFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ImproperReplacement.html">ImproperReplacement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.IndexedVar.html">IndexedVar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.InnerExpr.html">InnerExpr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.InnerExprGenerator.html">InnerExprGenerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Instantiation.html">Instantiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.InstantiationFailure.html">InstantiationFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.InvalidAssumptions.html">InvalidAssumptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Judgment.html">Judgment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Label.html">Label</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Lambda.html">Lambda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.LambdaApplicationError.html">LambdaApplicationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Literal.html">Literal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.MakeNotImplemented.html">MakeNotImplemented</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ModusPonens.html">ModusPonens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ModusPonensFailure.html">ModusPonensFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.NamedExprs.html">NamedExprs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Operation.html">Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.OperationError.html">OperationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.OperationOverInstances.html">OperationOverInstances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ParameterCollisionError.html">ParameterCollisionError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ParameterMaskingError.html">ParameterMaskingError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ParameterRelabelingError.html">ParameterRelabelingError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Proof.html">Proof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.ProofFailure.html">ProofFailure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.RangeInstanceError.html">RangeInstanceError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.SimplificationDirectives.html">SimplificationDirectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.StyleOptions.html">StyleOptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Theorem.html">Theorem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.TheoryException.html">TheoryException</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.TheoryPackage.html">TheoryPackage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.TransRelUpdater.html">TransRelUpdater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.TransitiveRelation.html">TransitiveRelation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.TransitivityException.html">TransitivityException</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.UnsatisfiedPrerequisites.html">UnsatisfiedPrerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.UnusableProof.html">UnusableProof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.Variable.html">Variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.VertExprArray.html">VertExprArray</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.core_expr_types.Len.html">Len</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.compose.html">compose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.conclude_via_implication.html">conclude_via_implication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.deduce_equal_or_not.html">deduce_equal_or_not</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.evaluate_falsehood.html">evaluate_falsehood</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.evaluate_truth.html">evaluate_truth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.evaluation_or_simplification.html">evaluation_or_simplification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.in_bool.html">in_bool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.is_irreducible_value.html">is_irreducible_value</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.not_proper_superset.html">not_proper_superset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.not_superset_eq.html">not_superset_eq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.proper_superset.html">proper_superset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.superset_eq.html">superset_eq</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.And.html">And</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Bijections.html">Bijections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.BooleanSet.html">BooleanSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Card.html">Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.CartExp.html">CartExp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.CartProd.html">CartProd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.ClassMembership.html">ClassMembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.ClassNonmembership.html">ClassNonmembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Difference.html">Difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Disjoint.html">Disjoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Distinct.html">Distinct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Equals.html">Equals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.EvaluationError.html">EvaluationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Exists.html">Exists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.FalseLiteral.html">FalseLiteral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Forall.html">Forall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Iff.html">Iff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Image.html">Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Implies.html">Implies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.InClass.html">InClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.InSet.html">InSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Injections.html">Injections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Intersect.html">Intersect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.IntersectAll.html">IntersectAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.InvImage.html">InvImage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.IrreducibleValue.html">IrreducibleValue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Not.html">Not</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.NotEquals.html">NotEquals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.NotExists.html">NotExists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.NotInClass.html">NotInClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.NotInSet.html">NotInSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.NotProperSubset.html">NotProperSubset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.NotSubsetEq.html">NotSubsetEq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Or.html">Or</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.PowerSet.html">PowerSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.ProperSubset.html">ProperSubset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Set.html">Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SetEquiv.html">SetEquiv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SetMembership.html">SetMembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SetNonmembership.html">SetNonmembership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SetNotEquiv.html">SetNotEquiv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SetOfAll.html">SetOfAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SimplificationError.html">SimplificationError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.StrictSubset.html">StrictSubset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SubsetEq.html">SubsetEq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.SubsetProper.html">SubsetProper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Surjections.html">Surjections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.TrueLiteral.html">TrueLiteral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.Union.html">Union</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.UnionAll.html">UnionAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.logic.UniqueExists.html">UniqueExists</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.complex_polar_coordinates.html">complex_polar_coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.compose_fraction.html">compose_fraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.compose_product.html">compose_product</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.deduce_as_mon_dec_func.html">deduce_as_mon_dec_func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.deduce_in_number_set.html">deduce_in_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.deduce_not_equal_numeric_rationals.html">deduce_not_equal_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.deduce_number_set.html">deduce_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.dist_add.html">dist_add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.dist_subtract.html">dist_subtract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.exp2pi_i.html">exp2pi_i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.frac.html">frac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.greater.html">greater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.greater_eq.html">greater_eq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.is_numeric_int.html">is_numeric_int</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.is_numeric_natural.html">is_numeric_natural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.is_numeric_rational.html">is_numeric_rational</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.less_eq_numeric_ints.html">less_eq_numeric_ints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.less_eq_numeric_rationals.html">less_eq_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.less_numeric_ints.html">less_numeric_ints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.less_numeric_rationals.html">less_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.negated.html">negated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.not_equal_numeric_rationals.html">not_equal_numeric_rationals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.num.html">num</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.number_ordering.html">number_ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.numeric_rational_ints.html">numeric_rational_ints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.quick_simplified_index.html">quick_simplified_index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.readily_factorable.html">readily_factorable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.readily_provable_number_set.html">readily_provable_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.remove_common_factors.html">remove_common_factors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.simplified_numeric_rational.html">simplified_numeric_rational</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.sqrd.html">sqrd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.sqrt.html">sqrt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.standard_number_set.html">standard_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.subtract.html">subtract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.union_number_set.html">union_number_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.unit_length_complex_polar_angle.html">unit_length_complex_polar_angle</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Abs.html">Abs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Add.html">Add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.BinarySequence.html">BinarySequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Ceil.html">Ceil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Conjugate.html">Conjugate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.DecimalSequence.html">DecimalSequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Div.html">Div</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Divides.html">Divides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.DividesProper.html">DividesProper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Exp.html">Exp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Floor.html">Floor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.GCD.html">GCD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Integrate.html">Integrate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Interval.html">Interval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.IntervalCC.html">IntervalCC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.IntervalCO.html">IntervalCO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.IntervalOC.html">IntervalOC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.IntervalOO.html">IntervalOO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.KroneckerDelta.html">KroneckerDelta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Less.html">Less</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.LessEq.html">LessEq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Log.html">Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Max.html">Max</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Min.html">Min</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Mod.html">Mod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.ModAbs.html">ModAbs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.MonDecFuncs.html">MonDecFuncs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Mult.html">Mult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Neg.html">Neg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.NumberOperation.html">NumberOperation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.NumberOrderingRelation.html">NumberOrderingRelation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Numeral.html">Numeral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Prod.html">Prod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.RealInterval.html">RealInterval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Round.html">Round</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/proveit.numbers.Sum.html">Sum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  <li><a href="../proveit.html">proveit</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Wayne Witzel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

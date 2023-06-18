@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.physics.quantum.algebra.scalar_mult_factorization theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.physics.quantum.algebra.scalar_mult_factorization-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">physics</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">quantum</a>.<a class="ProveItLink" href="../../theory.html">algebra</a>.<a class="ProveItLink" href="../../theorems.html#scalar_mult_factorization">scalar_mult_factorization</a> theorem<a class="anchor-link" href="#Proof-of-proveit.physics.quantum.algebra.scalar_mult_factorization-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> scalar_mult_factorization
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="scalar_mult_factorization">scalar_mult_factorization:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/70fcc17ffea01da324973fafc7ebf4be81fcf95b0/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/55e4615a4aabd493c58c79645ac23a72a53d973c0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-10-26 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

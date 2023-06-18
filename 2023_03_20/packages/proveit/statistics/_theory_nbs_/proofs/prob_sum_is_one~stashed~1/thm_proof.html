@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.statistics.prob_sum_is_one theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../index.html"><img src="../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.statistics.prob_sum_is_one-theorem">Proof of <a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../theory.html">statistics</a>.<a class="ProveItLink" href="../../theorems.html#prob_sum_is_one">prob_sum_is_one</a> theorem<a class="anchor-link" href="#Proof-of-proveit.statistics.prob_sum_is_one-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> prob_sum_is_one
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="prob_sum_is_one">prob_sum_is_one:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/1e15cb3388e92336e129e156403c6f64bd3cfbd60/expr.html"><img src="data:image/png;base64,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
+BdXrpgAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/197debbf301ffebc8d460a8e33d0198d88701f2b0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

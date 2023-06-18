@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.integration.integration_real_closure_simple theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.integration.integration_real_closure_simple-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">integration</a>.<a class="ProveItLink" href="../../theorems.html#integration_real_closure_simple">integration_real_closure_simple</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.integration.integration_real_closure_simple-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> integration_real_closure_simple
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="integration_real_closure_simple">integration_real_closure_simple:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/e1699e9d3c789c8c6423eb5bcf796ec3b213d8d40/expr.html"><img src="data:image/png;base64,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
+SUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/ee85f74ad602f2bb5566652e21e12c6c2006fd4e0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.linear_algebra.rational_vec_set_is_vec_space theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../index.html"><img src="../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.linear_algebra.rational_vec_set_is_vec_space-theorem">Proof of <a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../theory.html">linear_algebra</a>.<a class="ProveItLink" href="../../theorems.html#rational_vec_set_is_vec_space">rational_vec_set_is_vec_space</a> theorem<a class="anchor-link" href="#Proof-of-proveit.linear_algebra.rational_vec_set_is_vec_space-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> rational_vec_set_is_vec_space
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="rational_vec_set_is_vec_space">rational_vec_set_is_vec_space:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/d686ca34a2748f5a65144698fdcb0ed7bee6c99d0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAAAmBAMAAADD4rhEAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAABQRJREFUWMO1WF1oHFUU/ia7k5md3U12IUqDbQlBLTEPCWJMqG1ZJdTY
+P9bYl9Jq1p9GqJZurA8imEwbVKTYrrQWUwRXEp+MdYNCoRt1Q4ViktLVPkSKNStKwFoxKdWsSWM8
+9+78bdgMo8nch5M7kzPnfvec75xz7wKOxhdwbYjvOlb159yDgZeiTjW/cREFAk73KDW5CQMHHer5
+Iq7CeMJhVCajrsJwyry7XUUBOe+MGn+6CwPPOdKqiFkexi6GUyvevjFTubzg6KvKDC8zWztfUCGO
+bkLLSmGs063hQ/58IgtOjx9sv+rhmNc34+gvkB9PoDhGgUM3c5AbHjRoLKbTWVuHBSO6NQh8h2Up
+nGd/37OFcZkJ79cZKOdjqAgpjUuIfptZShrP7XF8l7Czt8e0Bl7J/Ql0s1jFbGH8ysTLPhKxEXji
+/lS8ONJ/M0vm83bykC2MYdMaxtgLYRo+cqY3awtjCxP7nyLxqA8nUPZaAYbwTG0dnxyioI2a6qfY
+Cnb2Gk1r8LBYBmcRoOj47Bl1iwU81kXymj9+FsIO/lZ5R2fDJDHBUoGeJVQZO2okTGvwMU1pAbi/
+tvYBexgs9lJkkORgwPTbWwYnPY2QQpCHKBp7W3di8hbxRDm5I32DohNujUL8vDWLY1UpdI1Us/hF
+LNa8DL9IK5wjF5VY22wj8gLbe+gSya6guU2T1t4F+KM4rAoJeTP648Li4hnCthHtKVxRiX69WaVZ
+akG1GEMZ61AZi7UCi2aA45BL1XQz5ZjLIEdYUg8KZkIkrBytAOqBBV+CFsa+nxcz8OUQnKMnJY8+
+BFsoJyuvNkFgSZW1WAs2amEvj3qTVt7Xb8OFnBWGMsekFk0jEhIFs/bewvwDdRQSOfZUh+bDw0T9
+FMR58vdAXmTc6iFgkYanWQXyJC3WpGmmT4rBkMnQrqkD+NEbZYst8Qb2H9e4rRcpSzJMRmjr8+Pj
+F3tC4PQk5AQDf0H88lpemmEqw+Pj8d0N8xoMw1qhCLHXiRGjEJ1jFTWU8mJ7uj6dLIIxwDP9krl2
+jTn1NIcKWh0pLVlnNW9cSUp55hT0ELflKC7HeVBMa8EajRvYSZUsMNx1F7CWvZq4esRbxA35NofI
+6t51iwvCljp6M8qri0LcQPY++mSac2OWtqnkX+mj1TwU509CqCBXlYcs1gIxPRd7SWNff8ajFvw8
+4X1yoAiGOMP/7KIu8Jv1SGbmrvwP40MSbfImeNW6LPYQE1rQHiEYwuz3vRm0SRvhfbsJ5UQOnqO6
+NX9Ez8UKctTr1aiMKjwbJ5C6swgGHiqs9VXfvLWKi1MfGfMz7P/pKhV7h9Yg9/Gu64TyRphk97o7
+HgmJ6bCKY0NtysPhbSzINRZrvBdJc7qhn9CPwOnOzoMEY7evqG7gtHbsiI8UpbSyVSvmpc+vyzfZ
+DRZrR3ldNXp2M9KSFCl4Q/m2+LPPdKjC7686PlPYwBizWBvm9U+nO3Fqw0ShmlKTWr+k0WvFIjh1
+8kXHMMqWP+eWq4a1Qm8v13WVHKoyeIOiJdWprCZaR0f2vx+wlD+2qMteF2NLEFUWd0I6mR0ohX7F
+h88l44gxW8Plp6qj212jyyfzx5zduedchrF5NdH+7yE49LYnXvIWtXaVrrYehylQ+oTbbX/idD6q
+nSq+X+rl86t1hXV8/WovlVH3YHUu+u2Oy5Jc6vepgfHMqsBwXpnxpos/wbEe+y96S3BMYC49EwAA
+AABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/e929e5668227ecded659c53156e7bc16874c98620/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

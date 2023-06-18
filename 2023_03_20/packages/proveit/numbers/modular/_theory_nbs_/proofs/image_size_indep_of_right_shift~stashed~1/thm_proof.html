@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.modular.image_size_indep_of_right_shift theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.modular.image_size_indep_of_right_shift-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">modular</a>.<a class="ProveItLink" href="../../theorems.html#image_size_indep_of_right_shift">image_size_indep_of_right_shift</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.modular.image_size_indep_of_right_shift-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> image_size_indep_of_right_shift
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="image_size_indep_of_right_shift">image_size_indep_of_right_shift:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/beeaab6513b6ed316942240f3a1a02cf0935c0b90/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/b49c57ec1dd6cd0bb9bf40b77d71ee13427ecf9e0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

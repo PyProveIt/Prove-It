@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.physics.quantum.QFT.invFT_is_unitary theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.physics.quantum.QFT.invFT_is_unitary-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">physics</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">quantum</a>.<a class="ProveItLink" href="../../theory.html">QFT</a>.<a class="ProveItLink" href="../../theorems.html#invFT_is_unitary">invFT_is_unitary</a> theorem<a class="anchor-link" href="#Proof-of-proveit.physics.quantum.QFT.invFT_is_unitary-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> invFT_is_unitary
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="invFT_is_unitary">invFT_is_unitary:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/08eaf4c7318014f2dd5700d22649b88853783f700/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAmBAMAAABDtNh+AAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAA8pJREFUSMell0toE0EYx/9JttndvKygovigxINKDy1WqQcfuSj4gvWB
+IKgNPnqoFlI926YVBS8mVBu8iJF6EUGDgoKpEvHgC6GCEBCRWKEohbZabX00rTOz2c1uNolTdqDJ
+zPTL/r73zAJcwzsIG6Omj1/2CWyN0wqvpC9uj+TL8UqeUeyR0M4reMUmCPs4VfX/tGwFknMieTnd
+5wzZJUm/+OS6rLY75hi543xiw5Ydd+J+lQqT1K/Xz+engCibP+MjTVu3hGo2LVfr9dVGbABusEVs
+ECxUH6qCROJkcahpdHjlevQmhtYM94atceq8vDmEY99TNIFCkNKJiLQnDpJKjgwLdQqP6PfV6nU3
+Tj48k+SvGXk4puFvhGxxXleYmFFHZweBCxD+IFDraSRL1oq8cXRSv4arkgK0Q0gz5ONNTY6SEC5D
+ilHvMA8NAF+AJrgi3lSEhItl0Dhk4nChev905TTSHinDSFvh1r23KBiMm0nEkC0KxqIxOM8SkouG
+1D8FH3GjXD0h5oVUkqQ4xCQjvSiSbi0stclPwEPAWOQOHLvIWqaBEvPA2mBw3X9IGZXkYwnrYJkY
+iBQSus/iPa9a5w16mtLNGvKrh8CJMo83tIXYoErqMZC8aplAjlpIzAaI38wHAVleglSuKaUMWcVI
+E6PXDSStR8jWjHCyqDv1h/ppAuIHKXdFMNaGVL8Dz3Im0t2kapPXQNLPkyAZYRPJxR73oFiOtEjw
+lyBri3p1DLfho6B4lTI2zcBfhnRAn7WEjSTD2ceKipIQf6r39oe0X9SmBOxM16eTpaRCbzWRnMVa
+IOEQM5r33kHSIuivK8QJu0n6+AY6lgLL6Fb2fbdgjlMsU5nkqNUDP0UykkbPTbbEULHb+8Ja7zxH
+DD3Un3FFa9hWVjh800xqoU8TJ40kVTM6ruli9xQ81rK6J52+p3uKlWO+UBrnl2Ce4mHpmUVqkZnk
+InPx68QoK6HbnydGIqpm7J9H2jTdPSOqhEi81TA7+1t3MA2D+EdbfkI/fInW1nZC2i+b60m2tkWm
+mTq9eTRYcnNaZV72mC8IzUiLYki1yfO25BLQaC03qlml8dq8HGAurdOqaByrsmqveAWsKDk1rBcW
+plklkjtqOoCZR9xa1ntyWJDBBeJncU0UgZLLbt56fjPNKl2Ow1Yu650GkW2tbeV+etKyo2pWaXQb
+F4vVPhPlukdwXjeqje18Yi1J26RNfGJC3C7I0cgp2GyX5OJ9/3ppl7SEV1DO2ANJG7hfH1fbI+3l
+f3m9aO9V7dQczI/YeqOmVfIPnj0RB3Sltj0AAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/3258150f34adc6261dd0c0ef93ff57ca9714be5d0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

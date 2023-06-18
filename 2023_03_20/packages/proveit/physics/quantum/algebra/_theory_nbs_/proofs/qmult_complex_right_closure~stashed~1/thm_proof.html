@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.physics.quantum.algebra.qmult_complex_right_closure theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.physics.quantum.algebra.qmult_complex_right_closure-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">physics</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">quantum</a>.<a class="ProveItLink" href="../../theory.html">algebra</a>.<a class="ProveItLink" href="../../theorems.html#qmult_complex_right_closure">qmult_complex_right_closure</a> theorem<a class="anchor-link" href="#Proof-of-proveit.physics.quantum.algebra.qmult_complex_right_closure-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> qmult_complex_right_closure
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="qmult_complex_right_closure">qmult_complex_right_closure:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/d17badc0438084981c39418cd30388a327c5d1d80/expr.html"><img src="data:image/png;base64,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
+HSthBy0/BXUAAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/87965218297ce26bd7a5ad4c457e29e5bed7c8830/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-10-26 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

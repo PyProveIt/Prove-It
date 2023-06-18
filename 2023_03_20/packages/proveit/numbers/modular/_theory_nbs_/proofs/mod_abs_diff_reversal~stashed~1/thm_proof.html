@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.modular.mod_abs_diff_reversal theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.modular.mod_abs_diff_reversal-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">modular</a>.<a class="ProveItLink" href="../../theorems.html#mod_abs_diff_reversal">mod_abs_diff_reversal</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.modular.mod_abs_diff_reversal-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> mod_abs_diff_reversal
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="mod_abs_diff_reversal">mod_abs_diff_reversal:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/4f729cc96697623dde5f3444946f4d09163891d80/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAAXBAMAAADqwWVNAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAABKxJREFUWMPNl3toW1Ucx793ua88ezNX2rFSQqlvlDicLyzcCp2zPrhq
+6T+VptEZpToWnX8oUhep7M82lW0+5iSwKU4mDcHX2rEljAkF0bvqHwqCLa5CdbIIK865gOfce9Pe
+k+Q2vY1/eMpNbs/55fzO5/c65wD/VUuRP4cmr3kSeZXp0fj09Runo9dpjM+sdRZnyV7nH/kUYI6+
+/NQ4xve1NQlPRVxi9G91i4E2YIp+v90whZB20OTNuvXGIdcYXg2v0eAaahjDn3fQ1KS7xSi5xghk
+KQl4vWEMj5OmSc0lhm/JNQa2IUDM6G08NX500nSf2xTnI+4x3gO2dnTc3jjGp6Ym+Xyrwg68H/7D
+HYZ3vr0iOMa6X6+D8QjwBfD0OtfOM/agmo6kRDYmhL+1WKoORq6DtlstjNgB4TJbT+/Cbm11jBnC
+CnluvXm98nqLgSHcCz8bE8EleBRX3vhZw21M3+N55Op44ztA1Bgtsw+cmqDfr1jVK9h5aNGIE9/u
+PI5NMEI2jHsMDH8RG1TqgzcNAyeJSBpNqiuME8Al+ww4DXTWwdhL1qksZ7jUnshwPHbQlYToxwu/
+DkNR+TeM0fYouBQjVIXhGUKMXTKhmtRdYXTCx5bcOyBcqYNxhDzpQvm/aQLPcThLre+hpiR5A0UJ
+PGqMfnbVSIZlIX46Nz3FBlVMwbdV28ZprRLjGprDH16F7x2lOjdK8DPpJfyJQLEKg+uyB8gseR4+
+QD76CjvA5WGssDlL/RReoJs8xeAGjF+qOYphF7J5I25i6FgMMoe4piTJl0oML8XgfgFaa3jjL5oM
+dowSQukfqrxx2BYg+Io8oyTDhRuky+g3MHk5TqfZqG0RjPRQ1H0GjqTH9BEwQn6m5BFNohK82c9o
+C+XFbBWGSDH8sTzUGhgX8BzbF8dsNluFscsWIEa5D9HwyUpRHDdW6N9prP55zPgMqyifbzfdqPkj
+zWCEbCt+0axU8/ePtbAF9/xJujjhyZH2J77JgCv0gGvbTDF4UtNqYQw+mGf7Bje9PJ8kk/dff27h
+69/IQXCThnDh8EqAADeVzxIZbg4ziURC5zj+E9pzJ04FDiYSu0hQ9epmdZWvELV2Idu+sSGJVQ/q
+47p3KBjBMB4jpvPQCUeEkqS7OajLJRwkWSBmhIhfRddKgEAuF/lYSjyrvWQYmvMdJccgFNElqWZu
+fNxj7XWLpIMRYk5nq2NooipFpSLE1iUzN5qR4zRXGEvYiT20uMbHNSM3rAAxzqWmN1J7j2uiZoQ9
+erKCimsDQ+buTgruAPqI9UBMSreZshCr5tk6GAgpUjQQRWiqaGJkMX7U1bVJLmKeYJwBfp80U9wK
+EOxb3vBPnnsI8jPk7dhmdeCE1IVXw2SYRIpvYr8wnd6jc9clESIIK0Ksmv61YBBveMveUBHavx4M
+4o0JyxtWgFAT2ltfImFNEzTzc3ti2BrSawixF2IFLY4X3CTBEAkGUT6qXcCoTuOaBnsNSYfWQjHi
+BMOry9tCeZnmhhUgnOM9/YPK667W4OXwYvbMu2OXwIe/BN+28S1S0IlXF1zNMfhP4O6PLqro3pJC
+d+HGJMoB4tzylfcr/L/bv4nFVXEIx6R1AAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/5e293f66d655c675e798c058c01b0cb5051887650/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

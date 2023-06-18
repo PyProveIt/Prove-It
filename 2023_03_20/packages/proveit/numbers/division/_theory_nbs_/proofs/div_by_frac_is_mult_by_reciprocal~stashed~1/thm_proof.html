@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.division.div_by_frac_is_mult_by_reciprocal theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.division.div_by_frac_is_mult_by_reciprocal-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">division</a>.<a class="ProveItLink" href="../../theorems.html#div_by_frac_is_mult_by_reciprocal">div_by_frac_is_mult_by_reciprocal</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.division.div_by_frac_is_mult_by_reciprocal-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> div_by_frac_is_mult_by_reciprocal
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="div_by_frac_is_mult_by_reciprocal">div_by_frac_is_mult_by_reciprocal:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/e2ee646dc85b850f3ef689309accae10506150490/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/7de2cbc3c94d88e08c48541adee2bfa9be2bd6430/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

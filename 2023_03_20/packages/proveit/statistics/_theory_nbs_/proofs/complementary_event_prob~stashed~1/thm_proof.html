@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.statistics.complementary_event_prob theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../index.html"><img src="../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.statistics.complementary_event_prob-theorem">Proof of <a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../theory.html">statistics</a>.<a class="ProveItLink" href="../../theorems.html#complementary_event_prob">complementary_event_prob</a> theorem<a class="anchor-link" href="#Proof-of-proveit.statistics.complementary_event_prob-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> complementary_event_prob
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="complementary_event_prob">complementary_event_prob:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/2116ba77b1fe956931aae6d4a54eec0ac1fed40b0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfAAAAAfBAMAAADq54I2AAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAABddJREFUWMPtWG+IVFUUPzM7782bvztbSoKufyZkP/THJQr6sMhbWKQ/
+is8vgWTuKDjCsrETBiGR89KQINjdDCWCaITFT5WjSFJuOotC5E61Rn2IDAYzs7B2NZU2y+mce+c2
+9933dmaWBky3C2fu3HPPOff87j333nMfQPPKuaQNt0fxJR9oprlhuH1K8ZYCN+oy5GI3YqGGiC3R
+LQbeXpchl/2NWKghsl8iBF6i6myTgMepihUalI+Zxrnyrxf6JQbSobaf3ZLHeqI5X8HDAkBwubLC
+bptVfUEI/CPqfbNJwCM5rEKNHnHr0eubALuGJYaxz4L1e1XJTaANAOz1srDxw2sK02VT1hdUhB00
+SakmAQ9S/OxuVH4UR0Yno1clhv8RAG1aEYzkAT4FGPeyAD4VuMumrC+oCCELIDDRrD1Ok7mmUflO
+7mTwisRYgj7CpBLUrRm2M1ssDwvewB02ZX1BRYjiIKGmHW7FWZxxsWHuZHhaYgwQ5iUlp+RBZL6A
+bhY8LHgDd9iU9QWhow8lkw83DXhLMnmv2aB4xOROBv4Kv9H+uM0Z7zDgytbrvZqhKlDysOAN3GFT
+1heEwI8CbGka8EgGdCkg87XEaeLRSe3uArR8PFRZibXk6ImEUzJaLl+kisXS4SSVB4UFT+BOm7K+
+IAQ+CAbOgG/1uAiktnnPqz4+NTVTjwIcTQ3iv3D3onuIU1m5kbaxDATS6bQtj+PHk8W40tONlX+p
+VmEMEbgV6mZeN/AbhW2nwiYFD+CqTVlfEALXrUAOtC6AD7DvuQt9uGjHXdkPA+7VoyYwW+AJ/D0D
+wakq8FgCsqD10V8xDpUWvPuM63zxS4IRQBjGZXYPsZXtqAifwD5uUyqkUAGu7WHiFNIum7K+oCK5
+hWebjk63JiCCcd8CPA+Ri8aG9OpRgZ9hvzilpSpwpqez270yjgt4/h8n70coyvEYpW2KKxfunBm4
+vEqqTVlfEDuFx7AfpfwpWEQKP2B6+8p4Ttv80uINn+eMzWNPWgg8MJagHtY0VmPaM2+xDavboP1U
+QQYeihKsPysZMQfeWiCL3FU+TjXUK06agmFtx9p2pkAbkYYw+mNLlT0+Q6irNmV9QQR8DV6+OjrT
+amrkkrHivhych0dhaCKUQpms7RtG4G/DKOuhZtxssQP5iBmaiJw2jYQMPPAN7c8l1/lscIi+MmaQ
+37G/fBwuricUJ4lhxi14DZwXw5dIR2jl1TyLFOoAJxFZXxAB34VRGcNYztph5m5w8WV4FfpxknQz
+2AnbAP7QpnBfHGA91DRsvdBrG1YWwltvfO0IdWMl2xrf3pSAwzMnSvAu3+5sHM6lWyXI71t/XjAu
+fZWBkbPO2+CwyW+yiHpRMm7gdzVlVW3K+oIIeJxOhEsAhyC6L51+Fs/CLPi6l8EQxBMceJc2Fe0q
+nmY91IR5dyUOotLJYjF3oJxzvM5+JNyYM0jALQhPsXgT41QcXArGT+XzdAlMrpzgDFhbnoAvys7r
+LP/+8V8YlJwKERXi309fci64y6asL0g8Sw3M5VOZIE0pnl9+PGI2WVXgfMV5DzX9BX0+bZosGrai
+w65n6XsiYWfAwxP0GOBpMR+nItahno4dtfOEnTBLBUVkp0QCeMBnxzImy2RaczCoXYNliSHcIAg8
+a/lSuMf7YR31sGav5W/TTS2hF7T2PKRcwPHSu1gFHilBHKP7SKY6Di+uR8d43UfN7BQUkVGJBPBQ
+Oecrm7AbnYuM9JiwsLh9/mT+5FuDVyH72UJ4+gYEuhOsh5q+0U9eh542QIodOmW7gB891mNLwF88
+8hgt/CpMYCrjVM4m9f2q13zQerwh9fov4KoI6QtSv8Boq9J9qua2ms3aX2BqP3e1VD1GPZRa/fd0
+VYT0BTXy6Slbs/lvgMPLdRlyWdCIhRoiCyRqALgxadZoNg48nma5+h35lXWP67v6f/U7uy/ZBf8X
+lhEsMucm8B31jqM7tWydq6G+HKy5CXykWJgrUP8GJGD6dNTEwuwAAAAASUVORK5CYII=
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/e41d707bae551b3eaa8692906ba19d4f9ed8b1320/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

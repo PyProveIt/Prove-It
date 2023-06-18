@@ -1,0 +1,2 @@
+. /gpfs/wwitzel/ProveItMasterFull/Prove-It/tutorial
+proveit /gpfs/wwitzel/ProveItMasterFull/Prove-It/packages/proveit

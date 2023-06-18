@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.core_expr_types.tuples.negated_shift_equivalence theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.core_expr_types.tuples.negated_shift_equivalence-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">core_expr_types</a>.<a class="ProveItLink" href="../../theory.html">tuples</a>.<a class="ProveItLink" href="../../theorems.html#negated_shift_equivalence">negated_shift_equivalence</a> theorem<a class="anchor-link" href="#Proof-of-proveit.core_expr_types.tuples.negated_shift_equivalence-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> negated_shift_equivalence
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="negated_shift_equivalence">negated_shift_equivalence:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/4f1ed4f3f54ae4c4891a51e2f32fceeaaf25f6db0/expr.html"><img src="data:image/png;base64,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
+WApw1TWt/wDC6nQVDKBfNgAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/8ba6804b1329c80be11e9560fd7a41046cdf1b230/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

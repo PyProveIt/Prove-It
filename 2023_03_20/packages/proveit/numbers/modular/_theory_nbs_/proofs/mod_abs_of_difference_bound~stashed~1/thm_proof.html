@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.modular.mod_abs_of_difference_bound theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.modular.mod_abs_of_difference_bound-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">modular</a>.<a class="ProveItLink" href="../../theorems.html#mod_abs_of_difference_bound">mod_abs_of_difference_bound</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.modular.mod_abs_of_difference_bound-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> mod_abs_of_difference_bound
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="mod_abs_of_difference_bound">mod_abs_of_difference_bound:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/77091dae23c319aa18d892fe6b36ce42c24c19460/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdoAAAAXBAMAAABey5NCAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAABRhJREFUWMPdWH1oW1UUP695L3n57MvYqDItoVSrDiEO5xcWXgebs1N5
+bqUglSXRGUd1LDr/UGQ2Y7I/21TcEOckMAUnG32MTTc7ttQxoSj6Vv3DgWALq1g/WIQF5zTg/XjJ
+e/el7yOJf3nKSV7PPSfn/u4599xzH8B/RXn0Z0NiEz8jGtp5zyau+mKTs3AjToNBuzG+6P13bjW0
+Bz2a1Awc9EMS5Xn8zw/to/1ueW/Cs4mm0EblltAOr3XRv4XyZ/j5nbbBCgUbb0HVFe1TJdMztBbb
+Qy76QYXwGzij022jDZdsvHVqrmiF9VL9+WyLaKsu+hGVMAbNa22j9dl5m1I8ZPKKDbWnZGtoQxU3
+/XWEIygowfa37WU7b+s9VanPdbjRQmto+YSb/nuU1/b03Ns+2pPUm3jlJokdeD/+u5cqdfk03RAy
+RTs+sLcptMGFbs1Z/wnKnwI81ypGmVk65O1I3l9h9+RfSirvpSYfXSTFpEQT8wHYpTSDNnVAuO6s
+P0t5HMT5VtGq9ae7CVrhYQgn2BOlAj7JE1qy5B20pm0twYmmYvujAvc4639L2a8wk5l79Nwk/n5N
+r9PR3kNLJDlDu0pwdJIVGmgfImjDZejA8Rbe6sGUQ6lZgE7ZSyb/TItdkUz+PECvC1rDBTY4A3DN
+WX+MclSqF6lAd7bI8bAJTziGP176aRQkmX+TjHYngcuzQitaXxpSLDIEfkrzUKVOgRntfSDcaCq2
+vRCqOusf0bkwU5NMo5XiOLiIw+bDgUF7GiQp8iQZPfUP8GAWbp5eM11kMjklwTcNx+15xYqW67fk
+Sv0Eopks/AGRcgPaBisT2iqEK876czo/fgB9DM1sAg73NAjtKhyysfgiabcQMG6ElqQTBK1ZaMQ2
+Q9FqsBRlmvPOHNrLDbE9bM4Vc3fhlwjaKsQK3zfEirVi0P6Jt7qj/hc670NFSrgjcB2GyYrwYgaj
+XqGsFsjWleT9BGBAS2l7kKZZqDIFfhBNNromzHiMlfxqI9qdplxhOkd+nkw+A3Oq2jB71opB+xu8
+AM76J3WO4ZxVA0k4RtCGtxM8L8JsiMxC+mQjTQwlnFiFUsMsNNC+TGvywiPjXWwxuUJ6QeGZPd1P
+f10EbgblbHzmsClXGArQO8S2la8u5NDvDfddWvzqF5RPKxUHK2ywGXeuTl7u0plWB24eZrPZrMZx
+/HEsuR/ORQ5msztR0g6SxjIM4g1UuRihcd525MDxxjehBdPRBIzCFtxB9Bu5YqE+ppcSq3AQ7TZ/
+UUg4WBk3PnsvYoIyoVTef1F5hYSQC32AWlsoQ39Aplv0Y1JD0AotIQErZLpuR7SKXw4kA2WU7BMK
+2VF6rljoSxZtBbbDbnxyZBysTGhtveBbS7i2Y3z5sWOKXyH7Fjaoggy3RdK0x0KHzQgMAaAVmsDx
+NIQM7XBBCzEpkIwkIaZO0fqh5wqiLeTk7KNlKs+gLcMCQnsB4NcGq2XR2nrZrzO925+99BiIz+Oe
+5mZ55EygH16Po2GUnqHJt4Xpwm6Nuz0HMbwchpBxOewFLVr1YG3V9VyxNg3pZdCi2E46WFnRLudl
+h84mGspmdcModb0xO6oPGXdCk5B58yNBl+1bnByahx/NA01gnxIriXhH1XLFQnuxNqUujDaD0AY1
+cZ2DVc2gy94LPoQ42/dWH1rf6yhtvtq4ql54d/wa8HF01xmYuTMH9Vxxom1/Rx786KoMA6vzXqxa
+9AIl69Uf/hf0L6e1sV87WgULAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/6b2f798fe571a02d01de3cbd90b1f3bb842aa67e0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

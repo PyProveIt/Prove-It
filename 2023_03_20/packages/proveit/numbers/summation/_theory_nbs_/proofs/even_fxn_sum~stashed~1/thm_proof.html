@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.summation.even_fxn_sum theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.summation.even_fxn_sum-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">summation</a>.<a class="ProveItLink" href="../../theorems.html#even_fxn_sum">even_fxn_sum</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.summation.even_fxn_sum-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> even_fxn_sum
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="even_fxn_sum">even_fxn_sum:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/32a58022b9531ecd66501132d2fcf890d4aaab720/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/6cd7fafb40697e35469232eece4f9f49e872ac2f0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

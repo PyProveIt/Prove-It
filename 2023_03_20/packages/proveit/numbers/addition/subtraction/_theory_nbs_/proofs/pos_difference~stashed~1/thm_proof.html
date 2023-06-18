@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.addition.subtraction.pos_difference theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../../index.html"><img src="../../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.addition.subtraction.pos_difference-theorem">Proof of <a class="ProveItLink" href="../../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">addition</a>.<a class="ProveItLink" href="../../theory.html">subtraction</a>.<a class="ProveItLink" href="../../theorems.html#pos_difference">pos_difference</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.addition.subtraction.pos_difference-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> pos_difference
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="pos_difference">pos_difference:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/37535272f463f19c95750d03b784a771929770f80/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAM0AAAAXBAMAAABaN9YTAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAvRJREFUSMetVl1IFFEU/vZndnZ3Zm0UIcFYRBKkCEqKRAok+oNMBrOg
+l9YejEANyacI2qGgR5HACPJhw6coyMDKSmQtFCLC6eclCFxBoSDCIEmKoHPnztx1foQRPPDdO3N3
+7v3uPec75y6wUTNsBFly/SkbtYjJEWhpLXD4HqHEHr6E5/lkw2dnmqjZ5hs+XGsgUgResJc7oWmk
+IY4Au0tI6Z7BlCk1AsPANebWrtA8SpEjwP4R1DHP4CvgKPCW7yBuhuaJ2QiIzQpr97HmbHkjl4B5
+HTEdKo2lwofnsw2/xetYO2I595DQw18gbyJFJE319XvD84zbSC7WeLSVWsiSW9r5S9URO5yMp4g4
+qe0Z0O0Nwvo8IzZGjcSK+5fcsLQKvHHi8oQn1C/i0aCScgaRLDnfyretLuFd/YoQyi4O6QCUOvc3
+FIY9wEfh4AnB04rMblpUjxfEx4seHonrtKLVGWjhUJYRZWPSrXpm/fT4HGCLiqn3l9jvNPRIg7wM
+ZLQ1Mtjv4Un2WDUj1u/hiXUhV3CfZzvSpOzRMk+3rYN5E2k6D4amqemcPs789jOrCx6prdqA/IMR
+5SuX3H7LaZjzpY9CEfsg/PbV6i4AczoyzMcnKVulRnmVFa+GyJjg6TDyxJGcorNU6bX29PMcORPf
+Mu7y+BunSL2zjg4meP/acqjK4nuDZKCMyexoiSJThs3zEgPWsZ4W0Ct01M6R0DI7Par8jh5b82t0
+jagpUSwUFssK2nCsEClZcVBKgqcFWatXmylsU/a8yxzSwrHBrW6ecydYFdhhba1K5JY0nqXlo04s
+c0ZihiKzBTHT4aFs6D1NfYbctIyDzv76Oda7gCyxd3gL4HVRtoz8Q70TUX22rLdm+c8MnYZlZYPq
+JBArlL5i6S6zATYpiuDk+zYMmPJjrczz4F11EZE+9ni1Uky5aCPYbgaf0nMfOGW7nD9yn+86sxFs
+wTtIuJWZ1n08AXvTOIIv9eB/AjXuVxUheDbTkpu/5H+kT6poujZIaAAAAABJRU5ErkJggg==
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/7881a1c635febde6be8cf8ddb1052ec5983b068d0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.core_expr_types.tuples.tuple_neq_via_any_elem_neq theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.core_expr_types.tuples.tuple_neq_via_any_elem_neq-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">core_expr_types</a>.<a class="ProveItLink" href="../../theory.html">tuples</a>.<a class="ProveItLink" href="../../theorems.html#tuple_neq_via_any_elem_neq">tuple_neq_via_any_elem_neq</a> theorem<a class="anchor-link" href="#Proof-of-proveit.core_expr_types.tuples.tuple_neq_via_any_elem_neq-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> tuple_neq_via_any_elem_neq
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="tuple_neq_via_any_elem_neq">tuple_neq_via_any_elem_neq:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/58a455b08958768038485519e17bc377de8be3c00/expr.html"><img src="data:image/png;base64,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
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/71387b13f2634b7de927efc6412ad7372f8500a10/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-03-03 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

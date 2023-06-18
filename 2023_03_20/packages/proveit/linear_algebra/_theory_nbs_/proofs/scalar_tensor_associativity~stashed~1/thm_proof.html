@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.linear_algebra.scalar_tensor_associativity theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../index.html"><img src="../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.linear_algebra.scalar_tensor_associativity-theorem">Proof of <a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../theory.html">linear_algebra</a>.<a class="ProveItLink" href="../../theorems.html#scalar_tensor_associativity">scalar_tensor_associativity</a> theorem<a class="anchor-link" href="#Proof-of-proveit.linear_algebra.scalar_tensor_associativity-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> scalar_tensor_associativity
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="scalar_tensor_associativity">scalar_tensor_associativity:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/3025f5ac77d45f2ed8c6f4cc45afa851a8de458a0/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWYAAAAWBAMAAAABXStQAAAAMFBMVEX///+IiIgiIiIQEBB2dnbu
+7u5ERETMzMzc3NwyMjK6urpmZmaYmJiqqqpUVFQAAAB6qHgnAAAAAXRSTlMAQObYZgAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAABOtJREFUSMfNV11oHFUU/iaZ2Znsn5NaMSRNWNeHQEFZpfpQqExgpe1q
+dEJrVGJjBLvGVsJW4w9CzURLX8SyL4oPCiutCNKSbQzV1mA3YMWg0q2t0GLADbb64kN8CO2DgufO
+vTuTmdwJ++iBLzs/537z3XPPvecE2MCUbCnynSEQMkfm60S8iOCQezedN/VvJBlqJfpdr0BolnWZ
+7ycCrXFA7h03OVBAg90vRWlOs59Ubf2rlMURsivy9apxtMbRHBG2LQIFnGO3H0ZpTrBId0hW6mmB
+oGllOdH7Aq1w+CNC1mFzFPAWS5OxKM06W4ajklfzAkFL+OFR8vk7vJsfBFrh8EeQbc4P2M1HySpH
+wVWu1iPzmc13UPIqJxC0du9KJ8FD3nZotzla4fBHAIdsaN3eswc4CkhSaDqi9+CP9CNZ8FSZI2TX
+vKvXKJ+0A96y1jha4fBHQB+nP8PezD/iKAD3Z7PbojW3Z7N3S7ZJwuKAmv9zzeM5wlDfk/k6qruA
+EdXWemoYJa8GRwscWueNyUHhnVAdaNWHMTQPje4fgwvS/CWwP1pzooSYLQ8Dg7EVe5z3sDYSVWU5
+kVEc1dGqmqWmcrhIaVjmAGazzO6N5kigz5wV3l3YhRHshXUZyRVgES5I8zEYwQgoB5enPc307phk
+Nm11jnYTsaq/1+6hjznJ1XSNzsid7wKNw4kM/qAUyHG0wPE9Ltp/Ce8G1DeqSOv1WaTpmLgMF6Q5
+ZvulQ+8rVrQJJ/W8X1P2M5/1W6TCcZ4CU2br+6wbxe1EQQ9oJD2nSFg2CbqPHq5wtMBRwllXCfOm
+h98Ql0YUxIMpuCA9KdPfgl9TrVaHgG99zZdkW9D73oPktI3lTltVaHbjRiuMIzspTzBj6zepfuU4
+WuFgcxTeVRj5EnHFVzFFyo7DBYtheYHJW7A0Xn2eedNrApjmjiRJUHqmv2IVtYFGYF21v8npX6zN
+DWDG0ewEDEup0EfPQmF5keEI5HMER/wWnhDeVRxBN2mmlbudbn/mYJoH2Rncj2UVw2zM1auBfkO9
+RiHoSo99TFvaXNVFsGImB/vemvg9x46m3ykz9Pok0B2vYwIxmmZyjCNgUg7tQDrHcsL1PqxbUCqn
+GMUE3X7HwTS/03CTb/FznGSjLlwIaDYeootazKS1MfZlFPHh5uF1hirWit/80Un026tf4BTppe8q
+V1g+ztTWHGuBU0nGkbo5kqOpcm/lBGuiLFIX/0ecpHNcc7rk5tVxC4vFYrH++mfBvs49O29zW460
+lTbFZs1wqI8u2HOmN+BlOpQ7U/P0zRirKTeA0YHzdNVW4QiYlEM7bf76E5rerKaMUi283nOLrrZy
+NM8E0jRlY9IVSntQC/eir7gdbVulvRmPfoHQ8eWHfKGkb3EvdhPeFgianIMb907eiUNu+VTpIDAy
+HE3NHRU8rvHqYTziYCCo2cjtBhUIkjSzcdeTrPr17FIv62TK2o7IbkjO4fdPZPs6f3GnvafOGzCG
+pmZjeSnRC+MFdr33g4OlUJxPn+i09R1Izb/obSCHI2Tj4cCbaYv3jZLeMYID6zrNu3BdtJdHgXC9
+2FssViL/T0nhKbzkhXGMI2TD4T5o4Vy0uAiO5nR8W+qpiHiMr9cc3tmB/wc/xXLcry/TAqH4mDKe
+LoGwyTkg91Ycjk3b0brVcHIz/g/2H0IIU/g7svsYAAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/e84dfb343a71854557efefc9d2cca925043aba9b0/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-02-10 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

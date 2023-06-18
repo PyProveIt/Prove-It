@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>Proof of proveit.numbers.exponentiation.exp_factored_int theorem</title>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="notebook.css">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+<header>These are archival webpages, generated on 2023-03-20 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public Licence by Sandia Corporation.  See <a href="http://pyproveit.org">pyproveit.org</a> for the lastest version.</header>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+    <a href="../../../../../../../index.html"><img src="../../../../../../../pv_it.png" alt="logo" style="width:50px;float:left;position:absolute"></a> 
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proof-of-proveit.numbers.exponentiation.exp_factored_int-theorem">Proof of <a class="ProveItLink" href="../../../../../_theory_nbs_/theory.html">proveit</a>.<a class="ProveItLink" href="../../../../_theory_nbs_/theory.html">numbers</a>.<a class="ProveItLink" href="../../theory.html">exponentiation</a>.<a class="ProveItLink" href="../../theorems.html#exp_factored_int">exp_factored_int</a> theorem<a class="anchor-link" href="#Proof-of-proveit.numbers.exponentiation.exp_factored_int-theorem">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">proveit</span>
+<span class="n">theory</span> <span class="o">=</span> <span class="n">proveit</span><span class="o">.</span><span class="n">Theory</span><span class="p">()</span> <span class="c1"># the theorem&#39;s theory</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">proving</span> exp_factored_int
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+Under these <a href="presumptions.txt">presumptions</a>, we begin our proof of<br><strong id="exp_factored_int">exp_factored_int:</strong> <a class="ProveItLink" href="../../../__pv_it/theorems/a4cea60d4fa891a84111859262484877de7c15390/expr.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUUAAAAaCAMAAAAXBb75AAAAOVBMVEX///8AAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACXHtMAAAAEnRSTlMAq1Rm
+mUTNIjK7EInv3Xbt5cmRiLwgAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADt0lEQVRo3tVZi5acIAyV
+NwRNW///YwsKCIj4mOl2ht32ZOckQa55XWYYvnppab7Q9X9fTJR/E/vQ8Hz1XPOd8E2L1k896oeG
+56vnWpla+KIFsk67GZHAA8NhsMiwm9FN19Eq2fadfOQyrPoAJxiQPzAcJjHosWfSdL1ZTRHgRSBb
+0LNPB1GNLXSYfGDIXSaCPgO+dp1ZYQRuEXiqulJ9OorctmoXJ08MT5tNcK1NXKqwghkyQZPvqZPz
+7uizPy59YngaMi3XuZVkuSADppZ+Ooh63hV7V5SYeWIoPa7dKanlOrfiJkvzgQVM5ceHIk57fDji
+I0PFGcNuc2+5zq0w1tpVGCe/RvvxKJL0ohWxqPCfGF52LWKArwJfmo6BH8SjO5scPoiJOSRGV5/M
+Pk35lC1ywzDD5lRjKxM6FxSJ/zWH/slKTiQe00syGsvd73Eo7BR6pcwuncBa3CWHDM8II1sgu/zS
+rhvecK1iywqCD0O762IaiTHuU/Tl1Cq7o5dRYXJvz0KjyBwrmF5GRUYgaq0pvAc+L39dL0FnhjDH
+lL/hGiKKQaDY6C2ch4BF9zMwwJpeJgX39jRV+5G9o9BBkai0ST2NxJAaTX6IG7F4aBhhvuNaxYyO
+gkxsECxD6x8e06EXFBF4RS+RFXWO77hmR6FAMW251iW7Phg0prUABsz+YdncKLcHdfHUcIuvM428
+LqpSsDQMjeCSb/kQtnP6jFYmYRLoJeRAMEV1zTU7CgWKaUu+EIRf7h8LA95UxTcx4ah07bv0Ktm6
+bHjHddWjPc0kMQmHlW0LlqHoOoOp6WWmMADm82vgmscKJYppy3Uzlo3JYzVwxAnNoG96/Prd3nXD
+G67ZWAtEb+xyYddMrtyRrhltBa3oZabgELLu0AAFQz1WKFFMWy5wm1hqvO5M228fCFqtCOqrKF43
+vOE60feax4PPLMPccbUd8roohIWSXmYKgmofQVEjVIljhQLFbUuf0b//mCWj293lwhXC0c3CU8Ne
+y2K1kHbzNUowyIfwddLx3QVsRi83BbvEv5iCQuSaLYVWLKYts5uRwZMvQc6vZh5fBr1+YVzc6ZSh
+zxlFy5YbnhDUQqK0A3AuXfmiG71MCowQlwbG98FFIXLNlkIDxW3Lgj+5qZvvJtD+tWqvn45vR5GR
+WmhibX1yVZlAX1bozYv0lL6Sp/dO5O0XVpOqhctVGl5V6KJ4fqsETy+e4N03Vi9878JeVuihSC+0
+APq0wNH3VsaP+A7w+XcTTPy0YbtdQSH8Ben/JgwvTYd8AAAAAElFTkSuQmCC
+" style="display:inline;vertical-align:middle;" /></a><br>(see <a class="ProveItLink" href="../../../__pv_it/theorems/b5de637517a9ad5a5b4a44a564aa7caad92c66140/dependencies.html">dependencies</a>)<br>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<footer>
+  <p>These web pages were generated on 2022-06-15 by <a href="https://github.com/sandialabs/Prove-It">Prove-It</a> Beta Version 0.3, licensed under the GNU Public License by Sandia Corporation.</p>
+  <p>Presented proofs are not absolutely guaranteed.  For assurance, it is important to check the structure 
+  of the statement being proven, independently verify the derivation steps, track dependencies, and ensure that 
+  employed axioms are valid and properly structured.  Inconsistencies may exist, unknowingly, in this system.
+  </p>
+  <p>
+  This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under the Quantum Computing Application Teams program. Sandia National Labs is managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a subsidiary of Honeywell International, Inc., for the U.S. Dept. of Energy's NNSA under contract DE-NA0003525. The views expressed above do not necessarily represent the views of the DOE or the U.S. Government.
+  </p>
+  <br>
+  <p>Please send questions/comments to: <a href="mailto:wwitzel@sandia.gov">
+  wwitzel@sandia.gov</a>.</p>
+</footer> 
+</body>
+
+ 
+
+
+</html>

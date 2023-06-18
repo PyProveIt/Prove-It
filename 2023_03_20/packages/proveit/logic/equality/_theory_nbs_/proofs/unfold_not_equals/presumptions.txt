@@ -1,0 +1,4 @@
+# THEOREMS AND THEORIES THAT MAY BE PRESUMED:
+proveit.logic.equality.equals_reversal
+proveit.logic.equality.rhs_via_equality
+# THEOREMS AND THEORIES TO EXCLUDE:
